@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="ghibli art ai placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#dcfce7"/>
+      <stop offset="1" stop-color="#bae6fd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1230" cy="170" r="90" fill="#fde68a"/>
+  <path d="M0 690c200-140 390-120 560 8s380 120 610-40 350-80 430-14v256H0z" fill="#166534" opacity=".75"/>
+  <path d="M585 548c82-155 170-208 263-160 93 48 138 132 136 252H514c2-32 26-62 71-92z" fill="#fef3c7"/>
+  <path d="M703 436c20-86 78-126 174-119-44 36-67 78-69 126z" fill="#86efac"/>
+  <text x="92" y="138" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800" fill="#14532d">ghibli art ai</text>
+  <text x="96" y="208" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600" fill="#276749">Template placeholder</text>
+</svg>

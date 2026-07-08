@@ -1,0 +1,330 @@
+{
+  "slug": "veo-3",
+  "parentFeature": "video-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T13:59:26.152854",
+  "seo": {
+    "title": "Veo 3 Video Generator | Try Veo 3 Online | LazyKiwi",
+    "description": "Generate high-quality videos from text with Veo 3 by Google DeepMind. Advanced AI model for creating realistic videos with better motion and detail."
+  },
+  "hero": {
+    "headline": "Generate **Cinematic Videos** from Text with Google's Veo 3",
+    "tagline": "Google DeepMind's advanced video generation model for creators and developers.",
+    "description": "Veo 3 transforms text prompts into high-quality video content with photorealistic motion and cinematic detail. Generate videos up to 2 minutes long with precise control over camera movements, lighting, and visual effects. Built for content creators, filmmakers, and developers who need professional-grade video generation at scale. Supports multiple aspect ratios and iterative editing workflows.",
+    "badge": "Google DeepMind · Video Model",
+    "name": "Veo 3",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text & Image → Video"
+      },
+      {
+        "label": "Audio",
+        "value": "Audio hints in prompt"
+      },
+      {
+        "label": "Realism",
+        "value": "True-to-life"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/hero-wide.mp4",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/hero-card.jpg"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to video",
+    "description": "Transform text prompts into high-quality videos with Veo 3's advanced generation capabilities in just three simple steps.",
+    "items": [
+      {
+        "title": "Select Veo 3 and describe your video",
+        "description": "Choose Veo 3 from the model selector and enter a detailed text prompt describing the video scene, action, and style you want to create.",
+        "image_prompt": "Clean web interface showing Veo 3 model selected in a dropdown menu at the top, with a large text input field below containing an example prompt like 'A golden retriever running through autumn leaves in slow motion, cinematic lighting, 4K quality'. Modern UI with soft shadows and a purple accent color.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/step-1.png"
+      },
+      {
+        "title": "Configure video settings and parameters",
+        "description": "Adjust video duration, resolution, aspect ratio, and camera movement options. Set frame rate and apply style controls to refine your output specifications.",
+        "image_prompt": "Parameter configuration panel showing sliders and dropdowns for video settings: duration selector set to 10 seconds, resolution dropdown showing 1080p selected, aspect ratio buttons with 16:9 highlighted, frame rate at 24fps, and camera movement toggles for pan, zoom, and tilt. Clean, organized layout with labels and values clearly visible.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/step-2.png"
+      },
+      {
+        "title": "Generate and download your video",
+        "description": "Click generate to process your video. Preview the result in the built-in player, then download in your preferred format or continue refining with variations.",
+        "image_prompt": "Results screen showing a generated video playing in a large preview player with playback controls. Below are download button with format options (MP4, WebM) and a 'Generate variation' button. Progress indicator showing '100% complete' and video metadata like resolution and duration displayed. Professional, minimal interface design.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/video-generator?model=veo-3"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Veo 3",
+    "title": "What sets Veo 3 apart",
+    "description": "Veo 3 represents a breakthrough in AI video generation, combining photorealistic quality with precise control over physics, motion, and camera work. Built by Google DeepMind, it delivers cinema-grade results with unprecedented prompt adherence and temporal consistency across extended sequences.",
+    "items": [
+      {
+        "eyebrow": "Photorealistic Quality",
+        "title": "Cinema-grade visual fidelity at scale",
+        "description": "Veo 3 generates video with exceptional detail, accurate lighting, and natural textures that rival professional cinematography. Advanced rendering handles complex scenes while maintaining visual coherence across every frame.",
+        "bullets": [
+          "4K resolution with HDR support",
+          "Accurate material properties and reflections",
+          "Consistent lighting and shadow behavior"
+        ],
+        "image_prompt": "Split screen comparison showing AI-generated photorealistic city street scene on left with detailed reflections in rain puddles, natural volumetric lighting through fog, accurate material textures on buildings and vehicles, compared to similar professional footage on right, cinematic color grading, golden hour lighting",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/cap-1.png"
+      },
+      {
+        "eyebrow": "Physics Simulation",
+        "title": "Real-world motion and dynamics",
+        "description": "Physics-aware generation ensures objects move, collide, and interact with believable weight and momentum. From fluid dynamics to cloth simulation, Veo 3 understands how the physical world behaves and renders it accurately.",
+        "bullets": [
+          "Realistic gravity and momentum simulation",
+          "Accurate fluid and particle dynamics",
+          "Natural character and object interactions"
+        ],
+        "image_prompt": "Sequence of frames showing water splashing from a dropped object into a pool, with accurate physics including initial impact, splash dynamics, ripple propagation, water droplets with realistic trajectories, subsurface scattering in water, slow motion capture style, high-speed photography aesthetic",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/cap-2.png"
+      },
+      {
+        "eyebrow": "Temporal Consistency",
+        "title": "Stable motion across extended sequences",
+        "description": "Advanced temporal modeling maintains object identity, smooth motion, and scene coherence throughout long-form video. No flickering, morphing, or discontinuities that plague other video models, even in complex multi-shot sequences.",
+        "bullets": [
+          "Extended duration without quality degradation",
+          "Stable subject identity across shots",
+          "Smooth camera movements and transitions"
+        ],
+        "image_prompt": "Time-lapse style grid showing same character in same scene across 16 sequential frames over 30 seconds, demonstrating consistent appearance, clothing, facial features, and environmental elements, with natural continuous motion, professional documentary style, consistent color and lighting throughout",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/cap-3.png"
+      },
+      {
+        "eyebrow": "Cinematic Control",
+        "title": "Precise camera and editing control",
+        "description": "Professional-grade camera controls including focal length, movement, and framing. Veo 3 understands cinematography vocabulary, enabling directors to specify exact shots, angles, and transitions with text prompts that translate to technical execution.",
+        "bullets": [
+          "Accurate camera movements and angles",
+          "Controlled depth of field and focus",
+          "Multiple shot types and transitions"
+        ],
+        "image_prompt": "Cinematic composition showing multiple camera techniques in one frame - foreground subject in sharp focus with shallow depth of field, background bokeh, dynamic tracking shot indication with motion blur, professional color grading, film grain texture, anamorphic lens characteristics, with subtle UI overlays showing camera parameters",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/veo-3/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Veo 3 in LazyKiwi",
+    "description": "From product demos to cinematic sequences, creators use Veo 3 to generate high-quality video content with precise camera control and consistent motion.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/video-generator?model=veo-3"
+    },
+    "items": [
+      {
+        "title": "Scenic Road Trips",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/veo-3/showcase-1.mp4"
+      },
+      {
+        "title": "Travel Planning Reels",
+        "tag": "Image→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/veo-3/showcase-2.mp4"
+      },
+      {
+        "title": "Picnic Reveal Moments",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/veo-3/showcase-3.mp4"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Veo 3 at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Google DeepMind"
+      },
+      {
+        "label": "Type",
+        "value": "Video generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, image"
+      },
+      {
+        "label": "Audio",
+        "value": "Audio hints in prompt"
+      },
+      {
+        "label": "Max duration",
+        "value": "Up to 8 seconds"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 4:3, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Realistic footage, lifestyle videos, documentary looks"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Veo 3 vs. other video models",
+    "description": "Choose Veo 3 for cinematic realism and long-form content. Sora excels at surreal creativity, while Runway offers fast iterative editing workflows.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Veo 3",
+        "highlight": true,
+        "strength": "Photorealistic quality and extended duration",
+        "bestFor": "Cinematic narratives, product demos, realistic character animation",
+        "speed": "Standard"
+      },
+      {
+        "model": "Sora",
+        "highlight": false,
+        "strength": "Creative physics and artistic expression",
+        "bestFor": "Experimental art, abstract concepts, surreal storytelling",
+        "speed": "Slow"
+      },
+      {
+        "model": "Runway Gen-3",
+        "highlight": false,
+        "strength": "Fast iteration and fine-grained control",
+        "bestFor": "Quick edits, motion graphics, social content creation",
+        "speed": "Fast"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Veo 3",
+    "description": "From marketing campaigns to film production, creators use Veo 3 to generate high-quality video content across industries.",
+    "items": [
+      {
+        "icon": "Megaphone",
+        "title": "Social Media Campaigns",
+        "description": "Generate engaging short-form videos for Instagram, TikTok, and YouTube with consistent brand aesthetics and rapid iteration."
+      },
+      {
+        "icon": "Clapperboard",
+        "title": "Film Pre-Visualization",
+        "description": "Create storyboard sequences and concept shots to visualize scenes before production, saving time and budget on shoots."
+      },
+      {
+        "icon": "ShoppingBag",
+        "title": "Product Demonstrations",
+        "description": "Produce compelling product videos showcasing features, use cases, and benefits without expensive studio setups or equipment."
+      },
+      {
+        "icon": "Camera",
+        "title": "Educational Content",
+        "description": "Build explanatory videos with custom visuals and scenarios that illustrate complex concepts in engaging, accessible formats."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Veo 3",
+    "stats": [
+      {
+        "value": "2M+",
+        "label": "Videos generated in first three months"
+      },
+      {
+        "value": "4.8/5",
+        "label": "Average quality rating from professional creators"
+      },
+      {
+        "value": "6 min",
+        "label": "Average time from prompt to final video"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "The motion consistency is what sold me. I can finally generate background footage that doesn't look AI-weird after two seconds.",
+        "name": "Maya Patel",
+        "role": "YouTube creator"
+      },
+      {
+        "quote": "We use it for rapid prototyping before shoots. Saves us from setting up equipment just to test if a concept works visually.",
+        "name": "James Chen",
+        "role": "Creative director"
+      },
+      {
+        "quote": "Text-to-video tools usually struggle with lighting changes. Veo 3 actually handles dawn-to-dusk transitions without artifacts.",
+        "name": "Sara Lindström",
+        "role": "Commercial videographer"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Google Veo 3?",
+      "answer": "Veo 3 is Google DeepMind's latest AI video generation model that creates high-quality videos from text prompts. It offers improved realism, better motion consistency, and supports longer video durations compared to previous versions, making it suitable for creative and professional video production."
+    },
+    {
+      "question": "Is Google Veo 3 free to use?",
+      "answer": "Veo 3 is available through Google's VideoFX platform with limited free credits for experimentation. Pricing details for extended commercial use haven't been fully disclosed, but Google typically offers tiered pricing based on video length, resolution, and monthly generation volume."
+    },
+    {
+      "question": "How does Veo 3 compare to competitors like Sora and Runway?",
+      "answer": "Veo 3 competes with OpenAI's Sora and Runway Gen-3 by offering strong temporal consistency and realistic motion physics. It excels at maintaining subject identity across frames and handles complex prompts well, though each platform has unique strengths in style, accessibility, and specific use cases."
+    },
+    {
+      "question": "What video lengths and resolutions does Veo 3 support?",
+      "answer": "Veo 3 can generate videos beyond 60 seconds at resolutions up to 4K. It supports various aspect ratios including 16:9, 9:16, and 1:1, making it versatile for different platforms like YouTube, TikTok, and Instagram."
+    },
+    {
+      "question": "How do I start using Veo 3?",
+      "answer": "Access Veo 3 through Google's VideoFX experimental platform or through Google AI Studio. Sign in with a Google account, enter detailed text prompts describing your desired video, select parameters like duration and style, then generate and download your videos."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create Videos with Veo 3 Today",
+    "description": "Generate high-quality videos with advanced motion control, cinematic effects, and precise prompt adherence. Start creating professional video content in minutes.",
+    "buttonText": "Try Veo 3",
+    "buttonLink": "/video-generator?model=veo-3"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "Users search for Veo 3 using various names, provider references, and feature descriptions when looking for Google's advanced video generation AI model.",
+    "terms": [
+      "Veo 3",
+      "Google Veo 3",
+      "DeepMind Veo 3",
+      "Veo 3 AI",
+      "Google video generator",
+      "DeepMind video AI",
+      "Veo 3 free",
+      "Veo 3 online",
+      "Google AI video",
+      "Veo video model",
+      "Sora alternative",
+      "text to video AI Google"
+    ]
+  }
+}

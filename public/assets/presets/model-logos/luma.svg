@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="Luma mark">
+  <path d="m40 8 25 15v29L40 67 15 52V23L40 8Z" fill="#111827"/>
+  <path d="m40 8 25 15-25 15-25-15L40 8Z" fill="#fff" opacity=".28"/>
+  <path d="m40 38 25-15v29L40 67V38Z" fill="#fff" opacity=".12"/>
+</svg>

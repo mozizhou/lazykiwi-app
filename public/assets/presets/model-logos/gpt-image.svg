@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="GPT Image mark">
+  <g fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 12a14 14 0 0 1 14 14v13L40 47 26 39V26a14 14 0 0 1 14-14Z"/>
+    <path d="M60 24a14 14 0 0 1 5 19l-7 12-16-9V30l12-7a14 14 0 0 1 6 1Z"/>
+    <path d="M60 56a14 14 0 0 1-19 5l-12-7V36l14-8 15 9v14a14 14 0 0 1 2 5Z"/>
+    <path d="M40 68a14 14 0 0 1-14-14V41l14-8 14 8v13a14 14 0 0 1-14 14Z"/>
+    <path d="M20 56a14 14 0 0 1-5-19l7-12 16 9v16l-12 7a14 14 0 0 1-6-1Z"/>
+    <path d="M20 24a14 14 0 0 1 19-5l12 7v18l-14 8-15-9V29a14 14 0 0 1-2-5Z"/>
+  </g>
+</svg>

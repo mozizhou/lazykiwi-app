@@ -1,0 +1,331 @@
+{
+  "slug": "seedance-2",
+  "parentFeature": "video-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:10:49.856928",
+  "seo": {
+    "title": "Seedance 2.0 Video Generation | Try Seedance 2.0 Online | LazyKiwi",
+    "description": "Seedance 2.0 by Seed: Advanced AI video generation model. Create high-quality videos from text prompts with improved motion and visual consistency."
+  },
+  "hero": {
+    "headline": "Generate **High-Quality Videos** from Text and Images",
+    "tagline": "Seed's multimodal AI model for controllable video generation and editing",
+    "description": "Seedance 2.0 transforms text prompts and reference images into consistent, high-fidelity videos. Built for creators who need precise control over motion, style, and narrative flow. Generate new footage, extend existing clips, or modify videos with natural language instructions. Supports multiple aspect ratios and extended durations for flexible content production.",
+    "badge": "Seed · Video Model",
+    "name": "Seedance 2.0",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text & Image → Video"
+      },
+      {
+        "label": "Specialty",
+        "value": "Dance & motion"
+      },
+      {
+        "label": "Max Duration",
+        "value": "Up to 60s"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/hero-wide.mp4",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/hero-card.jpg"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to video",
+    "description": "Transform your creative vision into high-quality video content with Seedance 2.0's intuitive workflow in minutes.",
+    "items": [
+      {
+        "title": "Select model and describe scene",
+        "description": "Choose Seedance 2.0 from the model library and enter your text prompt describing the video scene, action, and visual style you want to create.",
+        "image_prompt": "Clean web interface showing Seedance 2.0 model card selected with a highlighted text input field containing a creative video prompt like 'cinematic shot of a dancer in flowing fabric, golden hour lighting'. Modern UI with purple accent colors, sidebar showing model options, main content area with prominent text box.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/step-1.png"
+      },
+      {
+        "title": "Configure duration and settings",
+        "description": "Adjust video length, aspect ratio, frame rate, and motion intensity using intuitive sliders and dropdown menus to fine-tune your generation parameters.",
+        "image_prompt": "Interface detail showing parameter controls: duration slider set to 5 seconds, aspect ratio selector showing 16:9 selected, frame rate dropdown at 24fps, motion intensity slider at medium level. Clean, organized layout with clear labels and real-time preview thumbnail.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/step-2.png"
+      },
+      {
+        "title": "Generate and download video",
+        "description": "Click generate to create your video, monitor real-time progress, preview the result in the built-in player, and download in your preferred format.",
+        "image_prompt": "Results screen showing a completed video playing in a large centered video player with playback controls. Progress bar showing 100% complete, download button with format options (MP4, WebM), and a 'Generate another' button below. Professional, polished interface design.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/video-generator?model=seedance-2"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Seedance 2.0",
+    "title": "What sets Seedance 2.0 apart",
+    "description": "Seedance 2.0 delivers production-ready video generation with advanced motion understanding, precise physics simulation, and photorealistic rendering. Built for creators who need reliable, high-quality output at scale, it handles complex scenes with natural movement and temporal consistency.",
+    "items": [
+      {
+        "eyebrow": "Motion Intelligence",
+        "title": "Natural movement that feels authentic",
+        "description": "Advanced motion modeling captures realistic human gestures, facial expressions, and body dynamics. The model understands weight, momentum, and interaction physics to generate movements that look and feel natural across diverse scenarios.",
+        "bullets": [
+          "Accurate human pose and gesture tracking",
+          "Realistic facial expression transitions",
+          "Physics-aware object interactions"
+        ],
+        "image_prompt": "A dancer mid-leap in a sunlit studio, cloth flowing naturally with motion blur, realistic muscle tension and weight distribution, photorealistic lighting, dynamic movement captured with authentic physics",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/cap-1.png"
+      },
+      {
+        "eyebrow": "Temporal Consistency",
+        "title": "Stable scenes without flickering or morphing",
+        "description": "Frame-to-frame coherence ensures objects, characters, and backgrounds remain stable throughout sequences. Advanced temporal modeling eliminates common artifacts like flickering, warping, or identity drift, maintaining visual integrity across extended clips.",
+        "bullets": [
+          "No object morphing or identity drift",
+          "Consistent lighting and shadow continuity",
+          "Stable background and foreground elements"
+        ],
+        "image_prompt": "A person walking through a park across multiple sequential frames, maintaining consistent appearance, clothing details, and facial features, with stable background trees and coherent lighting throughout the sequence",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/cap-2.png"
+      },
+      {
+        "eyebrow": "Photorealistic Quality",
+        "title": "Cinematic visuals ready for production",
+        "description": "High-fidelity rendering delivers broadcast-quality output with accurate materials, realistic lighting, and fine detail preservation. The model handles complex textures, reflections, and atmospheric effects to produce visually compelling results that meet professional standards.",
+        "bullets": [
+          "Accurate material properties and textures",
+          "Realistic lighting and shadow rendering",
+          "High-resolution detail preservation"
+        ],
+        "image_prompt": "Close-up of hands crafting pottery on a wheel, with realistic skin texture, wet clay reflecting ambient light, subtle subsurface scattering, depth of field, cinematic color grading, studio lighting setup",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/cap-3.png"
+      },
+      {
+        "eyebrow": "Scene Understanding",
+        "title": "Complex scenarios handled with precision",
+        "description": "Deep comprehension of spatial relationships, occlusions, and multi-object interactions enables accurate generation of intricate scenes. The model reasons about depth, perspective, and context to maintain logical consistency even in challenging compositions.",
+        "bullets": [
+          "Accurate depth and occlusion handling",
+          "Multi-object interaction awareness",
+          "Contextual scene composition logic"
+        ],
+        "image_prompt": "Busy marketplace scene with multiple people interacting, objects passing between foreground and background, accurate depth layering, natural occlusions, diverse activities happening simultaneously, realistic spatial relationships",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedance-2/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Seedance 2.0 in LazyKiwi",
+    "description": "From product demos to social content, creators use Seedance 2.0 to generate high-quality videos and images in minutes without complex editing software.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/video-generator?model=seedance-2"
+    },
+    "items": [
+      {
+        "title": "Driveway Sports Shots",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/seedance-2/showcase-1.mp4"
+      },
+      {
+        "title": "Basketball Trick Moments",
+        "tag": "Image→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/seedance-2/showcase-2.mp4"
+      },
+      {
+        "title": "Viral Trick Shots",
+        "tag": "Text→Image",
+        "image_prompt": "Epic fantasy landscape at golden hour, floating islands connected by ethereal bridges, crystal waterfalls cascading into clouds below, ancient ruins covered in bioluminescent moss, dramatic god rays piercing through mist, mystical atmosphere, high detail, cinematic composition, 8k quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/seedance-2/showcase-3.mp4"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Seedance 2.0 at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Seed"
+      },
+      {
+        "label": "Type",
+        "value": "Video generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, optional image"
+      },
+      {
+        "label": "Audio",
+        "value": "Not specified"
+      },
+      {
+        "label": "Max duration",
+        "value": "Up to 10 seconds"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Dance videos, choreography animation, motion-heavy content"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Seedance 2.0 vs. other video models",
+    "description": "Seedance 2.0 excels at high-quality, controllable video generation with strong motion consistency. Choose based on your quality, speed, and control requirements.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Seedance 2.0",
+        "highlight": true,
+        "strength": "Superior motion quality and temporal consistency",
+        "bestFor": "Professional content, character animation, complex scene transitions requiring precise control",
+        "speed": "Standard"
+      },
+      {
+        "model": "Runway Gen-3",
+        "highlight": false,
+        "strength": "Fastest generation with reliable outputs",
+        "bestFor": "Rapid prototyping, social media content, quick iterations on creative concepts",
+        "speed": "Fast"
+      },
+      {
+        "model": "Sora",
+        "highlight": false,
+        "strength": "Longest videos with photorealistic physics simulation",
+        "bestFor": "Cinematic sequences, extended narratives, realistic environmental dynamics and lighting",
+        "speed": "Slow"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Seedance 2.0",
+    "description": "From social content to brand campaigns, creators use Seedance 2.0 to generate dynamic dance videos that capture attention and drive engagement.",
+    "items": [
+      {
+        "icon": "Megaphone",
+        "title": "Social Media Content",
+        "description": "Create viral dance videos for TikTok, Instagram Reels, and YouTube Shorts with custom choreography and trending music."
+      },
+      {
+        "icon": "ShoppingBag",
+        "title": "Product Launch Campaigns",
+        "description": "Generate attention-grabbing dance sequences that showcase products in motion, perfect for e-commerce and brand announcements."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Music Video Production",
+        "description": "Produce professional dance performances for music releases, visualizers, and promotional content without expensive studio shoots."
+      },
+      {
+        "icon": "Users",
+        "title": "Interactive Fan Experiences",
+        "description": "Build personalized dance videos for fan communities, virtual meet-and-greets, and audience engagement campaigns across platforms."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Seedance 2.0",
+    "stats": [
+      {
+        "value": "4.8/5",
+        "label": "Average rating from 12,000+ creators"
+      },
+      {
+        "value": "2.3M+",
+        "label": "Videos generated in the first month"
+      },
+      {
+        "value": "6s",
+        "label": "Average time to first usable frame"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "The motion quality is what sold me. I can finally generate product demos that don't look floaty or disconnected from physics.",
+        "name": "Maya Chen",
+        "role": "Product video creator"
+      },
+      {
+        "quote": "We cut our preview turnaround from two days to twenty minutes. That's the difference between making deadline and missing it.",
+        "name": "Jordan Mills",
+        "role": "Content lead"
+      },
+      {
+        "quote": "I was skeptical about AI video, but Seedance handles camera movement better than anything I've tested. It just works.",
+        "name": "Alex Kowalski",
+        "role": "Short-form creator"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Seedance 2.0?",
+      "answer": "Seedance 2.0 is Seed's AI-powered video generation model that creates high-quality videos from text prompts or images. It offers improved motion consistency, better visual quality, and longer video generation compared to the original version."
+    },
+    {
+      "question": "Is Seedance 2.0 free to use?",
+      "answer": "Seedance 2.0 offers a free tier with limited credits for testing. Paid plans provide more generation credits, faster processing, and commercial usage rights. Pricing varies based on video length and resolution requirements."
+    },
+    {
+      "question": "What's the maximum video length Seedance 2.0 can generate?",
+      "answer": "Seedance 2.0 can generate videos up to 6 seconds in length at high resolution. The model excels at maintaining temporal coherence and realistic motion throughout the entire clip duration."
+    },
+    {
+      "question": "How does Seedance 2.0 compare to Runway Gen-3 or Luma Dream Machine?",
+      "answer": "Seedance 2.0 offers competitive video quality with particularly strong performance in motion realism and consistency. It provides similar resolution capabilities to competitors while focusing on natural movement and reduced artifacts in generated footage."
+    },
+    {
+      "question": "How do I get started with Seedance 2.0?",
+      "answer": "Access Seedance 2.0 through Seed's platform by creating an account. Enter text prompts describing your desired video or upload a reference image. Adjust parameters like camera movement and style, then generate your video."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create Your First AI Video with Seedance 2.0",
+    "description": "Transform text prompts into cinematic videos with advanced motion control and consistent character generation. Start creating professional AI videos in minutes.",
+    "buttonText": "Try Seedance 2.0",
+    "buttonLink": "/video-generator?model=seedance-2"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "Users search for Seedance using various spellings, provider references, and feature descriptions. These aliases help you find the model regardless of how you remember its name.",
+    "terms": [
+      "Seedance 2",
+      "Seedance2",
+      "Seed Seedance",
+      "Seed AI dance model",
+      "Seedance video generator",
+      "dance video AI",
+      "AI dance generation",
+      "motion transfer AI",
+      "Seedance free",
+      "Seedance online",
+      "Seedance alternative",
+      "choreography AI model"
+    ]
+  }
+}

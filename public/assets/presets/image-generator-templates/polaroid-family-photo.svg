@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="polaroid family photo placeholder">
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <rect x="500" y="180" width="600" height="590" rx="28" fill="#ffffff" stroke="#e5e7eb" stroke-width="14"/>
+  <rect x="555" y="235" width="490" height="355" rx="12" fill="#bfdbfe"/>
+  <circle cx="704" cy="384" r="72" fill="#fbbf24"/>
+  <circle cx="815" cy="360" r="84" fill="#fb7185"/>
+  <circle cx="922" cy="390" r="70" fill="#34d399"/>
+  <rect x="640" y="482" width="330" height="78" rx="39" fill="#111827" opacity=".82"/>
+  <text x="620" y="680" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#111827">family photo</text>
+  <text x="92" y="138" font-family="Inter, Arial, sans-serif" font-size="60" font-weight="800" fill="#111827">polaroid family photo</text>
+  <text x="96" y="208" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600" fill="#64748b">Template placeholder</text>
+</svg>

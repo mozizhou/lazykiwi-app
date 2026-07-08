@@ -1,0 +1,331 @@
+{
+  "slug": "kling-1-6",
+  "parentFeature": "video-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:02:52.880665",
+  "seo": {
+    "title": "Kling 1.6 AI Video Generator | Try Kling 1.6 Online | LazyKiwi",
+    "description": "Kling 1.6 by Kuaishou generates high-quality AI videos from text and images. Create realistic motion, cinematic scenes, and professional video content online."
+  },
+  "hero": {
+    "headline": "Generate **Professional Videos** from Text and Images",
+    "tagline": "Kuaishou's advanced AI video generation model with extended duration and motion control",
+    "description": "Kling 1.6 transforms text prompts and images into high-quality videos up to 10 seconds long. Built by Kuaishou Technology, it delivers smooth motion, accurate physics simulation, and detailed scene generation. The model supports text-to-video and image-to-video workflows, offering precise control over camera movements, character actions, and environmental dynamics for content creators and developers.",
+    "description_backup": "Kling 1.6 creates realistic videos from text descriptions and static images. Developed by Kuaishou, this model generates up to 10 seconds of footage with natural motion, coherent scene transitions, and detailed object interactions. It handles complex prompts involving multiple subjects, dynamic camera movements, and specific visual styles, making it suitable for creative projects, marketing content, and rapid video prototyping.",
+    "badge": "Kuaishou · Video Model",
+    "name": "Kling 1.6",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text & Image → Video"
+      },
+      {
+        "label": "Audio",
+        "value": "Native synchronized"
+      },
+      {
+        "label": "Mode",
+        "value": "Standard & Pro"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/hero-wide.mp4",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/hero-card.jpg"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to video",
+    "description": "Transform text prompts into professional video content with Kling 1.6's advanced generation capabilities in minutes.",
+    "items": [
+      {
+        "title": "Select model and input prompt",
+        "description": "Choose Kling 1.6 from the video models menu and enter your detailed text description of the scene you want to create.",
+        "image_prompt": "Clean web interface showing Kling 1.6 selected in a dropdown menu, with a large text input box below containing a sample prompt like 'A cat walking through a sunlit garden'. Modern UI with soft shadows, purple accent color, white background.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/step-1.png"
+      },
+      {
+        "title": "Configure video parameters",
+        "description": "Adjust duration, aspect ratio, motion intensity, and camera movement settings to control how your video will look and behave.",
+        "image_prompt": "Settings panel interface showing slider controls for video duration (5-10 seconds), aspect ratio buttons (16:9, 9:16, 1:1), motion intensity slider, and camera movement options. Clean layout with labeled controls and preview thumbnail.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/step-2.png"
+      },
+      {
+        "title": "Generate and download video",
+        "description": "Click generate to create your video, preview the result in the built-in player, then download in your preferred format and resolution.",
+        "image_prompt": "Video player interface displaying a generated video with playback controls, alongside a download button with format options (MP4, WebM) and resolution selector (1080p, 4K). Progress indicator showing completion. Modern, intuitive layout.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/video-generator?model=kling-1-6"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Kling 1.6",
+    "title": "What sets Kling 1.6 apart",
+    "description": "Kling 1.6 represents Kuaishou's latest advancement in AI video generation, combining photorealistic rendering with accurate physics simulation. The model delivers cinematic quality at production-ready speeds, handling complex motion and lighting scenarios that previously challenged generative video systems.",
+    "items": [
+      {
+        "eyebrow": "Photorealistic Rendering",
+        "title": "Cinema-quality visuals in every frame",
+        "description": "Advanced neural rendering produces photorealistic textures, accurate lighting, and natural color grading. The model captures fine details like fabric movement, skin texture, and reflective surfaces with unprecedented clarity for AI-generated video.",
+        "bullets": [
+          "True-to-life material rendering",
+          "Dynamic lighting and shadows",
+          "High-fidelity texture details"
+        ],
+        "image_prompt": "Close-up cinematic shot of a person's face with natural skin texture, detailed fabric clothing, dramatic side lighting creating soft shadows, photorealistic rendering with visible pores and fine details, film grain, shallow depth of field",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/cap-1.png"
+      },
+      {
+        "eyebrow": "Physics Simulation",
+        "title": "Motion that follows real-world physics",
+        "description": "Built-in physics engine ensures objects move, collide, and interact according to natural laws. From fluid dynamics to rigid body mechanics, Kling 1.6 generates motion that looks authentic without manual keyframing or correction.",
+        "bullets": [
+          "Accurate gravity and momentum",
+          "Realistic collision and interaction",
+          "Natural fluid and cloth dynamics"
+        ],
+        "image_prompt": "Water splashing from a glass tipping over on a wooden table, liquid droplets in mid-air with accurate physics, realistic fluid dynamics, natural gravity and momentum, clear reflections and refractions in water",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/cap-2.png"
+      },
+      {
+        "eyebrow": "Temporal Consistency",
+        "title": "Smooth motion without flickering or artifacts",
+        "description": "Advanced temporal modeling maintains object identity and coherence across frames. Characters, backgrounds, and details remain stable throughout clips, eliminating the jarring transitions and morphing artifacts common in earlier video generation models.",
+        "bullets": [
+          "Stable object and character identity",
+          "Smooth camera movement tracking",
+          "No flickering or morphing"
+        ],
+        "image_prompt": "Continuous tracking shot following a person walking through a crowded street, consistent facial features and clothing throughout, smooth camera motion, stable background elements, no flickering or distortion",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/cap-3.png"
+      },
+      {
+        "eyebrow": "Production Speed",
+        "title": "Professional quality at scale",
+        "description": "Optimized inference pipeline generates high-resolution video significantly faster than competing models. The architecture balances computational efficiency with output quality, making professional video production workflows practical for creative teams and individual creators alike.",
+        "bullets": [
+          "Rapid generation without quality loss",
+          "Efficient multi-clip workflows",
+          "Scalable for production pipelines"
+        ],
+        "image_prompt": "Split-screen comparison showing timeline interface with multiple video clips being generated simultaneously, progress bars moving quickly, high-resolution preview thumbnails, professional video editing workspace aesthetic",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/kling-1-6/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Kling 1.6 in LazyKiwi",
+    "description": "From product demos to cinematic scenes, creators use Kling 1.6 to generate high-quality videos with precise motion control and realistic physics.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/video-generator?model=kling-1-6"
+    },
+    "items": [
+      {
+        "title": "Rainy City Portraits",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/kling-1-6/showcase-1.mp4"
+      },
+      {
+        "title": "Umbrella Comedy Beats",
+        "tag": "Image→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/kling-1-6/showcase-2.mp4"
+      },
+      {
+        "title": "Urban Fashion Reels",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/kling-1-6/showcase-3.mp4"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Kling 1.6 at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Kuaishou"
+      },
+      {
+        "label": "Type",
+        "value": "Video generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, start/end images"
+      },
+      {
+        "label": "Audio",
+        "value": "Native audio generation"
+      },
+      {
+        "label": "Max duration",
+        "value": "Up to 15 seconds"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p (Pro mode)"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Multi-scene videos, audio synchronization, dynamic motion"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Kling 1.6 vs. other video models",
+    "description": "Kling 1.6 excels at realistic motion and Chinese content generation. Choose Runway for creative effects or Pika for speed and accessibility.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Kling 1.6",
+        "highlight": true,
+        "strength": "Realistic physics and complex motion",
+        "bestFor": "Cinematic shots, Chinese language prompts, physically accurate animations",
+        "speed": "Standard"
+      },
+      {
+        "model": "Runway Gen-3 Alpha",
+        "highlight": false,
+        "strength": "Creative control and style consistency",
+        "bestFor": "Stylized content, commercial projects, precise camera movements",
+        "speed": "Standard"
+      },
+      {
+        "model": "Pika 1.5",
+        "highlight": false,
+        "strength": "Fast iteration and accessibility",
+        "bestFor": "Rapid prototyping, social media content, quick concept validation",
+        "speed": "Fast"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Kling 1.6",
+    "description": "From commercial campaigns to social content, creators use Kling 1.6 to produce high-quality video across industries and formats.",
+    "items": [
+      {
+        "icon": "ShoppingBag",
+        "title": "Product Demo Videos",
+        "description": "E-commerce brands generate dynamic product showcases with realistic motion, lighting effects, and cinematic camera movements for ads."
+      },
+      {
+        "icon": "Camera",
+        "title": "Social Media Content",
+        "description": "Influencers and content creators produce eye-catching short-form videos with smooth motion and consistent character appearance for platforms."
+      },
+      {
+        "icon": "Clapperboard",
+        "title": "Film Pre-Visualization",
+        "description": "Filmmakers create concept sequences and storyboard animatics to test scene composition, pacing, and visual effects before production."
+      },
+      {
+        "icon": "Megaphone",
+        "title": "Marketing Campaigns",
+        "description": "Agencies produce brand storytelling videos with professional motion quality and visual consistency for multi-channel advertising campaigns globally."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Kling 1.6",
+    "stats": [
+      {
+        "value": "10s",
+        "label": "Generate high-quality video in seconds"
+      },
+      {
+        "value": "1080p",
+        "label": "Native resolution for professional output"
+      },
+      {
+        "value": "500K+",
+        "label": "Videos created in first month"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "The motion consistency is what sold me. I can finally generate product demos that don't look janky halfway through.",
+        "name": "Maya Patel",
+        "role": "Product marketer"
+      },
+      {
+        "quote": "Kling 1.6 handles camera movements way better than previous versions. Saves me hours of post-production cleanup work.",
+        "name": "James Chen",
+        "role": "Short-form creator"
+      },
+      {
+        "quote": "I use it for rough cuts and concept validation. The quality is good enough to show clients without disclaimers.",
+        "name": "Sarah Kim",
+        "role": "Creative director"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Kling 1.6?",
+      "answer": "Kling 1.6 is Kuaishou's advanced AI video generation model that creates high-quality videos from text prompts or images. It features improved motion consistency, enhanced realism, and support for longer video durations compared to previous versions."
+    },
+    {
+      "question": "Is Kling 1.6 free to use?",
+      "answer": "Kling 1.6 offers a limited free tier with daily credits for testing. Paid plans provide additional generation credits, faster processing, and commercial usage rights. Pricing varies by region and usage volume."
+    },
+    {
+      "question": "How does Kling 1.6 compare to Runway and Pika?",
+      "answer": "Kling 1.6 excels in physics simulation and motion coherence, particularly for complex scenes. It offers competitive video length and resolution. Runway leads in editing features, while Pika focuses on stylized creative outputs."
+    },
+    {
+      "question": "What video length and resolution does Kling 1.6 support?",
+      "answer": "Kling 1.6 generates videos up to 2 minutes long at 1080p resolution. It supports various aspect ratios including 16:9, 9:16, and 1:1, making it suitable for social media and professional content creation."
+    },
+    {
+      "question": "How do I start using Kling 1.6?",
+      "answer": "Access Kling 1.6 through Kuaishou's platform by creating an account. Enter text prompts or upload reference images, adjust generation parameters, and click generate. Results typically appear within minutes depending on video length and complexity."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create Professional AI Videos with Kling 1.6",
+    "description": "Generate high-quality videos from text or images in seconds. Experience advanced motion control, realistic physics, and cinematic output up to 1080p resolution.",
+    "buttonText": "Start Creating",
+    "buttonLink": "/video-generator?model=kling-1-6"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "People search for Kling 1.6 using different name variations, provider references, and feature-based terms when looking for AI video generation tools from Kuaishou.",
+    "terms": [
+      "Kling 1.6",
+      "Kling AI 1.6",
+      "Kuaishou Kling",
+      "Kling video generator",
+      "Kling AI video",
+      "Kuaishou AI model",
+      "Kling 1.6 free",
+      "Kling online",
+      "Kling AI alternative",
+      "text to video Kling",
+      "Kling video model",
+      "Kuaishou video AI"
+    ]
+  }
+}

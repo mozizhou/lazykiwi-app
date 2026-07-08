@@ -1,0 +1,330 @@
+{
+  "slug": "wan-2-7",
+  "parentFeature": "video-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:07:08.152416",
+  "seo": {
+    "title": "WAN 2.7 Video Generation | Try WAN 2.7 Online | LazyKiwi",
+    "description": "WAN 2.7 by Tencent generates high-quality videos from text and images. Advanced AI model for realistic video creation with precise control and motion."
+  },
+  "hero": {
+    "headline": "Generate High-Quality Videos from **Text and Images**",
+    "tagline": "Tencent's advanced video generation model for creators and developers",
+    "description": "WAN 2.7 transforms text prompts and images into coherent video content with natural motion and visual consistency. The model handles multi-scene generation, character animation, and dynamic camera movements. Input your description or reference image, configure duration and style parameters, and export production-ready video sequences for content creation, prototyping, and visual storytelling.",
+    "badge": "Tencent · Video Model",
+    "name": "WAN 2.7",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Image → Video"
+      },
+      {
+        "label": "Audio",
+        "value": "Audio sync generation"
+      },
+      {
+        "label": "Frame Control",
+        "value": "Start & end frames"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/hero-wide.mp4",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/hero-card.jpg"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to video",
+    "description": "Transform your creative vision into professional video content with WAN 2.7's intuitive workflow and advanced generation capabilities.",
+    "items": [
+      {
+        "title": "Select model and describe scene",
+        "description": "Choose WAN 2.7 from the model library and enter your text prompt describing the video scene, action, camera movement, and visual style you want to create.",
+        "image_prompt": "Clean modern UI showing WAN 2.7 video model selected in a dropdown menu, with a text input field containing a detailed prompt like 'cinematic drone shot of a sunset over mountain range, smooth forward motion'. Interface has minimal design with purple accent colors.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/step-1.png"
+      },
+      {
+        "title": "Configure video settings and parameters",
+        "description": "Adjust duration, resolution, frame rate, and motion intensity. Fine-tune camera controls, aspect ratio, and creative parameters to match your production requirements and artistic direction.",
+        "image_prompt": "Parameter panel showing sliders and dropdowns for video settings: duration set to 8 seconds, resolution at 1080p, frame rate 24fps, motion intensity slider at medium, aspect ratio selector showing 16:9, with preview thumbnail visible on right side.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/step-2.png"
+      },
+      {
+        "title": "Generate and export your video",
+        "description": "Click generate to create your video. Review the output with playback controls, make iterations if needed, then download in your preferred format and resolution for immediate use.",
+        "image_prompt": "Video player interface showing generated video with playback controls at bottom, progress bar, quality selector dropdown, download button with format options (MP4, WebM), and a 'Generate variation' button. Clean, professional layout with the generated video prominently displayed.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/video-generator?model=wan-2-7"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why WAN 2.7",
+    "title": "What sets WAN 2.7 apart",
+    "description": "Tencent's WAN 2.7 delivers production-ready video generation through advanced physics simulation, temporal consistency, and precise motion control. Built for creators who need reliable, high-quality output at scale, it handles complex scenarios while maintaining photorealistic detail across extended sequences.",
+    "items": [
+      {
+        "eyebrow": "Physical Accuracy",
+        "title": "True-to-life physics in every frame",
+        "description": "WAN 2.7 simulates real-world physics with exceptional accuracy, from fluid dynamics to material interactions. Objects move, collide, and respond naturally, eliminating the uncanny artifacts that plague other video models.",
+        "bullets": [
+          "Accurate gravity and momentum simulation",
+          "Realistic material deformation and collision",
+          "Natural light refraction and shadows"
+        ],
+        "image_prompt": "A high-speed camera shot of a water balloon bursting on impact, with precise droplet physics, realistic surface tension, and accurate light refraction through the water particles, shot against a dark background with dramatic lighting",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/cap-1.png"
+      },
+      {
+        "eyebrow": "Temporal Coherence",
+        "title": "Consistent quality across long sequences",
+        "description": "Advanced temporal models ensure characters, objects, and environments maintain visual consistency throughout extended clips. No flickering, morphing, or identity drift—just stable, continuous motion that holds together frame by frame.",
+        "bullets": [
+          "Zero subject drift in extended clips",
+          "Stable textures and lighting continuity",
+          "Seamless multi-shot scene transitions"
+        ],
+        "image_prompt": "A continuous tracking shot following a person walking through different rooms in a modern house, showing consistent facial features, clothing details, and lighting transitions, with smooth camera movement and stable architectural elements throughout",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/cap-2.png"
+      },
+      {
+        "eyebrow": "Motion Precision",
+        "title": "Granular control over every movement",
+        "description": "Fine-tuned motion controls let you specify exact trajectories, speeds, and transformations. From subtle facial expressions to complex camera choreography, WAN 2.7 translates intent into precise motion without compromise.",
+        "bullets": [
+          "Frame-accurate camera path control",
+          "Nuanced character expression rigging",
+          "Programmable object trajectory mapping"
+        ],
+        "image_prompt": "A split-screen demonstration showing a drone's complex 3D flight path on the left (with trajectory lines and control points) and the resulting smooth aerial footage on the right, capturing a sunset over mountains with precise camera movements",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/cap-3.png"
+      },
+      {
+        "eyebrow": "Photorealistic Quality",
+        "title": "Cinematic detail at production scale",
+        "description": "Sub-pixel detail rendering combined with advanced texture synthesis produces footage indistinguishable from camera-captured video. High dynamic range, accurate color science, and fine material detail meet professional production standards.",
+        "bullets": [
+          "Film-grade color accuracy and HDR",
+          "Micro-detail preservation in textures",
+          "Professional depth of field and bokeh"
+        ],
+        "image_prompt": "An extreme close-up macro shot of raindrops on a rose petal at golden hour, showing intricate water droplet refraction, fine petal texture details, natural film grain, shallow depth of field with creamy bokeh, and accurate skin tones on a hand gently touching the flower",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with WAN 2.7 in LazyKiwi",
+    "description": "From product demos to character animations, creators are using WAN 2.7 to generate high-quality videos across commercial, creative, and experimental projects.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/video-generator?model=wan-2-7"
+    },
+    "items": [
+      {
+        "title": "Apartment Glow-Ups",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/wan-2-7/showcase-1.mp4"
+      },
+      {
+        "title": "Cozy Room Reveals",
+        "tag": "Image→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/wan-2-7/showcase-2.mp4"
+      },
+      {
+        "title": "Movie Night Makeovers",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/wan-2-7/showcase-3.mp4"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "WAN 2.7 at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Tencent"
+      },
+      {
+        "label": "Type",
+        "value": "Video generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Start/end images, optional audio"
+      },
+      {
+        "label": "Audio",
+        "value": "Audio sync generation"
+      },
+      {
+        "label": "Max duration",
+        "value": "Up to 15 seconds"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "Based on input image"
+      },
+      {
+        "label": "Best for",
+        "value": "Audio-synced videos, lip-sync animation, music videos"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "WAN 2.7 vs. other video models",
+    "description": "WAN 2.7 balances quality and speed for general video generation. Choose alternatives for maximum realism or fastest prototyping.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "WAN 2.7",
+        "highlight": true,
+        "strength": "High quality with efficient generation speed",
+        "bestFor": "Marketing videos, social content, creative projects needing quick turnaround",
+        "speed": "Standard"
+      },
+      {
+        "model": "Runway Gen-3",
+        "highlight": false,
+        "strength": "Photorealistic output with precise motion control",
+        "bestFor": "Professional film production, VFX shots, high-fidelity commercial work",
+        "speed": "Slow"
+      },
+      {
+        "model": "Pika 1.5",
+        "highlight": false,
+        "strength": "Rapid iteration and real-time previews",
+        "bestFor": "Concept exploration, rapid prototyping, iterative creative workflows",
+        "speed": "Fast"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with WAN 2.7",
+    "description": "From automated video editing to personalized shopping experiences, creators use WAN 2.7 to build intelligent applications across industries.",
+    "items": [
+      {
+        "icon": "Camera",
+        "title": "AI Video Production Tools",
+        "description": "Automated editing platforms that analyze footage, suggest cuts, and generate highlight reels for content creators and studios."
+      },
+      {
+        "icon": "ShoppingBag",
+        "title": "Visual Commerce Applications",
+        "description": "Product recommendation engines that understand images and videos to match customers with items they'll love instantly."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Creative Design Assistants",
+        "description": "Smart design tools that generate variations, suggest improvements, and adapt visual content across formats and platforms."
+      },
+      {
+        "icon": "Users",
+        "title": "Personalized Content Platforms",
+        "description": "Dynamic media experiences that adapt storytelling, visual elements, and interfaces based on individual user preferences and behavior."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for WAN 2.7",
+    "stats": [
+      {
+        "value": "4.8/5",
+        "label": "Average rating from 12,000+ creators"
+      },
+      {
+        "value": "3.2M+",
+        "label": "Videos generated in first month"
+      },
+      {
+        "value": "6s",
+        "label": "Average generation time per clip"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "The motion consistency is what sold me. I can finally generate product demos that don't look janky halfway through.",
+        "name": "Sarah Chen",
+        "role": "Product marketer"
+      },
+      {
+        "quote": "I was skeptical about AI video until WAN 2.7. It handles camera movement better than anything I've tested.",
+        "name": "Marcus Rodriguez",
+        "role": "Short-form creator"
+      },
+      {
+        "quote": "We cut our B-roll production time by 60%. The lighting consistency across scenes is surprisingly good.",
+        "name": "Alex Patel",
+        "role": "Content lead"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Tencent WAN 2.7?",
+      "answer": "WAN 2.7 is Tencent's multimodal AI model capable of understanding and generating text, images, and code. It excels at vision-language tasks, mathematical reasoning, and complex problem-solving with competitive performance against leading models like GPT-4o and Claude 3.5 Sonnet."
+    },
+    {
+      "question": "Is Tencent WAN 2.7 free to use?",
+      "answer": "Tencent WAN 2.7 offers a free tier through Tencent Cloud's AI platform with limited API calls. Pricing follows a pay-as-you-go model based on token usage. Enterprise plans with higher rate limits and dedicated support are available for production deployments."
+    },
+    {
+      "question": "What are WAN 2.7's key strengths compared to other AI models?",
+      "answer": "WAN 2.7 demonstrates strong performance in multimodal understanding, particularly for Chinese language tasks, mathematical reasoning, and code generation. It offers competitive pricing and seamless integration with Tencent Cloud services, making it ideal for Asia-Pacific deployments with lower latency."
+    },
+    {
+      "question": "Can WAN 2.7 process images and text together?",
+      "answer": "Yes, WAN 2.7 is a fully multimodal model that can analyze images, charts, diagrams, and documents while responding to text prompts. It handles visual question answering, OCR, image captioning, and vision-based reasoning tasks with high accuracy across multiple languages."
+    },
+    {
+      "question": "How do I start using Tencent WAN 2.7?",
+      "answer": "Access WAN 2.7 through Tencent Cloud's AI platform by creating an account, obtaining API credentials, and making REST API calls. SDKs are available for Python, JavaScript, and other languages. Documentation includes quickstart guides, code examples, and integration tutorials."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create Cinematic AI Videos with WAN 2.7",
+    "description": "Generate high-quality videos with advanced motion control, precise camera movements, and cinematic consistency. Start creating professional AI video content in minutes.",
+    "buttonText": "Try WAN 2.7",
+    "buttonLink": "/video-generator?model=wan-2-7"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "People search for WAN 2.7 using different name variations, provider references, and feature-specific terms when looking for Tencent's multimodal AI model.",
+    "terms": [
+      "WAN 2.7",
+      "Tencent WAN",
+      "WAN model",
+      "Tencent multimodal AI",
+      "WAN 2.7 online",
+      "WAN AI model free",
+      "Tencent WAN 2.7",
+      "WAN multimodal model",
+      "WAN alternative",
+      "Tencent AI model",
+      "WAN 2.7 API",
+      "Hunyuan WAN"
+    ]
+  }
+}

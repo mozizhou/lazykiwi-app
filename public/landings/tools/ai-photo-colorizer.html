@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Photo Colorizer — Add Color to Black &amp; White Photos | LazyKiwi</title>
+<meta name="description" content="Colorize black-and-white photos online with the LazyKiwi AI photo colorizer. Add natural, realistic color to old and grayscale images in seconds — free." />
+<link rel="icon" type="image/svg+xml" href="../assetshttps://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { kiwi: { DEFAULT:'#A3E635', dark:'#84CC16', deep:'#65A30D', light:'#ECFCCB', mint:'#D6F3AA', ink:'#1A2E05' }, ink:'#0E1410' },
+    fontFamily: { display:['"Plus Jakarta Sans"','system-ui','sans-serif'], sans:['Inter','system-ui','sans-serif'] },
+    boxShadow: { soft:'0 18px 50px -28px rgba(20,46,5,0.28)', card:'0 24px 60px -30px rgba(20,46,5,0.30)' },
+  }}};
+</script>
+<style>
+  body{font-family:Inter,system-ui,sans-serif;color:#0E1410}
+  h1,h2,h3,h4,.font-display{font-family:"Plus Jakarta Sans",system-ui,sans-serif}
+  .grain{background-image:radial-gradient(rgba(20,46,5,0.04) 1px,transparent 1px);background-size:4px 4px}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  details summary::-webkit-details-marker{display:none}
+  details[open] .faq-plus{transform:rotate(45deg)}
+  .ba-range{-webkit-appearance:none;appearance:none;background:transparent}
+  .ba-range::-webkit-slider-thumb{-webkit-appearance:none;width:0;height:0}
+  .ba-range::-moz-range-thumb{width:0;height:0;border:0}
+  .nav-panel{transition:opacity .2s ease,transform .2s ease}
+  .nav-group:hover .nav-panel{visibility:visible;opacity:1;transform:none}
+</style>
+</head>
+<body class="bg-white antialiased overflow-x-hidden">
+
+<div class="bg-kiwi-ink text-kiwi-light text-center text-[13px] py-2 px-4 font-medium">✨ Try it free — no card, no install, results in seconds.</div>
+
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 shrink-0"><img src="https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/kiwi-logo.svg" alt="LazyKiwi" width="30" height="30" /><span class="text-[17px] font-extrabold font-display tracking-tight">LazyKiwi</span></a>
+    <nav class="hidden md:flex items-center h-full"><div class="nav-group group h-full flex items-center"><div class="h-full flex items-center px-4 text-[14px] font-medium text-gray-700 group-hover:text-gray-900 transition cursor-pointer"><span class="flex items-center gap-1">AI Tools<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="opacity-70"><path d="M6 9l6 6 6-6"/></svg></span></div><div class="nav-panel invisible opacity-0 translate-y-1 absolute left-0 top-full w-full shadow-2xl" style="background:rgba(15,15,20,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.1)"><div class="max-w-7xl mx-auto px-5 sm:px-8 py-10"><div class="flex gap-12"><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Video</h4><ul class="flex flex-col gap-3"><li><a href="/video-generator" class="text-[15px] font-medium text-white/80 hover:text-white transition">Text to Video</a></li><li><a href="/video-generator" class="text-[15px] font-medium text-white/80 hover:text-white transition">Image to Video</a></li><li><a href="/video-generator" class="text-[15px] font-medium text-white/80 hover:text-white transition">Start & End Frames</a></li></ul></div><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Image to Image</h4><ul class="flex flex-col gap-3"><li><a href="/image-generator" class="text-[15px] font-medium text-white/80 hover:text-white transition">Text to Image</a></li><li><a href="/landings/tools/ai-hairstyle-changer.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">AI Hairstyle Changer</a></li><li><a href="/landings/tools/hair-color-changer.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Hair Color Changer</a></li><li><a href="/landings/tools/gender-swap.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Gender Swap</a></li><li><a href="/landings/tools/outfit-generator.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">AI Outfit Generator</a></li></ul></div><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Enhance & Restore</h4><ul class="flex flex-col gap-3"><li><a href="/landings/tools/photo-restoration.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Photo Restoration</a></li><li><a href="/landings/tools/photo-upscale.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">AI Photo Upscaler</a></li><li><a href="/landings/tools/ai-photo-colorizer.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">AI Photo Colorizer</a></li><li><a href="/landings/tools/passport-photo-maker.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Passport Photo Maker</a></li></ul></div><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Fun & Stylize</h4><ul class="flex flex-col gap-3"><li><a href="/landings/tools/face-shape-detector.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Face Shape Detector</a></li><li><a href="/landings/tools/anime-avatar.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">AI Anime Avatar</a></li><li><a href="/landings/tools/photo-to-sketch.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Photo to Sketch</a></li><li><a href="/landings/tools/buzz-cut-filter.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Buzz Cut Filter</a></li><li><a href="/landings/tools/bald-filter.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Bald Filter</a></li><li><a href="/landings/tools/ai-age-filter.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">AI Age Filter</a></li><li><a href="/landings/tools/find-my-doppelganger.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Find My Doppelganger</a></li><li><a href="/landings/tools/eye-color-changer.html" class="text-[15px] font-medium text-white/80 hover:text-white transition">Eye Color Changer</a></li></ul></div></div></div></div></div><div class="nav-group group h-full flex items-center"><a href="/models" class="h-full flex items-center px-4 text-[14px] font-medium text-gray-700 group-hover:text-gray-900 transition"><span class="flex items-center gap-1">Models<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="opacity-70"><path d="M6 9l6 6 6-6"/></svg></span></a><div class="nav-panel invisible opacity-0 translate-y-1 absolute left-0 top-full w-full shadow-2xl" style="background:rgba(15,15,20,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.1)"><div class="max-w-7xl mx-auto px-5 sm:px-8 py-10"><div class="flex gap-12"><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Video Models</h4><ul class="flex flex-col gap-3"><li><a href="/models/sora-2" class="text-[15px] font-medium text-white/80 hover:text-white transition">Sora 2</a></li><li><a href="/models/veo-3" class="text-[15px] font-medium text-white/80 hover:text-white transition">Veo 3</a></li><li><a href="/models/kling-1-6-turbo" class="text-[15px] font-medium text-white/80 hover:text-white transition">Kling 1.6 Turbo</a></li></ul></div><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Image Models</h4><ul class="flex flex-col gap-3"><li><a href="/models/seedream-5" class="text-[15px] font-medium text-white/80 hover:text-white transition">Seedream 5.0</a></li><li><a href="/models/nano-banana" class="text-[15px] font-medium text-white/80 hover:text-white transition">Nano Banana</a></li><li><a href="/models/flux-1-schnell" class="text-[15px] font-medium text-white/80 hover:text-white transition">FLUX.1 Schnell</a></li></ul></div></div></div></div></div><div class="nav-group group h-full flex items-center"><div class="h-full flex items-center px-4 text-[14px] font-medium text-gray-700 group-hover:text-gray-900 transition cursor-pointer"><span class="flex items-center gap-1">Effects<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="opacity-70"><path d="M6 9l6 6 6-6"/></svg></span></div><div class="nav-panel invisible opacity-0 translate-y-1 absolute left-0 top-full w-full shadow-2xl" style="background:rgba(15,15,20,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.1)"><div class="max-w-7xl mx-auto px-5 sm:px-8 py-10"><div class="flex gap-12"><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Video Effects</h4><ul class="flex flex-col gap-3"><li><a href="/effects/explosion" class="text-[15px] font-medium text-white/80 hover:text-white transition">Explosion</a></li><li><a href="/effects/bullet-time" class="text-[15px] font-medium text-white/80 hover:text-white transition">Bullet Time</a></li><li><a href="/effects/money-rain" class="text-[15px] font-medium text-white/80 hover:text-white transition">Money Rain</a></li></ul></div><div class="min-w-[170px] max-w-[280px] flex-1"><h4 class="mb-4 text-[13px] font-bold uppercase tracking-widest text-gray-400">Photo Effects</h4><ul class="flex flex-col gap-3"><li><a href="/effects/wings-angel" class="text-[15px] font-medium text-white/80 hover:text-white transition">Wings / Angel</a></li><li><a href="/effects/disintegration" class="text-[15px] font-medium text-white/80 hover:text-white transition">Disintegration</a></li></ul></div></div></div></div></div><a href="/pricing" class="h-full flex items-center px-4 text-[14px] font-medium text-gray-700 hover:text-gray-900 transition">Pricing</a><a href="/blog" class="h-full flex items-center px-4 text-[14px] font-medium text-gray-700 hover:text-gray-900 transition">Blog</a></nav>
+    <div class="hidden md:flex items-center gap-3">
+      <a href="/video-generator" class="text-[14px] font-semibold text-gray-700 hover:text-gray-900 px-3 py-2">Sign in</a>
+      <a href="/video-generator" class="inline-flex items-center gap-1.5 rounded-xl bg-gray-900 text-white px-5 py-2.5 text-[14px] font-bold hover:bg-gray-800 transition active:scale-[0.97]"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 4.6L19 8.2l-3.6 3.3.9 5L12 14l-4.3 2.5.9-5L5 8.2l5.1-1.6z"/></svg> Create Now</a>
+    </div>
+    <button type="button" onclick="document.getElementById('m-nav').classList.toggle('hidden')" class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition" aria-label="Menu"><span class="block h-0.5 w-5 bg-gray-700"></span><span class="block h-0.5 w-5 bg-gray-700"></span><span class="block h-0.5 w-5 bg-gray-700"></span></button>
+  </div>
+  <div id="m-nav" class="hidden md:hidden border-t border-gray-100 bg-white px-5 pb-5 pt-1"><a href="/landings/index.html" class="block py-2.5 text-[15px] font-semibold text-gray-800 border-b border-gray-50">AI Tools</a><a href="/models" class="block py-2.5 text-[15px] font-semibold text-gray-800 border-b border-gray-50">Models</a><a href="/effects/explosion" class="block py-2.5 text-[15px] font-semibold text-gray-800 border-b border-gray-50">Effects</a><a href="/pricing" class="block py-2.5 text-[15px] font-semibold text-gray-800 border-b border-gray-50">Pricing</a><a href="/blog" class="block py-2.5 text-[15px] font-semibold text-gray-800 border-b border-gray-50">Blog</a><a href="/video-generator" class="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-gray-900 text-white px-5 py-3 text-[14px] font-bold">Create Now</a></div>
+</header>
+
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 grain"></div>
+  <div class="pointer-events-none absolute -top-24 -right-24 h-[460px] w-[460px] rounded-full bg-kiwi-light blur-[130px] opacity-70"></div>
+  <div class="pointer-events-none absolute top-40 -left-32 h-[420px] w-[420px] rounded-full bg-kiwi-mint blur-[150px] opacity-50"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-10 items-center">
+    <div class="reveal">
+      <div class="inline-flex items-center gap-2 rounded-full border border-kiwi-dark/30 bg-kiwi-light/70 pl-2 pr-3.5 py-1.5 text-[13px] font-semibold text-kiwi-deep"><span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-kiwi text-kiwi-ink text-[11px] font-extrabold">AI</span>Photo Colorizer</div>
+      <h1 class="mt-5 font-display font-extrabold tracking-tight text-[2.7rem] leading-[1.05] sm:text-6xl text-ink">Add color to<br><span class="relative whitespace-nowrap text-kiwi-deep">black & white<svg class="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" fill="none"><path d="M2 9C50 3 150 3 198 9" stroke="#A3E635" stroke-width="5" stroke-linecap="round"/></svg></span> memories.</h1>
+      <p class="mt-6 text-[17px] leading-relaxed text-gray-600 max-w-xl">Upload a black-and-white or faded photo and let LazyKiwi add natural, realistic color in seconds — skin, skies, clothing and scenery, intelligently restored.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3.5">
+        <a href="#try" class="inline-flex items-center justify-center gap-2 rounded-full bg-kiwi text-kiwi-ink px-7 py-4 text-[16px] font-extrabold hover:bg-kiwi-dark transition active:scale-[0.98] shadow-card">Upload a B&amp;W photo<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#showcase" class="inline-flex items-center justify-center gap-2 rounded-full bg-white border border-gray-200 px-7 py-4 text-[16px] font-bold text-ink hover:border-kiwi-dark hover:bg-kiwi-light/40 transition">See examples</a>
+      </div>
+      <div class="mt-7 flex items-center gap-4 text-[13.5px] text-gray-500">
+        <div class="flex -space-x-2.5">
+          <img src="assets/img/avatar-1.jpg" class="h-8 w-8 rounded-full ring-2 ring-white object-cover" alt=""><img src="assets/img/avatar-2.jpg" class="h-8 w-8 rounded-full ring-2 ring-white object-cover" alt=""><img src="assets/img/avatar-3.jpg" class="h-8 w-8 rounded-full ring-2 ring-white object-cover" alt=""><img src="assets/img/avatar-4.jpg" class="h-8 w-8 rounded-full ring-2 ring-white object-cover" alt="">
+        </div>
+        <div><div class="flex items-center gap-1 text-kiwi-deep">★★★★★ <span class="text-gray-700 font-semibold ml-1">4.9</span></div><span>Loved by 120,000+ creators</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="relative mx-auto max-w-[420px]">
+        <div class="absolute -top-4 -left-4 rotate-[-6deg] z-20 rounded-2xl bg-white px-3.5 py-2 shadow-card border border-gray-100"><span class="text-[12px] font-bold text-gray-400">BEFORE</span></div>
+        <div class="absolute -bottom-4 -right-4 rotate-[5deg] z-20 rounded-2xl bg-kiwi px-3.5 py-2 shadow-card"><span class="text-[12px] font-extrabold text-kiwi-ink">AFTER ✨</span></div>
+        <div id="ba" class="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-card border-[6px] border-white select-none">
+          <img src="assets/img/ai-photo-colorizer/hero-after.jpg" alt="After preview" class="absolute inset-0 h-full w-full object-cover">
+          <div id="baTop" class="absolute inset-0 overflow-hidden" style="width:50%"><img src="assets/img/ai-photo-colorizer/hero-before.jpg" alt="Before photo" class="absolute inset-0 h-full w-full object-cover" style="width:420px;max-width:none"></div>
+          <div id="baLine" class="absolute top-0 bottom-0 z-10" style="left:50%"><div class="absolute inset-y-0 -ml-px w-0.5 bg-white shadow-[0_0_0_1px_rgba(0,0,0,.06)]"></div><div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-11 w-11 rounded-full bg-white shadow-card grid place-items-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#84CC16" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div></div>
+          <input id="baRange" type="range" min="0" max="100" value="50" class="ba-range absolute inset-0 z-20 h-full w-full cursor-ew-resize opacity-0">
+        </div>
+        <p class="mt-6 text-center text-[13px] text-gray-400">Drag to compare grayscale and color.</p>
+      </div>
+    </div>
+  </div>
+  <div class="relative border-y border-gray-100 bg-white/70 backdrop-blur"><div class="max-w-7xl mx-auto px-5 sm:px-8 py-5 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[13.5px] font-medium text-gray-400"><span class="text-gray-500">Loved by creators on</span><span class="font-bold text-gray-500">TikTok</span><span class="font-bold text-gray-500">Instagram</span><span class="font-bold text-gray-500">Pinterest</span><span class="font-bold text-gray-500">YouTube</span><span class="font-bold text-gray-500">Reddit</span></div></div>
+</section>
+
+<section class="max-w-3xl mx-auto px-5 sm:px-8 py-20 lg:py-28 text-center reveal">
+  <p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">What it is</p>
+  <h2 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-[2.6rem] leading-tight text-ink">See the past<br class="hidden sm:block"> in full color.</h2>
+  <p class="mt-6 text-[17px] leading-relaxed text-gray-600">The LazyKiwi AI photo colorizer studies each photo and adds believable color — natural skin tones, accurate skies and lifelike scenery — turning grayscale history into a vivid image that feels alive.</p>
+  <div class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-4 text-[15px] font-semibold text-ink"><span class="inline-flex items-center gap-2"><span class="text-kiwi-dark">✓</span> Natural, believable color</span><span class="inline-flex items-center gap-2"><span class="text-kiwi-dark">✓</span> Keeps the original detail</span><span class="inline-flex items-center gap-2"><span class="text-kiwi-dark">✓</span> Great for old family photos</span></div>
+</section>
+
+<section id="how" class="bg-kiwi-light/40 border-y border-kiwi-light">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-20 lg:py-28">
+    <div class="text-center reveal"><p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">How it works</p><h2 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-[2.6rem] text-ink">Your result in three steps</h2></div>
+    <div class="mt-14 grid md:grid-cols-3 gap-6">
+      <div class="reveal relative rounded-3xl bg-white p-8 shadow-soft border border-gray-100">
+        <span class="absolute -top-4 left-8 grid place-items-center h-9 w-9 rounded-full bg-kiwi text-kiwi-ink font-extrabold text-[15px] shadow-card">1</span>
+        <div class="mt-3 mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-kiwi-light text-kiwi-deep"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15l-5-5L5 21"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/><circle cx="9" cy="9" r="2"/></svg></div>
+        <h3 class="font-display font-bold text-xl text-ink">Upload your photo</h3>
+        <p class="mt-2.5 text-[15px] leading-relaxed text-gray-600">A clear, well-lit photo is all you need. Your photo, your starting point.</p>
+      </div>
+      <div class="reveal relative rounded-3xl bg-white p-8 shadow-soft border border-gray-100" style="transition-delay:.8s">
+        <span class="absolute -top-4 left-8 grid place-items-center h-9 w-9 rounded-full bg-kiwi text-kiwi-ink font-extrabold text-[15px] shadow-card">2</span>
+        <div class="mt-3 mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-kiwi-light text-kiwi-deep"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L19 9.2l-3.6 3.3.9 5L12 15.8 7.7 17.5l.9-5L5 9.2l5.1-1.6z"/></svg></div>
+        <h3 class="font-display font-bold text-xl text-ink">Pick colorize</h3>
+        <p class="mt-2.5 text-[15px] leading-relaxed text-gray-600">Let the AI add natural color automatically.</p>
+      </div>
+      <div class="reveal relative rounded-3xl bg-white p-8 shadow-soft border border-gray-100" style="transition-delay:.16s">
+        <span class="absolute -top-4 left-8 grid place-items-center h-9 w-9 rounded-full bg-kiwi text-kiwi-ink font-extrabold text-[15px] shadow-card">3</span>
+        <div class="mt-3 mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-kiwi-light text-kiwi-deep"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3 class="font-display font-bold text-xl text-ink">Generate &amp; download</h3>
+        <p class="mt-2.5 text-[15px] leading-relaxed text-gray-600">Compare before and after, then download the colorized photo.</p>
+      </div></div>
+    <div class="mt-12 text-center reveal"><a href="#try" class="inline-flex items-center gap-2 rounded-full bg-kiwi-ink text-white px-7 py-3.5 text-[15.5px] font-bold hover:bg-black transition active:scale-[0.98]">Try it now — free</a></div>
+  </div>
+</section>
+
+<section id="features" class="max-w-7xl mx-auto px-5 sm:px-8 py-20 lg:py-28 space-y-20 lg:space-y-28">
+  <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+    <div class="relative">
+      <div class="absolute -inset-3 bg-kiwi-light/60 rounded-[2.4rem] -rotate-2"></div>
+      <img src="assets/img/ai-photo-colorizer/feature-1.jpg" alt="Lifelike tones, not guesswork" class="relative rounded-[2rem] shadow-card w-full object-cover aspect-[16/10]">
+    </div>
+    <div class="">
+      <p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">Natural color</p>
+      <h3 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-4xl text-ink">Lifelike tones, not guesswork</h3>
+      <p class="mt-5 text-[16.5px] leading-relaxed text-gray-600">The AI recognises skin, sky, foliage and fabric to apply color that looks like it was always there.</p>
+      <ul class="mt-6 space-y-3 text-[15.5px] text-ink"><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> Realistic skin tones</li><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> Accurate skies and scenery</li><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> Subtle, not oversaturated</li></ul>
+    </div>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+    <div class="lg:order-2 relative">
+      <div class="absolute -inset-3 bg-kiwi-light/60 rounded-[2.4rem] rotate-2"></div>
+      <img src="assets/img/ai-photo-colorizer/feature-2.jpg" alt="Color without losing the photo" class="relative rounded-[2rem] shadow-card w-full object-cover aspect-[16/10]">
+    </div>
+    <div class="lg:order-1">
+      <p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">Detail-safe</p>
+      <h3 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-4xl text-ink">Color without losing the photo</h3>
+      <p class="mt-5 text-[16.5px] leading-relaxed text-gray-600">Original detail and contrast are preserved, so colorizing never smears the image.</p>
+      <ul class="mt-6 space-y-3 text-[15.5px] text-ink"><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> Keeps sharpness</li><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> No washed-out look</li><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> Faithful to the scene</li></ul>
+    </div>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+    <div class="relative">
+      <div class="absolute -inset-3 bg-kiwi-light/60 rounded-[2.4rem] -rotate-2"></div>
+      <img src="assets/img/ai-photo-colorizer/feature-3.jpg" alt="Even better with restoration" class="relative rounded-[2rem] shadow-card w-full object-cover aspect-[16/10]">
+    </div>
+    <div class="">
+      <p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">Pair it up</p>
+      <h3 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-4xl text-ink">Even better with restoration</h3>
+      <p class="mt-5 text-[16.5px] leading-relaxed text-gray-600">Combine with photo restoration to repair damage and add color for a full revival.</p>
+      <ul class="mt-6 space-y-3 text-[15.5px] text-ink"><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> Works with restoration</li><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> High-res exports</li><li class="flex gap-3"><span class="text-kiwi-dark font-bold">✓</span> Share with the family</li></ul>
+    </div>
+  </div></section>
+
+<section id="showcase" class="bg-ink text-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-20 lg:py-28">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 reveal"><div><p class="text-[13px] font-bold tracking-[0.18em] text-kiwi uppercase">Examples</p><h2 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-[2.6rem]">Grayscale in, color out</h2><p class="mt-4 text-[16px] text-white/60 max-w-xl">Old photos brought to life with natural color.</p></div><a href="#try" class="inline-flex items-center gap-2 rounded-full bg-kiwi text-kiwi-ink px-6 py-3 text-[15px] font-extrabold hover:bg-kiwi-dark transition shrink-0">Upload a B&amp;W photo</a></div>
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-1.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="1950s portrait"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">1950s portrait</figcaption></figure>
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-2.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Wedding day"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">Wedding day</figcaption></figure>
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-3.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="City street"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">City street</figcaption></figure>
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-4.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Landscape"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">Landscape</figcaption></figure>
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-5.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Childhood"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">Childhood</figcaption></figure>
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-6.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Military photo"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">Military photo</figcaption></figure>
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-7.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Family group"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">Family group</figcaption></figure>
+      <figure class="group relative overflow-hidden rounded-2xl aspect-[4/5]"><img src="assets/img/ai-photo-colorizer/gallery-8.jpg" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Pet photo"><figcaption class="absolute bottom-3 left-3 text-[13px] font-bold bg-white/90 text-ink rounded-full px-3 py-1">Pet photo</figcaption></figure></div>
+  </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-5 sm:px-8 py-20 lg:py-28">
+  <div class="text-center reveal"><p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">Why LazyKiwi</p><h2 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-[2.6rem] text-ink">Built to look real</h2></div>
+  <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="reveal rounded-3xl border border-gray-100 p-7 hover:shadow-soft hover:border-kiwi-dark/30 transition">
+      <div class="h-11 w-11 grid place-items-center rounded-xl bg-kiwi-light text-kiwi-deep mb-5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+      <h3 class="font-display font-bold text-lg text-ink">Seconds, not days</h3>
+      <p class="mt-2 text-[15px] leading-relaxed text-gray-600">Results render almost instantly, so you can compare options before your coffee's cold.</p>
+    </div>
+    <div class="reveal rounded-3xl border border-gray-100 p-7 hover:shadow-soft hover:border-kiwi-dark/30 transition" style="transition-delay:.6s">
+      <div class="h-11 w-11 grid place-items-center rounded-xl bg-kiwi-light text-kiwi-deep mb-5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3 class="font-display font-bold text-lg text-ink">Private by default</h3>
+      <p class="mt-2 text-[15px] leading-relaxed text-gray-600">Your photos are processed securely and never sold. What you upload stays yours.</p>
+    </div>
+    <div class="reveal rounded-3xl border border-gray-100 p-7 hover:shadow-soft hover:border-kiwi-dark/30 transition" style="transition-delay:.12s">
+      <div class="h-11 w-11 grid place-items-center rounded-xl bg-kiwi-light text-kiwi-deep mb-5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h3 class="font-display font-bold text-lg text-ink">Free to start</h3>
+      <p class="mt-2 text-[15px] leading-relaxed text-gray-600">No credit card to try. Get a real result on your own photo at zero cost.</p>
+    </div>
+    <div class="reveal rounded-3xl border border-gray-100 p-7 hover:shadow-soft hover:border-kiwi-dark/30 transition">
+      <div class="h-11 w-11 grid place-items-center rounded-xl bg-kiwi-light text-kiwi-deep mb-5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
+      <h3 class="font-display font-bold text-lg text-ink">No regret</h3>
+      <p class="mt-2 text-[15px] leading-relaxed text-gray-600">Test the change risk-free and decide with your own eyes.</p>
+    </div>
+    <div class="reveal rounded-3xl border border-gray-100 p-7 hover:shadow-soft hover:border-kiwi-dark/30 transition" style="transition-delay:.6s">
+      <div class="h-11 w-11 grid place-items-center rounded-xl bg-kiwi-light text-kiwi-deep mb-5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <h3 class="font-display font-bold text-lg text-ink">Made for you</h3>
+      <p class="mt-2 text-[15px] leading-relaxed text-gray-600">Tuned for natural, believable results — not a filter slapped on top.</p>
+    </div>
+    <div class="reveal rounded-3xl border border-gray-100 p-7 hover:shadow-soft hover:border-kiwi-dark/30 transition" style="transition-delay:.12s">
+      <div class="h-11 w-11 grid place-items-center rounded-xl bg-kiwi-light text-kiwi-deep mb-5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6M12 19h8"/></svg></div>
+      <h3 class="font-display font-bold text-lg text-ink">No skills needed</h3>
+      <p class="mt-2 text-[15px] leading-relaxed text-gray-600">No Photoshop, no prompts to master. Upload, tap, done.</p>
+    </div></div>
+</section>
+
+<section id="reviews" class="bg-kiwi-light/40 border-y border-kiwi-light">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-20 lg:py-28">
+    <div class="text-center reveal"><p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">Loved by creators</p><h2 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-[2.6rem] text-ink">120,000+ photos transformed</h2></div>
+    <div class="mt-14 grid md:grid-cols-3 gap-6">
+      <figure class="reveal rounded-3xl bg-white p-7 shadow-soft border border-gray-100">
+        <div class="text-kiwi-deep text-[15px]">★★★★★</div>
+        <blockquote class="mt-4 text-[15.5px] leading-relaxed text-ink">“I was nervous to try this, saw it on my own photo in seconds, and I'm obsessed. So much easier than guessing.”</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3"><img src="assets/img/avatar-1.jpg" class="h-10 w-10 rounded-full object-cover" alt=""><span><span class="block font-bold text-ink text-[14.5px]">Mia R.</span><span class="block text-[13px] text-gray-500">Content creator</span></span></figcaption>
+      </figure>
+      <figure class="reveal rounded-3xl bg-white p-7 shadow-soft border border-gray-100" style="transition-delay:.8s">
+        <div class="text-kiwi-deep text-[15px]">★★★★★</div>
+        <blockquote class="mt-4 text-[15.5px] leading-relaxed text-ink">“Showed the LazyKiwi preview instead of trying to describe what I wanted. First time I got exactly what I pictured.”</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3"><img src="assets/img/avatar-2.jpg" class="h-10 w-10 rounded-full object-cover" alt=""><span><span class="block font-bold text-ink text-[14.5px]">Daniel K.</span><span class="block text-[13px] text-gray-500">Verified user</span></span></figcaption>
+      </figure>
+      <figure class="reveal rounded-3xl bg-white p-7 shadow-soft border border-gray-100" style="transition-delay:.16s">
+        <div class="text-kiwi-deep text-[15px]">★★★★★</div>
+        <blockquote class="mt-4 text-[15.5px] leading-relaxed text-ink">“My before/after post blew up — it looks real because the photo actually fits. Total game changer.”</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3"><img src="assets/img/avatar-3.jpg" class="h-10 w-10 rounded-full object-cover" alt=""><span><span class="block font-bold text-ink text-[14.5px]">Priya S.</span><span class="block text-[13px] text-gray-500">TikTok creator</span></span></figcaption>
+      </figure></div>
+  </div>
+</section>
+
+<section id="faq" class="max-w-3xl mx-auto px-5 sm:px-8 py-20 lg:py-28">
+  <div class="text-center reveal"><p class="text-[13px] font-bold tracking-[0.18em] text-kiwi-deep uppercase">FAQ</p><h2 class="mt-3 font-display font-extrabold tracking-tight text-3xl sm:text-[2.6rem] text-ink">Questions, answered</h2></div>
+  <div class="mt-12 divide-y divide-gray-100 border-y border-gray-100 reveal">
+    <details class="group py-5"><summary class="flex items-center justify-between cursor-pointer list-none"><span class="font-display font-bold text-[17px] text-ink pr-6">Is the colorizer free?</span><span class="faq-plus shrink-0 text-kiwi-dark text-2xl leading-none transition-transform">+</span></summary><p class="mt-3 text-[15.5px] leading-relaxed text-gray-600">Yes. Upload a black-and-white photo and colorize it for free.</p></details>
+    <details class="group py-5"><summary class="flex items-center justify-between cursor-pointer list-none"><span class="font-display font-bold text-[17px] text-ink pr-6">Will the colors be accurate?</span><span class="faq-plus shrink-0 text-kiwi-dark text-2xl leading-none transition-transform">+</span></summary><p class="mt-3 text-[15.5px] leading-relaxed text-gray-600">The AI applies natural, believable color based on the scene; results are realistic though not historically guaranteed.</p></details>
+    <details class="group py-5"><summary class="flex items-center justify-between cursor-pointer list-none"><span class="font-display font-bold text-[17px] text-ink pr-6">Can it colorize faded color photos?</span><span class="faq-plus shrink-0 text-kiwi-dark text-2xl leading-none transition-transform">+</span></summary><p class="mt-3 text-[15.5px] leading-relaxed text-gray-600">Yes, it can refresh faded color as well as add color to grayscale images.</p></details>
+    <details class="group py-5"><summary class="flex items-center justify-between cursor-pointer list-none"><span class="font-display font-bold text-[17px] text-ink pr-6">Does it change the photo’s detail?</span><span class="faq-plus shrink-0 text-kiwi-dark text-2xl leading-none transition-transform">+</span></summary><p class="mt-3 text-[15.5px] leading-relaxed text-gray-600">No. Original detail and contrast are preserved while color is added.</p></details></div>
+</section>
+
+<section id="try" class="px-5 sm:px-8 pb-24">
+  <div class="relative max-w-6xl mx-auto overflow-hidden rounded-[2.5rem] bg-kiwi-ink text-white px-8 py-16 sm:px-16 sm:py-20 text-center">
+    <div class="pointer-events-none absolute -top-20 -right-10 h-72 w-72 rounded-full bg-kiwi/30 blur-[120px]"></div><div class="pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-kiwi/20 blur-[120px]"></div>
+    <div class="relative reveal"><h2 class="font-display font-extrabold tracking-tight text-3xl sm:text-5xl leading-[1.08]">Add color to your<br>black & white photos.</h2><p class="mt-5 text-[17px] text-white/70 max-w-xl mx-auto">Upload a grayscale photo and let LazyKiwi colorize it naturally in seconds — free.</p>
+      <div class="mt-9 flex flex-col sm:flex-row gap-3.5 justify-center"><a href="#" class="inline-flex items-center justify-center gap-2 rounded-full bg-kiwi text-kiwi-ink px-8 py-4 text-[16.5px] font-extrabold hover:bg-kiwi-dark transition active:scale-[0.98] shadow-card">Upload a B&amp;W photo<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="#showcase" class="inline-flex items-center justify-center rounded-full bg-white/10 border border-white/20 px-8 py-4 text-[16.5px] font-bold text-white hover:bg-white/15 transition">See examples</a></div>
+      <p class="mt-5 text-[13px] text-white/45">No credit card · Free to try · Results in seconds</p>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-gray-100 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div><a href="../index.html" class="flex items-center gap-2.5"><img src="../assetshttps://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/kiwi-logo.svg" alt="LazyKiwi" width="30" height="30"><span class="text-[17px] font-extrabold font-display tracking-tight">LazyKiwi</span></a><p class="mt-4 text-[14.5px] leading-relaxed text-gray-500 max-w-xs">One photo in, endless transformations out. The friendly AI photo studio for creators.</p>
+      <div class="mt-5 text-[13px] text-gray-400">Also great for: Colorize black and white photos · Add color to old photos · Photo colorization · B&amp;W to color · AI colorize</div></div>
+    <div><h4 class="text-[13px] font-bold tracking-wider text-gray-400 uppercase">More AI tools</h4><ul class="mt-4 space-y-2.5 text-[14.5px] text-gray-600"><li><a href="ai-hairstyle-changer.html" class="hover:text-kiwi-deep">AI Hairstyle Changer</a></li><li><a href="hair-color-changer.html" class="hover:text-kiwi-deep">Hair Color Changer</a></li><li><a href="gender-swap.html" class="hover:text-kiwi-deep">Gender Swap</a></li><li><a href="outfit-generator.html" class="hover:text-kiwi-deep">AI Outfit Generator</a></li><li><a href="photo-restoration.html" class="hover:text-kiwi-deep">Photo Restoration</a></li><li><a href="photo-upscale.html" class="hover:text-kiwi-deep">AI Photo Upscaler</a></li><li><a href="passport-photo-maker.html" class="hover:text-kiwi-deep">Passport Photo Maker</a></li></ul></div>
+    <div><h4 class="text-[13px] font-bold tracking-wider text-gray-400 uppercase">Explore</h4><ul class="mt-4 space-y-2.5 text-[14.5px] text-gray-600"><li><a href="../index.html" class="hover:text-kiwi-deep">All apps →</a></li><li><a href="#" class="hover:text-kiwi-deep">Pricing</a></li><li><a href="#" class="hover:text-kiwi-deep">Blog</a></li></ul></div>
+    <div><h4 class="text-[13px] font-bold tracking-wider text-gray-400 uppercase">Company</h4><ul class="mt-4 space-y-2.5 text-[14.5px] text-gray-600"><li><a href="#" class="hover:text-kiwi-deep">About</a></li><li><a href="#" class="hover:text-kiwi-deep">Privacy</a></li><li><a href="#" class="hover:text-kiwi-deep">Terms</a></li></ul></div>
+  </div>
+  <div class="border-t border-gray-100"><div class="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-gray-400"><span>© 2026 LazyKiwi. All rights reserved.</span><span>Made with 🥝 for people who change their minds.</span></div></div>
+</footer>
+
+<script>
+  (function(){const r=document.getElementById('baRange'),t=document.getElementById('baTop'),l=document.getElementById('baLine');if(!r)return;const set=v=>{t.style.width=v+'%';l.style.left=v+'%';};r.addEventListener('input',e=>set(e.target.value));set(50);})();
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

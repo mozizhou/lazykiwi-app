@@ -1,0 +1,333 @@
+{
+  "slug": "grok-2",
+  "parentFeature": "video-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:15:55.748542",
+  "seo": {
+    "title": "Grok 2 AI Chatbot | Try Grok 2 Online | LazyKiwi",
+    "description": "Grok 2 by xAI: Advanced AI chatbot with real-time web search, image understanding, and conversational capabilities. Try Grok 2 free online now."
+  },
+  "hero": {
+    "headline": "Generate High-Quality Videos from **Text and Images**",
+    "tagline": "xAI's advanced video generation model for creators and developers",
+    "description": "Grok 2 transforms text prompts and static images into dynamic video content with precise motion control and visual consistency. Built on xAI's multimodal architecture, it handles complex scenes, maintains temporal coherence, and supports various aspect ratios. Generate videos for prototyping, content creation, or visual storytelling through a straightforward API or web interface.",
+    "badge": "xAI · Video Model",
+    "name": "Grok 2",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text, Image, or Video → Video"
+      },
+      {
+        "label": "Capability",
+        "value": "Edit & extend videos"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 720p"
+      },
+      {
+        "label": "Max Duration",
+        "value": "Up to 15s"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/hero-wide.mp4",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/hero-card.jpg"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to video",
+    "description": "Transform your creative vision into professional video content with Grok 2's intuitive workflow and powerful generation capabilities.",
+    "items": [
+      {
+        "title": "Select model and describe your vision",
+        "description": "Choose Grok 2 from the model selector and enter a detailed text prompt describing your desired video scene, motion, and style.",
+        "image_prompt": "Clean web interface showing Grok 2 model selected in a dropdown menu, with a large text input field containing a sample prompt like 'cinematic shot of a city at sunset with moving traffic'. Modern UI with purple accent colors, white background, and the Grok 2 logo visible.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/step-1.png"
+      },
+      {
+        "title": "Configure video parameters and settings",
+        "description": "Adjust duration, aspect ratio, frame rate, and motion intensity using intuitive sliders and dropdown menus to match your project requirements.",
+        "image_prompt": "Settings panel interface displaying video configuration options: duration slider set to 5 seconds, aspect ratio selector showing 16:9, frame rate dropdown at 24fps, and motion intensity slider at medium. Clean, organized layout with parameter labels and real-time preview thumbnail.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/step-2.png"
+      },
+      {
+        "title": "Generate and export your video",
+        "description": "Click generate to create your video, preview the result in the built-in player, then download in your preferred format and resolution.",
+        "image_prompt": "Video player interface showing a generated video with playback controls, progress bar, and quality metrics displayed. Export panel visible on the right with format options (MP4, WebM) and resolution choices (1080p, 4K). Download button prominently featured with file size indicator.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/video-generator?model=grok-2"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Grok 2",
+    "title": "What sets Grok 2 apart",
+    "description": "Grok 2 delivers photorealistic video generation with unprecedented physics accuracy and temporal consistency. Built by xAI, it understands complex motion dynamics and maintains visual coherence across extended sequences, enabling creators to produce professional-quality video content from simple text descriptions.",
+    "items": [
+      {
+        "eyebrow": "Photorealistic Rendering",
+        "title": "Generate cinema-quality video from text",
+        "description": "Advanced rendering engine produces footage with film-grade visual fidelity, capturing subtle lighting variations, material properties, and atmospheric effects that match real-world camera behavior and professional cinematography standards.",
+        "bullets": [
+          "Physically accurate lighting and shadows",
+          "High-resolution output up to 4K",
+          "Natural color grading and depth"
+        ],
+        "image_prompt": "Split screen comparison showing a photorealistic city street scene at golden hour with accurate reflections on wet pavement, realistic depth of field, and natural lighting, next to traditional 3D render, demonstrating superior visual quality and realism",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/cap-1.png"
+      },
+      {
+        "eyebrow": "Motion Physics",
+        "title": "Realistic movement grounded in real physics",
+        "description": "Deep understanding of physical dynamics ensures objects move, collide, and interact according to real-world physics laws. From fluid dynamics to rigid body mechanics, every motion follows natural principles without artifacts or unrealistic behavior.",
+        "bullets": [
+          "Accurate gravity and momentum simulation",
+          "Realistic cloth and fluid dynamics",
+          "Natural character and object interactions"
+        ],
+        "image_prompt": "Sequence showing a basketball bouncing down stairs with accurate physics - proper arc trajectory, realistic bounces with energy loss, natural rotation, and convincing interaction with each step surface",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/cap-2.png"
+      },
+      {
+        "eyebrow": "Temporal Consistency",
+        "title": "Maintain coherence across long sequences",
+        "description": "Advanced temporal modeling preserves object identity, scene continuity, and visual consistency throughout extended video clips. Characters, environments, and details remain stable across frames, eliminating common flickering and morphing issues found in other models.",
+        "bullets": [
+          "Stable object and character identity",
+          "Smooth scene transitions without flicker",
+          "Extended sequences up to 60 seconds"
+        ],
+        "image_prompt": "Time-lapse style grid showing 12 frames from a 60-second video of a person walking through changing environments - demonstrating consistent facial features, clothing details, and smooth environmental transitions without visual artifacts",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/cap-3.png"
+      },
+      {
+        "eyebrow": "Rapid Generation",
+        "title": "Create professional videos in minutes",
+        "description": "Optimized inference architecture delivers high-quality video generation significantly faster than competing models. Iterate quickly through concepts, make refinements, and produce final content without lengthy wait times disrupting creative workflow.",
+        "bullets": [
+          "Generate 10-second clips in under 2 minutes",
+          "Parallel processing for batch generation",
+          "Real-time preview for instant feedback"
+        ],
+        "image_prompt": "Clean interface mockup showing a progress bar completing quickly, with three generated video thumbnails appearing in sequence, timestamps showing fast generation times, modern UI with speed metrics displayed prominently",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/grok-2/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Grok 2 in LazyKiwi",
+    "description": "From technical documentation to creative storytelling, see how developers and creators use Grok 2 to generate images that combine precision with visual impact.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/video-generator?model=grok-2"
+    },
+    "items": [
+      {
+        "title": "Cozy Plant Care",
+        "tag": "Text→Image",
+        "image_prompt": "Isometric cutaway technical diagram of a quantum computer processor, labeled components in clean sans-serif font, color-coded cooling systems in blue gradient, superconducting qubits in gold, control electronics in dark gray, white background, technical illustration style, high contrast, precise lines",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/grok-2/showcase-1.mp4"
+      },
+      {
+        "title": "Balcony Lifestyle Reels",
+        "tag": "Photo→Image",
+        "image_prompt": "Minimalist smartwatch product shot on marble surface, rose gold aluminum case, black sport band, screen displaying health metrics interface, soft studio lighting from upper right, subtle reflections, commercial photography style, shallow depth of field, neutral gray background",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/grok-2/showcase-2.mp4"
+      },
+      {
+        "title": "Rainy Diner Moments",
+        "tag": "Multi-Image",
+        "image_prompt": "Character sheet showing cyberpunk street vendor in four poses: front view, three-quarter view, profile, action pose. Neon-lit marketplace backdrop, augmented reality headset, weathered cargo vest with tech patches, mechanical prosthetic arm, consistent design across all views, concept art style",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/grok-2/showcase-3.mp4"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Grok 2 at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "xAI"
+      },
+      {
+        "label": "Type",
+        "value": "Video generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, image, or video"
+      },
+      {
+        "label": "Audio",
+        "value": "Not supported"
+      },
+      {
+        "label": "Max duration",
+        "value": "Up to 15 seconds"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 720p"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 4:3, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Video editing, video extension, creative effects"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Grok 2 vs. other video models",
+    "description": "Grok 2 excels at real-time analysis and conversational video understanding. Choose alternatives for generation tasks or when you need specialized video processing capabilities.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Grok 2",
+        "highlight": true,
+        "strength": "Real-time video understanding with X integration",
+        "bestFor": "Live video analysis, social media content moderation, conversational video Q&A",
+        "speed": "Fast"
+      },
+      {
+        "model": "GPT-4V",
+        "highlight": false,
+        "strength": "Detailed visual reasoning and multimodal comprehension",
+        "bestFor": "Complex video analysis, educational content breakdown, accessibility captioning",
+        "speed": "Standard"
+      },
+      {
+        "model": "Gemini 1.5 Pro",
+        "highlight": false,
+        "strength": "Long-context video processing up to hours",
+        "bestFor": "Full-length video summarization, meeting transcripts, documentary analysis",
+        "speed": "Standard"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Grok 2",
+    "description": "From social media automation to content analysis, creators use Grok 2 to build tools that understand context and generate engaging material.",
+    "items": [
+      {
+        "icon": "Megaphone",
+        "title": "Social Media Assistants",
+        "description": "Automated content generators that analyze trending topics and create platform-specific posts with relevant hashtags and optimal timing."
+      },
+      {
+        "icon": "Camera",
+        "title": "Visual Content Analyzers",
+        "description": "Tools that process images to generate captions, alt text, and detailed descriptions for accessibility and SEO optimization."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Interactive Story Generators",
+        "description": "Dynamic narrative engines that create personalized stories, branching dialogues, and character interactions for games and educational content."
+      },
+      {
+        "icon": "Users",
+        "title": "Audience Insight Tools",
+        "description": "Analytics platforms that process comments and feedback to identify audience preferences, sentiment trends, and content performance patterns."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Grok 2",
+    "stats": [
+      {
+        "value": "2.3M+",
+        "label": "Videos generated in first quarter"
+      },
+      {
+        "value": "4.7/5",
+        "label": "Average creator satisfaction rating"
+      },
+      {
+        "value": "12s",
+        "label": "Median time from prompt to preview"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "The motion quality surprised me. I can finally prototype ideas fast enough to actually test them with my audience before committing.",
+        "name": "Maya Chen",
+        "role": "Brand content director"
+      },
+      {
+        "quote": "I was skeptical about AI video, but Grok 2 handles camera movement better than tools I've paid way more for.",
+        "name": "Jordan Reyes",
+        "role": "Short-form creator"
+      },
+      {
+        "quote": "What sold me was consistency. Same character, different scenes, no weird morphing. That's actually useful for serialized content.",
+        "name": "Priya Sutton",
+        "role": "Animation producer"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Grok 2?",
+      "answer": "Grok 2 is xAI's advanced large language model with improved reasoning, coding, and multimodal capabilities. It offers real-time information access through X integration and handles text, images, and code generation with enhanced accuracy over its predecessor."
+    },
+    {
+      "question": "Is Grok 2 free to use?",
+      "answer": "Grok 2 is available to X Premium and Premium+ subscribers. Premium starts at $8/month with usage limits, while Premium+ ($16/month) offers higher rate limits and priority access. No free tier is currently available."
+    },
+    {
+      "question": "Can Grok 2 access real-time information from X?",
+      "answer": "Yes, Grok 2 can access and analyze real-time posts from X (formerly Twitter), providing current information on trending topics, news, and discussions. This gives it an advantage for time-sensitive queries compared to models with static knowledge cutoffs."
+    },
+    {
+      "question": "How does Grok 2 compare to ChatGPT and Claude?",
+      "answer": "Grok 2 competes with GPT-4 and Claude 3.5 in reasoning and coding benchmarks. Its unique advantage is real-time X integration. However, ChatGPT and Claude have larger ecosystems, more integrations, and broader availability options."
+    },
+    {
+      "question": "How do I start using Grok 2?",
+      "answer": "Subscribe to X Premium or Premium+ at x.com, then access Grok through the sidebar or grok.x.ai. You can ask questions, generate code, analyze images, or request information about current events directly through the chat interface."
+    }
+  ],
+  "bottomCta": {
+    "title": "Start Building with Grok 2 Today",
+    "description": "Experience xAI's most capable model with real-time information access and advanced reasoning. Join thousands of developers already using Grok 2 for production applications.",
+    "buttonText": "Try Grok 2",
+    "buttonLink": "/video-generator?model=grok-2"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "People search for Grok 2 using different variations of its name, provider, and specific capabilities like image understanding and real-time information access.",
+    "terms": [
+      "Grok 2",
+      "Grok-2",
+      "xAI Grok 2",
+      "Grok 2 model",
+      "Grok 2 AI",
+      "Grok 2 chatbot",
+      "Grok 2 free",
+      "Grok 2 online",
+      "Grok 2 alternative",
+      "xAI language model",
+      "Grok vision model",
+      "Grok real-time AI"
+    ]
+  }
+}

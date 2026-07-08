@@ -1,0 +1,73 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">LazyKiwi pixel kiwi logo</title>
+  <desc id="desc">A fresh pixel-art kiwi slice with a small green leaf.</desc>
+  <g shape-rendering="crispEdges">
+    <rect x="32" y="108" width="64" height="8" fill="#151511" fill-opacity="0.12"/>
+    <rect x="40" y="116" width="48" height="8" fill="#151511" fill-opacity="0.06"/>
+
+    <rect x="56" y="8" width="8" height="24" fill="#5C351A"/>
+    <rect x="64" y="8" width="24" height="8" fill="#137A35"/>
+    <rect x="72" y="16" width="24" height="8" fill="#137A35"/>
+    <rect x="64" y="24" width="24" height="8" fill="#137A35"/>
+    <rect x="72" y="8" width="8" height="8" fill="#5EE06E"/>
+    <rect x="80" y="16" width="8" height="8" fill="#5EE06E"/>
+    <rect x="72" y="24" width="8" height="8" fill="#5EE06E"/>
+
+    <rect x="48" y="24" width="32" height="8" fill="#5A3217"/>
+    <rect x="32" y="32" width="64" height="8" fill="#5A3217"/>
+    <rect x="24" y="40" width="80" height="8" fill="#5A3217"/>
+    <rect x="16" y="48" width="96" height="8" fill="#5A3217"/>
+    <rect x="16" y="56" width="96" height="8" fill="#5A3217"/>
+    <rect x="16" y="64" width="96" height="8" fill="#5A3217"/>
+    <rect x="16" y="72" width="96" height="8" fill="#5A3217"/>
+    <rect x="16" y="80" width="96" height="8" fill="#5A3217"/>
+    <rect x="24" y="88" width="80" height="8" fill="#5A3217"/>
+    <rect x="32" y="96" width="64" height="8" fill="#5A3217"/>
+    <rect x="48" y="104" width="32" height="8" fill="#5A3217"/>
+
+    <rect x="48" y="32" width="32" height="8" fill="#9B612C"/>
+    <rect x="32" y="40" width="64" height="8" fill="#9B612C"/>
+    <rect x="24" y="48" width="80" height="8" fill="#9B612C"/>
+    <rect x="24" y="56" width="80" height="8" fill="#9B612C"/>
+    <rect x="24" y="64" width="80" height="8" fill="#9B612C"/>
+    <rect x="24" y="72" width="80" height="8" fill="#9B612C"/>
+    <rect x="24" y="80" width="80" height="8" fill="#9B612C"/>
+    <rect x="32" y="88" width="64" height="8" fill="#9B612C"/>
+    <rect x="40" y="96" width="48" height="8" fill="#9B612C"/>
+
+    <rect x="48" y="40" width="32" height="8" fill="#8AE15C"/>
+    <rect x="40" y="48" width="48" height="8" fill="#8AE15C"/>
+    <rect x="32" y="56" width="64" height="8" fill="#8AE15C"/>
+    <rect x="32" y="64" width="64" height="8" fill="#8AE15C"/>
+    <rect x="32" y="72" width="64" height="8" fill="#8AE15C"/>
+    <rect x="40" y="80" width="48" height="8" fill="#8AE15C"/>
+    <rect x="48" y="88" width="32" height="8" fill="#8AE15C"/>
+
+    <rect x="56" y="40" width="16" height="8" fill="#B7F06D"/>
+    <rect x="48" y="48" width="32" height="8" fill="#B7F06D"/>
+    <rect x="40" y="56" width="48" height="8" fill="#B7F06D"/>
+    <rect x="40" y="64" width="48" height="8" fill="#A4E858"/>
+    <rect x="40" y="72" width="48" height="8" fill="#91DD48"/>
+    <rect x="48" y="80" width="32" height="8" fill="#7ED13F"/>
+
+    <rect x="56" y="56" width="16" height="8" fill="#F8F1B8"/>
+    <rect x="48" y="64" width="32" height="8" fill="#F8F1B8"/>
+    <rect x="56" y="72" width="16" height="16" fill="#F8F1B8"/>
+    <rect x="64" y="64" width="8" height="8" fill="#FFF7C9"/>
+
+    <rect x="48" y="48" width="6" height="6" fill="#151511"/>
+    <rect x="74" y="48" width="6" height="6" fill="#151511"/>
+    <rect x="38" y="62" width="6" height="6" fill="#151511"/>
+    <rect x="84" y="62" width="6" height="6" fill="#151511"/>
+    <rect x="40" y="78" width="6" height="6" fill="#151511"/>
+    <rect x="82" y="78" width="6" height="6" fill="#151511"/>
+    <rect x="50" y="88" width="6" height="6" fill="#151511"/>
+    <rect x="72" y="88" width="6" height="6" fill="#151511"/>
+
+    <rect x="32" y="40" width="8" height="8" fill="#C48743"/>
+    <rect x="24" y="56" width="8" height="8" fill="#C48743"/>
+    <rect x="24" y="72" width="8" height="8" fill="#7A481F"/>
+    <rect x="88" y="88" width="8" height="8" fill="#7A481F"/>
+    <rect x="96" y="56" width="8" height="24" fill="#6A3B1A"/>
+  </g>
+</svg>

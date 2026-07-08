@@ -1,0 +1,347 @@
+{
+  "slug": "midjourney-blend",
+  "parentFeature": "image-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:35:20.459420",
+  "seo": {
+    "title": "Midjourney Blend Image Mixer | Try Midjourney Blend Online",
+    "description": "Midjourney Blend combines 2-5 images into new AI-generated artwork. Mix styles, merge concepts, and create unique compositions. Try blend mode free online."
+  },
+  "hero": {
+    "headline": "Combine Multiple Images into **Seamless AI Compositions**",
+    "tagline": "Midjourney's tool for blending visual concepts into unified generated images",
+    "description": "Midjourney Blend merges 2-5 images into cohesive AI-generated compositions. Upload reference images, and the model analyzes their visual elements—color palettes, textures, subjects, and styles—to create unified outputs. Ideal for concept exploration, style fusion, and creative experimentation. Works within Midjourney's Discord interface with simple commands, delivering results that combine the essence of your source materials into original imagery.",
+    "badge": "Midjourney · Image Model",
+    "name": "Midjourney Blend",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text & Image → Image"
+      },
+      {
+        "label": "Style",
+        "value": "Artistic & stylized"
+      },
+      {
+        "label": "Quality",
+        "value": "Premium"
+      },
+      {
+        "label": "Max Resolution",
+        "value": "2 megapixels"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/hero-wide.png",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/hero-card.png"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to blended image",
+    "description": "Combine multiple images seamlessly with Midjourney Blend's intelligent merging system to create unique visual compositions in minutes.",
+    "items": [
+      {
+        "title": "Upload your source images",
+        "description": "Select Midjourney Blend and upload two to five images you want to merge. The model accepts JPG, PNG, and WebP formats up to 25MB each.",
+        "image_prompt": "Clean UI screenshot showing Midjourney Blend interface with a file upload area displaying 3 thumbnail images being dragged in. Modern card-based layout with 'Select Images' button, supported format indicators, and model selector dropdown at top. Light mode interface with purple accent colors.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/step-1.png"
+      },
+      {
+        "title": "Adjust blend settings and style",
+        "description": "Configure blend intensity, aspect ratio, and style parameters. Control how strongly each image influences the final result using intuitive weight sliders for precise control.",
+        "image_prompt": "UI screenshot showing parameter panel with blend intensity slider at 75%, aspect ratio selector showing 16:9 selected, and three image weight sliders at different levels. Style preset dropdown expanded showing options like 'Natural', 'Artistic', 'Dramatic'. Preview thumbnails of source images on the left side.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/step-2.png"
+      },
+      {
+        "title": "Generate and download your blend",
+        "description": "Click generate to create your blended image. Preview the result, make adjustments if needed, then download in your preferred format and resolution for immediate use.",
+        "image_prompt": "UI screenshot displaying a large preview of a successfully blended artistic image in the center, with 'Download' and 'Regenerate' buttons below. Format selector showing PNG/JPG/WebP options and resolution dropdown showing HD/4K options. Generation progress indicator showing completed. Small thumbnails of source images in sidebar for reference.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/image-generator?model=midjourney-blend"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Midjourney Blend",
+    "title": "What sets Midjourney Blend apart",
+    "description": "Midjourney Blend combines multiple images into cohesive compositions using advanced diffusion techniques. It analyzes visual elements from 2-5 source images and merges them seamlessly, preserving style consistency while creating entirely new outputs. Perfect for concept exploration and creative iteration.",
+    "items": [
+      {
+        "eyebrow": "Seamless Image Fusion",
+        "title": "Merge concepts without visible seams",
+        "description": "Blend analyzes color palettes, lighting conditions, and compositional elements from source images to create unified outputs. The model intelligently balances contributions from each input, maintaining visual coherence across the merged result.",
+        "bullets": [
+          "Automatic color harmony matching",
+          "Intelligent weight distribution across inputs",
+          "Preserves lighting consistency throughout composition"
+        ],
+        "image_prompt": "Split screen showing three diverse source images (portrait, landscape, abstract) on left merging into single cohesive blended image on right, with flowing transition effect, professional photography style, 8k resolution",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/cap-1.png"
+      },
+      {
+        "eyebrow": "Style Transfer",
+        "title": "Apply artistic styles across different subjects",
+        "description": "Extract stylistic elements from one image and apply them to another's composition. Blend separates content from style attributes, allowing precise control over artistic direction while maintaining subject integrity and recognizability.",
+        "bullets": [
+          "Preserves subject structure during transfer",
+          "Adapts brushwork and texture patterns",
+          "Maintains original composition hierarchy"
+        ],
+        "image_prompt": "Before and after comparison: realistic photograph of architecture transformed with oil painting texture and impressionist color palette, side by side layout, vibrant artistic rendering, museum quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/cap-2.png"
+      },
+      {
+        "eyebrow": "Concept Exploration",
+        "title": "Generate variations from multiple references",
+        "description": "Combine disparate visual concepts to discover unexpected creative directions. Blend's diffusion process creates novel interpretations by finding latent connections between inputs, accelerating ideation workflows for designers and artists.",
+        "bullets": [
+          "Rapid iteration from multiple sources",
+          "Discovers unexpected visual relationships",
+          "Generates diverse output variations"
+        ],
+        "image_prompt": "Grid of four source images (nature, technology, fashion, architecture) with arrows pointing to center showing multiple blended variations, creative studio workspace aesthetic, high contrast, professional mockup style",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/cap-3.png"
+      },
+      {
+        "eyebrow": "Compositional Control",
+        "title": "Precise influence over blending outcomes",
+        "description": "Adjust the contribution level of each source image through weighted blending parameters. This granular control lets you emphasize specific elements, creating outputs that range from subtle influences to dominant features from your chosen references.",
+        "bullets": [
+          "Adjustable weight per source image",
+          "Fine-tune element prominence",
+          "Preview influence before final render"
+        ],
+        "image_prompt": "Interface mockup showing slider controls adjusting blend percentages between three images, with live preview updating in real-time, clean modern UI design, professional software screenshot aesthetic",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Midjourney Blend in LazyKiwi",
+    "description": "Creators use Midjourney Blend to merge multiple images into seamless compositions, combining photos with artistic styles, textures, and elements for unique visual results.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/image-generator?model=midjourney-blend"
+    },
+    "items": [
+      {
+        "title": "Product Photo with Artistic Background",
+        "tag": "Multi-Image",
+        "image_prompt": "A sleek minimalist watch floating in mid-air, blended seamlessly with an abstract watercolor background in soft coral and turquoise tones, professional product photography merged with artistic painting style, studio lighting, high-end commercial aesthetic, 8k quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/shot-1.png"
+      },
+      {
+        "title": "Portrait Merged with Nature Elements",
+        "tag": "Photo→Image",
+        "image_prompt": "Professional headshot of a woman with flowing hair seamlessly blending into swirling autumn leaves and forest textures, double exposure effect, warm golden hour lighting, organic integration of human and nature, cinematic color grading, photorealistic detail",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/shot-2.png"
+      },
+      {
+        "title": "Architectural Concept with Material Textures",
+        "tag": "Multi-Image",
+        "image_prompt": "Modern glass skyscraper architecture blended with rough concrete textures and polished marble surfaces, creating a cohesive material study, architectural visualization, dramatic lighting, ultra-detailed surfaces, professional rendering quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/shot-3.png"
+      },
+      {
+        "title": "Fashion Design Style Transfer",
+        "tag": "Photo→Image",
+        "image_prompt": "Elegant evening dress photograph seamlessly merged with Japanese ukiyo-e woodblock print patterns and textures, fashion photography meets traditional art, vibrant indigo and gold tones, fabric detail preservation, artistic fusion aesthetic",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/shot-4.png"
+      },
+      {
+        "title": "Food Photography with Ingredient Textures",
+        "tag": "Multi-Image",
+        "image_prompt": "Gourmet plated dish blended harmoniously with close-up textures of raw ingredients - flour dust, fresh herbs, spices - creating a deconstructed culinary composition, professional food photography, natural lighting, editorial quality, appetizing color palette",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/shot-5.png"
+      },
+      {
+        "title": "Pet Portrait with Fantasy Elements",
+        "tag": "Photo→Image",
+        "image_prompt": "Golden retriever portrait blended seamlessly with magical forest scenery and glowing firefly lights, whimsical fantasy atmosphere, the dog's fur integrating naturally with mystical woodland textures, warm enchanted lighting, storybook illustration quality merged with photo realism",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/midjourney-blend/shot-6.png"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Midjourney Blend at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Midjourney"
+      },
+      {
+        "label": "Type",
+        "value": "Image generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, optional image"
+      },
+      {
+        "label": "Max resolution",
+        "value": "Up to 2 megapixels"
+      },
+      {
+        "label": "Formats",
+        "value": "WebP"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 4:3, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Artistic imagery, stylized content, creative concepts"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Midjourney Blend vs. other image models",
+    "description": "Midjourney Blend excels at merging multiple images into cohesive compositions. Use DALL·E 3 for precise text rendering, or Stable Diffusion for customizable local workflows.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Midjourney Blend",
+        "highlight": true,
+        "strength": "Seamlessly combines 2-5 images into unified compositions",
+        "bestFor": "Style mixing, concept merging, artistic mashups, visual experimentation",
+        "speed": "Standard"
+      },
+      {
+        "model": "DALL·E 3",
+        "highlight": false,
+        "strength": "Superior text rendering and prompt adherence",
+        "bestFor": "Precise compositions, text in images, literal prompt interpretation, photorealism",
+        "speed": "Standard"
+      },
+      {
+        "model": "Stable Diffusion XL",
+        "highlight": false,
+        "strength": "Open-source with extensive customization options",
+        "bestFor": "Local deployment, fine-tuned models, LoRA training, budget-conscious projects",
+        "speed": "Fast"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Midjourney Blend",
+    "description": "Creators use Midjourney Blend to merge multiple images into cohesive new compositions for design, marketing, and creative projects.",
+    "items": [
+      {
+        "icon": "Camera",
+        "title": "Brand Identity Systems",
+        "description": "Blend logo concepts, color palettes, and style references to generate consistent visual identities across brand touchpoints."
+      },
+      {
+        "icon": "ShoppingBag",
+        "title": "Product Mockup Variations",
+        "description": "Combine product photos with different backgrounds and contexts to create diverse marketing assets without additional photoshoots."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Character Design Evolution",
+        "description": "Merge character sketches, costume references, and mood boards to develop unique illustrations for games and storytelling."
+      },
+      {
+        "icon": "Briefcase",
+        "title": "Presentation Visual Concepts",
+        "description": "Blend data visualizations, photography, and abstract elements to create compelling slides and pitch deck imagery efficiently."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Midjourney Blend",
+    "stats": [
+      {
+        "value": "4.8/5",
+        "label": "Average rating from professional designers"
+      },
+      {
+        "value": "2M+",
+        "label": "Images blended in the last month"
+      },
+      {
+        "value": "12s",
+        "label": "Average time to generate blended results"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "Blend saves me hours when I need to iterate on visual concepts. I can test style combinations without starting from scratch every time.",
+        "name": "Maya Chen",
+        "role": "Brand designer"
+      },
+      {
+        "quote": "The way it merges composition and style is genuinely useful. I use it to explore directions before committing to final renders.",
+        "name": "James Kowalski",
+        "role": "Creative director"
+      },
+      {
+        "quote": "I was skeptical at first, but Blend actually understands how to weight different image elements. It's become part of my workflow.",
+        "name": "Priya Sharma",
+        "role": "Illustrator"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Midjourney Blend and what does it do?",
+      "answer": "Midjourney Blend is a feature that combines 2-5 images to create new AI-generated artwork. It analyzes the visual concepts, styles, and elements from your uploaded images and merges them into a single cohesive result using Midjourney's generative AI."
+    },
+    {
+      "question": "Is Midjourney Blend free to use?",
+      "answer": "Midjourney Blend is not available on a free tier. It requires a paid Midjourney subscription starting at $10/month for the Basic plan. Each blend operation consumes GPU time from your subscription's monthly allocation, similar to standard image generation."
+    },
+    {
+      "question": "How does Midjourney Blend compare to other image blending tools?",
+      "answer": "Unlike simple photo blending apps that overlay or fade images, Midjourney Blend uses AI to understand and synthesize concepts from multiple images. It creates entirely new compositions rather than just layering, producing more creative and unpredictable artistic results than traditional editing software."
+    },
+    {
+      "question": "How do I use the Blend feature in Midjourney?",
+      "answer": "Type /blend in Discord, then upload 2-5 images when prompted. Midjourney processes them automatically without needing text prompts. You can optionally adjust dimensions and add suffixes. The AI generates blended results within 30-60 seconds, depending on server load."
+    },
+    {
+      "question": "Can I control which elements from each image appear in the blend?",
+      "answer": "Midjourney Blend doesn't offer granular control over which specific elements appear. The AI interprets all images holistically and decides how to merge them. For more control, use standard /imagine prompts with image URLs and descriptive text instead of the blend command."
+    }
+  ],
+  "bottomCta": {
+    "title": "Start Blending Images with Midjourney Today",
+    "description": "Combine multiple images into seamless compositions using Midjourney's blend feature. Create unique visual mashups in seconds with AI-powered image merging technology.",
+    "buttonText": "Try Blend Now",
+    "buttonLink": "/image-generator?model=midjourney-blend"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "Users search for Midjourney Blend using various terms related to image blending, merging multiple images, and Midjourney's specific blending capabilities across different contexts.",
+    "terms": [
+      "Midjourney Blend",
+      "MJ Blend",
+      "Midjourney image blend",
+      "Midjourney merge images",
+      "Midjourney Blend feature",
+      "Midjourney image blending tool",
+      "Midjourney Blend online",
+      "Midjourney Blend free",
+      "Midjourney image merger",
+      "Midjourney Blend alternative",
+      "AI image blending Midjourney",
+      "Midjourney combine images"
+    ]
+  }
+}

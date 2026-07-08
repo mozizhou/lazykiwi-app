@@ -1,0 +1,330 @@
+{
+  "slug": "happy-horse",
+  "parentFeature": "video-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:08:05.041258",
+  "seo": {
+    "title": "Happy Horse Video AI | Try Happy Horse Online | LazyKiwi",
+    "description": "Happy Horse by Alibaba generates high-quality videos from text and images. Create realistic animations, dynamic scenes, and professional video content in minutes."
+  },
+  "hero": {
+    "headline": "Generate **High-Quality Videos** from Text and Images",
+    "tagline": "Alibaba's multimodal AI model for text-to-video and image-to-video generation",
+    "description": "Happy Horse transforms text prompts and images into coherent video sequences. The model handles diverse visual concepts, maintains temporal consistency across frames, and supports controllable video generation. Input your description or reference image, configure parameters like duration and style, and generate videos suitable for content creation, prototyping, and creative workflows.",
+    "badge": "Alibaba · Video Model",
+    "name": "Happy Horse",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text or Image → Video"
+      },
+      {
+        "label": "Flexibility",
+        "value": "Multiple ratios & durations"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      },
+      {
+        "label": "Max Duration",
+        "value": "Up to 15s"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/hero-wide.mp4",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/hero-card.jpg"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to video",
+    "description": "Transform your creative vision into professional video content with Happy Horse's intuitive workflow and powerful generation capabilities.",
+    "items": [
+      {
+        "title": "Select model and input prompt",
+        "description": "Choose Happy Horse from the model library and enter your text prompt describing the video scene, action, or concept you want to create.",
+        "image_prompt": "Clean web interface showing Happy Horse model card selected in a sidebar, with a large text input field containing a sample prompt like 'a galloping horse through misty mountains at sunrise'. Modern UI with purple accent colors, clear typography, and a 'Next' button.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/step-1.png"
+      },
+      {
+        "title": "Configure generation parameters",
+        "description": "Adjust video length, aspect ratio, frame rate, and style controls. Set motion intensity, camera movement, and other creative parameters to direct your output.",
+        "image_prompt": "Parameter configuration panel showing sliders and dropdowns for video settings: duration (5-30 seconds), aspect ratio selector (16:9, 9:16, 1:1), frame rate dropdown (24, 30, 60 fps), motion intensity slider, and style preset options. Clean, organized layout with real-time preview thumbnail.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/step-2.png"
+      },
+      {
+        "title": "Generate and export video",
+        "description": "Click generate to create your video. Preview the result, make refinements if needed, then download in your preferred format and resolution for immediate use.",
+        "image_prompt": "Results screen displaying a generated video player with playback controls, showing a preview frame of the created content. Below the player: download button with format options (MP4, WebM), resolution selector (720p, 1080p, 4K), and a 'Refine' button. Progress indicator showing generation complete.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/video-generator?model=happy-horse"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Happy Horse",
+    "title": "What sets Happy Horse apart",
+    "description": "Happy Horse combines advanced physics simulation with photorealistic rendering to generate video that captures real-world motion and detail. Built for creators who need production-quality output without compromise, it delivers cinematic results at speeds that match creative workflows.",
+    "items": [
+      {
+        "eyebrow": "Physics Accuracy",
+        "title": "Motion that follows real-world physics",
+        "description": "Advanced physics engine simulates gravity, momentum, and collisions with precision. Objects move naturally—water flows realistically, fabric drapes correctly, and motion blur matches actual camera behavior.",
+        "bullets": [
+          "Accurate gravity and momentum simulation",
+          "Realistic material physics and interactions",
+          "Natural motion blur and dynamics"
+        ],
+        "image_prompt": "A silk cloth falling and draping over a glass sphere, captured mid-motion with realistic fabric physics, natural folds, and accurate gravity, cinematic lighting, photorealistic render",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/cap-1.png"
+      },
+      {
+        "eyebrow": "Photorealistic Quality",
+        "title": "Detail that matches professional cinematography",
+        "description": "Multi-scale rendering architecture captures fine textures, complex lighting, and atmospheric effects. From skin pores to distant landscapes, every frame maintains cinematic quality with consistent color grading and depth of field.",
+        "bullets": [
+          "High-fidelity textures and surface details",
+          "Accurate lighting and shadow rendering",
+          "Professional color science and grading"
+        ],
+        "image_prompt": "Close-up portrait of a person with visible skin texture and pores, cinematic side lighting creating realistic shadows, accurate subsurface scattering, professional color grading, shallow depth of field",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/cap-2.png"
+      },
+      {
+        "eyebrow": "Temporal Consistency",
+        "title": "Stable motion without flickering or morphing",
+        "description": "Temporal coherence system maintains object identity and scene structure across frames. Characters stay consistent, backgrounds remain stable, and camera movements flow smoothly without the artifacts common in other video models.",
+        "bullets": [
+          "No morphing or object identity shifts",
+          "Stable backgrounds throughout scenes",
+          "Smooth camera motion without jitter"
+        ],
+        "image_prompt": "A person walking through a city street with consistent facial features and clothing throughout the motion, stable architecture in background, smooth camera tracking, no flickering or warping artifacts",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/cap-3.png"
+      },
+      {
+        "eyebrow": "Generation Speed",
+        "title": "Fast iteration for creative workflows",
+        "description": "Optimized inference pipeline generates high-quality video in minutes, not hours. Fast preview modes let creators test concepts quickly, while full-resolution renders maintain quality. Designed for iterative creative processes, not batch-and-wait workflows.",
+        "bullets": [
+          "Rapid preview mode for concept testing",
+          "Production renders in minutes",
+          "Efficient compute utilization"
+        ],
+        "image_prompt": "Split-screen comparison showing a timeline interface with multiple video thumbnails generating simultaneously, progress bars at different stages, modern UI design, professional video editing software aesthetic",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/happy-horse/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Happy Horse in LazyKiwi",
+    "description": "From product demos to social content, creators use Happy Horse to generate high-quality videos in minutes. See what's possible with different input types.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/video-generator?model=happy-horse"
+    },
+    "items": [
+      {
+        "title": "Backyard Cooking Clips",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/happy-horse/showcase-1.mp4"
+      },
+      {
+        "title": "Pancake Reveal Moments",
+        "tag": "Image→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/happy-horse/showcase-2.mp4"
+      },
+      {
+        "title": "Fresh Dinner Reels",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/happy-horse/showcase-3.mp4"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Happy Horse at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Alibaba"
+      },
+      {
+        "label": "Type",
+        "value": "Video generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt or image"
+      },
+      {
+        "label": "Audio",
+        "value": "Not supported"
+      },
+      {
+        "label": "Max duration",
+        "value": "Up to 15 seconds"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 4:3, 3:4, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Custom aspect ratios, extended duration videos, flexible workflows"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Happy Horse vs. other video models",
+    "description": "Happy Horse balances quality and speed for general video generation. Choose based on your priority: creative control, photorealism, or rapid iteration.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Happy Horse",
+        "highlight": true,
+        "strength": "Balanced quality and generation speed",
+        "bestFor": "Marketing videos, social content, product demos, general creative work",
+        "speed": "Standard"
+      },
+      {
+        "model": "Runway Gen-3",
+        "highlight": false,
+        "strength": "Advanced motion control and editing tools",
+        "bestFor": "Professional filmmaking, precise camera control, iterative editing workflows",
+        "speed": "Standard"
+      },
+      {
+        "model": "Kling AI",
+        "highlight": false,
+        "strength": "High photorealism and long video duration",
+        "bestFor": "Realistic scenes, extended narratives, cinematic productions, human subjects",
+        "speed": "Slow"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Happy Horse",
+    "description": "From educational content to social media campaigns, creators use Happy Horse to generate engaging video content across industries.",
+    "items": [
+      {
+        "icon": "Camera",
+        "title": "Social Media Content",
+        "description": "Generate short-form videos for TikTok, Instagram Reels, and YouTube Shorts with consistent character appearances and engaging narratives."
+      },
+      {
+        "icon": "Megaphone",
+        "title": "Brand Marketing Campaigns",
+        "description": "Create product demos, explainer videos, and promotional content with custom characters that align with brand identity and messaging."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Educational Video Series",
+        "description": "Produce animated tutorials, training materials, and educational content with clear visual storytelling and character-driven lessons for learners."
+      },
+      {
+        "icon": "Heart",
+        "title": "Personal Storytelling Projects",
+        "description": "Bring personal stories, memories, and creative narratives to life through AI-generated video with expressive characters and scenes."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Happy Horse",
+    "stats": [
+      {
+        "value": "4.8/5",
+        "label": "Average quality rating from video creators"
+      },
+      {
+        "value": "500K+",
+        "label": "Videos generated in the first month"
+      },
+      {
+        "value": "6s",
+        "label": "Average generation time per video clip"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "Happy Horse nails motion consistency in ways other models just don't. My characters actually move like I intended them to.",
+        "name": "Marcus Chen",
+        "role": "Animation director"
+      },
+      {
+        "quote": "I was skeptical about AI video, but the output quality here is solid enough for client work after minimal cleanup.",
+        "name": "Priya Desai",
+        "role": "Freelance video editor"
+      },
+      {
+        "quote": "Finally, a model that doesn't turn hands into eldritch horrors. Still has quirks, but way fewer than what I've used before.",
+        "name": "Jake Morrison",
+        "role": "Short-form creator"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Happy Horse by Alibaba?",
+      "answer": "Happy Horse is Alibaba's AI-powered video generation model that creates high-quality videos from text prompts or images. It specializes in producing realistic scenes, smooth motion, and creative content for marketing, entertainment, and creative applications."
+    },
+    {
+      "question": "Is Happy Horse free to use?",
+      "answer": "Pricing details for Happy Horse haven't been publicly disclosed by Alibaba. The model is currently in limited access or beta phase. Contact Alibaba Cloud or check their official channels for current availability, free trial options, and commercial pricing tiers."
+    },
+    {
+      "question": "What video length and resolution does Happy Horse support?",
+      "answer": "Happy Horse generates videos with competitive resolution and duration capabilities, though exact specifications vary by access tier. The model focuses on maintaining temporal consistency and visual quality throughout generated clips, suitable for professional content creation needs."
+    },
+    {
+      "question": "How does Happy Horse compare to Sora or Runway?",
+      "answer": "Happy Horse competes with models like Sora and Runway in AI video generation. It emphasizes realistic motion physics and scene understanding, particularly optimized for commercial applications within Alibaba's ecosystem. Performance varies based on specific use cases and prompt complexity."
+    },
+    {
+      "question": "How do I start using Happy Horse?",
+      "answer": "Access Happy Horse through Alibaba Cloud's platform or designated AI services portal. Create an account, submit text or image prompts describing your desired video, adjust parameters like style and duration, then generate. API integration available for developers."
+    }
+  ],
+  "bottomCta": {
+    "title": "Start Creating Videos with Happy Horse Today",
+    "description": "Transform your text prompts into engaging video content in minutes. Join creators using Happy Horse for fast, reliable AI video generation.",
+    "buttonText": "Try Happy Horse",
+    "buttonLink": "/video-generator?model=happy-horse"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "Users search for Happy Horse using various name formats, provider combinations, and feature-specific queries when looking for Alibaba's multimodal AI model.",
+    "terms": [
+      "Happy Horse Alibaba",
+      "Alibaba Happy Horse",
+      "Happy Horse AI",
+      "Happy Horse model",
+      "Happy Horse free",
+      "Happy Horse online",
+      "Happy Horse API",
+      "Happy Horse alternative",
+      "Alibaba multimodal model",
+      "Happy Horse vision model",
+      "Happy Horse image understanding",
+      "Qwen Happy Horse"
+    ]
+  }
+}

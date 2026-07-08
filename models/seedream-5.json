@@ -1,0 +1,341 @@
+{
+  "slug": "seedream-5",
+  "parentFeature": "image-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:31:13.243493",
+  "seo": {
+    "title": "Seedream 5.0 AI Image Generator | Try Seedream 5.0 | LazyKiwi",
+    "description": "Seedream 5.0 by Seed generates high-quality images from text. Create realistic photos, artwork, and designs with advanced AI. Free to try online."
+  },
+  "hero": {
+    "headline": "Generate **High-Fidelity** Images from Text Prompts",
+    "tagline": "Seed's flagship text-to-image model for professional visual content creation",
+    "description": "Seedream 5.0 converts natural language descriptions into detailed, photorealistic images. Built for designers, marketers, and content creators, it delivers precise control over composition, lighting, and style. Generate production-ready visuals in seconds with advanced prompt understanding and consistent output quality across iterations.",
+    "badge": "Seed · Image Model",
+    "name": "Seedream 5.0",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text & Images → Image"
+      },
+      {
+        "label": "Style",
+        "value": "Dream-like creativity"
+      },
+      {
+        "label": "Max Resolution",
+        "value": "Up to 4K"
+      },
+      {
+        "label": "Format",
+        "value": "PNG"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/hero-wide.png",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/hero-card.png"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to image",
+    "description": "Transform your creative vision into stunning visuals with Seedream 5.0 through a streamlined three-step process.",
+    "items": [
+      {
+        "title": "Select model and describe",
+        "description": "Choose Seedream 5.0 from the model dropdown and enter your image description in the prompt field to define your creative vision.",
+        "image_prompt": "Clean UI screenshot showing Seedream 5.0 selected in a dropdown menu at the top, with a large text input field below containing the prompt 'A futuristic cityscape at sunset with flying cars and neon lights'. Modern interface with subtle shadows and a purple accent color.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/step-1.png"
+      },
+      {
+        "title": "Configure generation settings",
+        "description": "Adjust aspect ratio, quality level, and style parameters using intuitive sliders and toggles to fine-tune your output specifications.",
+        "image_prompt": "UI panel showing configuration options: aspect ratio selector displaying 16:9, 1:1, 4:3 options; quality slider set to 'High'; style intensity dial at 75%; and seed number input field. Clean, organized layout with labeled sections and real-time preview thumbnail.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/step-2.png"
+      },
+      {
+        "title": "Generate and download image",
+        "description": "Click generate to create your image, preview the result in high resolution, then download in your preferred format and dimensions.",
+        "image_prompt": "Results screen showing a generated image displayed prominently in the center with a progress indicator completed. Below the image are download buttons for PNG, JPG, and WebP formats, plus resolution options (1024x1024, 2048x2048). Clean interface with the generated image having a subtle border.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/image-generator?model=seedream-5"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Seedream 5.0",
+    "title": "What sets Seedream 5.0 apart",
+    "description": "Seedream 5.0 delivers photorealistic image generation with unprecedented detail and consistency. Built on advanced diffusion architecture, it handles complex prompts with precise control over composition, lighting, and style while maintaining natural physics and material rendering across diverse subjects.",
+    "items": [
+      {
+        "eyebrow": "Photorealistic Rendering",
+        "title": "Generate images indistinguishable from photographs",
+        "description": "Advanced material simulation and light transport modeling produce authentic textures, reflections, and shadows. Every surface responds to light naturally, from skin subsurface scattering to metallic reflections and fabric weaves.",
+        "bullets": [
+          "Accurate physically-based material properties",
+          "Natural subsurface scattering and translucency",
+          "Realistic environmental lighting and reflections"
+        ],
+        "image_prompt": "Close-up portrait of a person with natural skin texture showing pores and fine details, soft window light creating subtle subsurface scattering, realistic hair strands catching light, shallow depth of field, photorealistic quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/cap-1.png"
+      },
+      {
+        "eyebrow": "Compositional Precision",
+        "title": "Control every element with multi-object accuracy",
+        "description": "Handles complex scenes with multiple subjects, maintaining spatial relationships and individual characteristics. Precisely interprets layered prompts to place, scale, and arrange elements exactly as described without object merging or confusion.",
+        "bullets": [
+          "Accurate multi-object scene composition",
+          "Precise spatial relationship understanding",
+          "No attribute bleeding between subjects"
+        ],
+        "image_prompt": "Wide shot of a modern cafe interior with three distinct people: a woman in red jacket reading at left table, a man in blue shirt working on laptop at center, a barista in apron preparing coffee at right counter, each person clearly separated with accurate proportions and positions",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/cap-2.png"
+      },
+      {
+        "eyebrow": "Text Integration",
+        "title": "Render readable text within generated images",
+        "description": "Produces legible typography with correct spelling, proper kerning, and realistic text placement on surfaces. Maintains font consistency and handles text perspective, curvature, and material interaction naturally within the scene context.",
+        "bullets": [
+          "Accurate spelling and character rendering",
+          "Natural text perspective on surfaces",
+          "Consistent typography and proper kerning"
+        ],
+        "image_prompt": "Product shot of a coffee cup with 'MORNING BREW' text printed on white ceramic surface, letters perfectly aligned and legible, slight perspective distortion from angle, text follows cup curvature naturally, studio lighting",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/cap-3.png"
+      },
+      {
+        "eyebrow": "Style Consistency",
+        "title": "Maintain coherent aesthetics across generations",
+        "description": "Preserves artistic direction, color palettes, and visual language across multiple outputs. Whether photorealistic, illustrated, or stylized, the model maintains consistent rendering approach, lighting mood, and aesthetic choices throughout a series.",
+        "bullets": [
+          "Reliable style reproduction across outputs",
+          "Consistent color grading and mood",
+          "Stable artistic interpretation of prompts"
+        ],
+        "image_prompt": "Split view comparison showing four variations of the same scene (a park bench under tree) maintaining identical visual style: same color palette, consistent lighting approach, matching level of detail and artistic treatment across all versions",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Seedream 5.0 in LazyKiwi",
+    "description": "From product mockups to character animations, creators use Seedream 5.0 to generate high-quality visuals in seconds. Explore real examples from the community.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/image-generator?model=seedream-5"
+    },
+    "items": [
+      {
+        "title": "Product photography for e-commerce",
+        "tag": "Text→Image",
+        "image_prompt": "Professional product photography of a sleek wireless headphone on a marble surface, studio lighting with soft shadows, minimalist composition, white and gray tones, commercial quality, 8k resolution, shallow depth of field",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/shot-1.png"
+      },
+      {
+        "title": "Animated character walk cycle",
+        "tag": "Frames→Video"
+      },
+      {
+        "title": "Architectural visualization from sketch",
+        "tag": "Image→Video"
+      },
+      {
+        "title": "Fantasy landscape concept art",
+        "tag": "Text→Image",
+        "image_prompt": "Epic fantasy landscape with floating islands connected by glowing bridges, bioluminescent forests below, twin moons in purple twilight sky, ethereal mist, dramatic lighting, digital art style, highly detailed, cinematic composition",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/shot-4.png"
+      },
+      {
+        "title": "Social media ad from description",
+        "tag": "Text→Video"
+      },
+      {
+        "title": "Portrait style transfer experiment",
+        "tag": "Photo→Image",
+        "image_prompt": "Portrait of a young woman with natural expression, transformed into oil painting style reminiscent of Renaissance masters, rich warm colors, dramatic chiaroscuro lighting, textured brushstrokes visible, classical composition, museum quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/seedream-5/shot-6.png"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Seedream 5.0 at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Seed"
+      },
+      {
+        "label": "Type",
+        "value": "Image generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, optional images"
+      },
+      {
+        "label": "Max resolution",
+        "value": "Up to 4K"
+      },
+      {
+        "label": "Formats",
+        "value": "PNG"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 4:3, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Dream-like imagery, surreal art, creative exploration"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Seedream 5.0 vs. other image models",
+    "description": "Choose Seedream 5.0 for realistic images with precise control, DALL-E 3 for creative concepts, or Midjourney for artistic styles.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Seedream 5.0",
+        "highlight": true,
+        "strength": "Photorealistic quality with fine-grained control",
+        "bestFor": "Product photography, portraits, architectural visualization, brand assets",
+        "speed": "Standard"
+      },
+      {
+        "model": "DALL-E 3",
+        "highlight": false,
+        "strength": "Strong text rendering and concept interpretation",
+        "bestFor": "Marketing materials, infographics, concept art, text-heavy designs",
+        "speed": "Fast"
+      },
+      {
+        "model": "Midjourney v6",
+        "highlight": false,
+        "strength": "Distinctive artistic aesthetics and style variety",
+        "bestFor": "Creative illustrations, mood boards, fantasy art, stylized content",
+        "speed": "Standard"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Seedream 5.0",
+    "description": "From product showcases to social content, creators use Seedream 5.0 to generate professional video across industries and formats.",
+    "items": [
+      {
+        "icon": "ShoppingBag",
+        "title": "Product Marketing Videos",
+        "description": "E-commerce creators generate dynamic product demos and unboxing videos that showcase features with cinematic camera movements and lighting."
+      },
+      {
+        "icon": "Camera",
+        "title": "Social Media Content",
+        "description": "Influencers create scroll-stopping short-form videos for TikTok, Instagram Reels, and YouTube Shorts with trending visual styles."
+      },
+      {
+        "icon": "Megaphone",
+        "title": "Brand Advertising Campaigns",
+        "description": "Marketing teams produce commercial-quality ads with consistent brand aesthetics, eliminating costly studio shoots and location filming."
+      },
+      {
+        "icon": "Clapperboard",
+        "title": "Narrative Storytelling",
+        "description": "Filmmakers prototype scenes, generate B-roll footage, and visualize storyboards before committing to live-action production budgets."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Seedream 5.0",
+    "stats": [
+      {
+        "value": "4.8/5",
+        "label": "Average rating from 12,000+ creators"
+      },
+      {
+        "value": "2.4M+",
+        "label": "Images generated in first month"
+      },
+      {
+        "value": "6s",
+        "label": "Average generation time per image"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "Finally, an image model that understands composition without fighting me on every prompt. Saves me hours of iteration.",
+        "name": "Maya Chen",
+        "role": "Product designer"
+      },
+      {
+        "quote": "The text rendering actually works now. I can prototype ad concepts in minutes instead of mocking everything up manually.",
+        "name": "James Rodriguez",
+        "role": "Marketing creative lead"
+      },
+      {
+        "quote": "Switched from Midjourney last week. The consistency between generations is what sold me—same character, different scenes, no hassle.",
+        "name": "Sarah Kim",
+        "role": "Indie game developer"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Seedream 5.0?",
+      "answer": "Seedream 5.0 is Seed's latest AI image generation model that creates high-quality visuals from text prompts. It offers improved photorealism, better prompt understanding, and faster generation speeds compared to previous versions."
+    },
+    {
+      "question": "Is Seedream 5.0 free to use?",
+      "answer": "Seedream 5.0 offers a free tier with limited daily generations. Paid plans provide higher resolution outputs, faster processing, commercial usage rights, and increased monthly generation quotas starting from basic to professional tiers."
+    },
+    {
+      "question": "How does Seedream 5.0 compare to Midjourney and DALL-E?",
+      "answer": "Seedream 5.0 competes with strong photorealism and artistic flexibility. It excels at Asian aesthetics and cultural contexts, offers competitive pricing, and provides faster iteration speeds, though community size is smaller than established alternatives."
+    },
+    {
+      "question": "What are the key features of Seedream 5.0?",
+      "answer": "Key features include advanced prompt interpretation, multiple aspect ratios, style consistency across generations, inpainting and outpainting capabilities, batch processing, and fine-tuned controls for lighting, composition, and artistic styles."
+    },
+    {
+      "question": "How do I get started with Seedream 5.0?",
+      "answer": "Sign up on Seed's platform, access the Seedream 5.0 interface, enter your text prompt describing the desired image, select generation parameters, and click generate. Results typically appear within seconds to minutes depending on complexity."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create Stunning Images with Seedream 5.0",
+    "description": "Experience advanced AI image generation with superior quality, precise prompt following, and natural aesthetics. Start creating professional visuals in seconds with Seedream 5.0.",
+    "buttonText": "Try Seedream 5.0",
+    "buttonLink": "/image-generator?model=seedream-5"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "Users search for Seedream using various name formats, provider combinations, and specific capabilities like video generation, making these aliases essential for discovery.",
+    "terms": [
+      "Seedream 5",
+      "Seedream v5",
+      "Seed Seedream",
+      "Seed AI video",
+      "Seedream online",
+      "Seedream free",
+      "Seedream video generator",
+      "Seed video model",
+      "Seedream alternative",
+      "text to video Seed",
+      "AI video generation Seedream",
+      "Seedream API"
+    ]
+  }
+}

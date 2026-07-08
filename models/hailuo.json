@@ -1,0 +1,330 @@
+{
+  "slug": "hailuo",
+  "parentFeature": "video-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:03:06.493562",
+  "seo": {
+    "title": "Hailuo AI Video Generator | Try Hailuo AI Online | LazyKiwi",
+    "description": "Hailuo AI by MiniMax: Generate high-quality videos from text prompts. Create realistic scenes, animations, and visual content with advanced AI technology."
+  },
+  "hero": {
+    "headline": "Turn Text into **High-Quality Video** with MiniMax AI",
+    "tagline": "MiniMax's foundation model for realistic text-to-video generation",
+    "description": "Hailuo AI converts text prompts into smooth, cinematic video clips up to 6 seconds long. Built on MiniMax's multimodal foundation model, it generates coherent motion, accurate scene composition, and natural lighting. Simply describe your scene, adjust parameters like aspect ratio and duration, and export production-ready video for content creation, prototyping, or creative projects.",
+    "badge": "MiniMax · Video Model",
+    "name": "Hailuo AI",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Image → Video"
+      },
+      {
+        "label": "Speed",
+        "value": "Fast generation"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      },
+      {
+        "label": "Duration",
+        "value": "6 or 10 seconds"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/hero-wide.mp4",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/hero-card.jpg"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to video",
+    "description": "Transform text prompts into AI-generated videos through a streamlined workflow that takes you from concept to polished output.",
+    "items": [
+      {
+        "title": "Enter your video prompt",
+        "description": "Select Hailuo AI from the model dropdown and describe your desired video scene in the text input field with specific details about action, setting, and style.",
+        "image_prompt": "Clean web interface showing Hailuo AI video generator with a model selector dropdown at the top displaying 'Hailuo AI' as selected, and below it a large text input area containing an example prompt like 'A golden retriever running through a sunlit meadow in slow motion'. The interface has a modern, minimal design with soft shadows and a light color scheme.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/step-1.png"
+      },
+      {
+        "title": "Configure video parameters",
+        "description": "Adjust duration, aspect ratio, and motion intensity settings using intuitive sliders and dropdown menus to control your video's technical specifications and creative direction.",
+        "image_prompt": "Settings panel interface showing multiple configuration options: a duration slider set to 5 seconds (range 2-10s), an aspect ratio selector showing 16:9 selected among options like 1:1, 9:16, 4:3, and a motion intensity slider at medium level. Each control has clear labels and values displayed. The design is clean with organized sections and sufficient spacing.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/step-2.png"
+      },
+      {
+        "title": "Generate and download video",
+        "description": "Click generate to process your video, preview the result in the built-in player, then download the final file in your preferred format and resolution.",
+        "image_prompt": "Results view showing a video player displaying a generated video with playback controls (play/pause, timeline scrubber, volume). Below the player are download options showing format buttons (MP4, WebM) and resolution choices (1080p, 720p, 480p). A prominent 'Download' button appears in the interface. The generated video thumbnail shows the scene from the original prompt.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/video-generator?model=hailuo"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Hailuo AI",
+    "title": "What sets Hailuo AI apart",
+    "description": "Hailuo AI by MiniMax delivers state-of-the-art video generation with exceptional motion coherence and visual fidelity. Built on advanced diffusion architecture, it handles complex scenes, realistic physics, and extended sequences while maintaining temporal consistency throughout every frame.",
+    "items": [
+      {
+        "eyebrow": "Motion Physics",
+        "title": "Realistic movement that follows natural laws",
+        "description": "Advanced physics simulation ensures objects move, interact, and deform naturally. From fluid dynamics to cloth behavior, every element responds correctly to forces, creating believable motion that matches real-world expectations.",
+        "bullets": [
+          "Accurate gravity and momentum simulation",
+          "Natural cloth and fluid dynamics",
+          "Realistic collision and interaction physics"
+        ],
+        "image_prompt": "Split screen comparison showing water splashing realistically with accurate droplet physics and wave propagation, fabric draping naturally over objects with proper fold dynamics, and a ball bouncing with correct trajectory and deformation",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/cap-1.png"
+      },
+      {
+        "eyebrow": "Temporal Coherence",
+        "title": "Smooth consistency across extended sequences",
+        "description": "Maintains visual and semantic continuity throughout video duration without flickering or morphing artifacts. Objects, characters, and environments remain stable frame-to-frame, enabling longer narratives with reliable appearance preservation across cuts and camera movements.",
+        "bullets": [
+          "Zero flickering or morphing artifacts",
+          "Stable object identity across frames",
+          "Consistent lighting and shadows throughout"
+        ],
+        "image_prompt": "Side-by-side frame sequence showing the same character walking through different lighting conditions, maintaining identical facial features, clothing details, and proportions across 8 consecutive frames with smooth transitions",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/cap-2.png"
+      },
+      {
+        "eyebrow": "Scene Complexity",
+        "title": "Handle intricate multi-element compositions",
+        "description": "Processes complex scenes with multiple moving subjects, layered backgrounds, and dynamic interactions simultaneously. Maintains spatial relationships and depth hierarchy while rendering detailed textures, accurate occlusions, and natural environmental effects in crowded compositions.",
+        "bullets": [
+          "Multiple subjects with independent motion",
+          "Accurate depth and occlusion handling",
+          "Complex environmental particle effects"
+        ],
+        "image_prompt": "Bustling city street scene with dozens of pedestrians walking in different directions, vehicles moving at various speeds, reflections in storefront windows, falling leaves, and proper depth-of-field showing foreground, midground, and background elements",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/cap-3.png"
+      },
+      {
+        "eyebrow": "Visual Fidelity",
+        "title": "Photorealistic quality at high resolution",
+        "description": "Generates sharp, detailed imagery with accurate textures, lighting, and material properties. Advanced rendering produces realistic skin tones, fabric weaves, surface reflections, and atmospheric effects that rival professional cinematography standards at resolution suitable for production use.",
+        "bullets": [
+          "4K-ready output with fine detail",
+          "Accurate material and surface rendering",
+          "Cinematic lighting and color grading"
+        ],
+        "image_prompt": "Close-up portrait showing intricate skin texture with visible pores and subtle subsurface scattering, eyes with detailed iris patterns and realistic moisture, individual hair strands with proper light interaction, and natural makeup detail under studio lighting",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/hailuo/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Hailuo AI in LazyKiwi",
+    "description": "From product demos to social content, creators use Hailuo AI to generate high-quality videos in minutes. See what's possible with text-to-video generation.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/video-generator?model=hailuo"
+    },
+    "items": [
+      {
+        "title": "Beach Cooler Reveal",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/hailuo/showcase-1.mp4"
+      },
+      {
+        "title": "Boardwalk Photobomb",
+        "tag": "Image→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/hailuo/showcase-2.mp4"
+      },
+      {
+        "title": "Seashell Surprise",
+        "tag": "Text→Video",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/videos/models/hailuo/showcase-3.mp4"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Hailuo AI at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "MiniMax"
+      },
+      {
+        "label": "Type",
+        "value": "Video generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Image + optional text prompt"
+      },
+      {
+        "label": "Audio",
+        "value": "Not supported"
+      },
+      {
+        "label": "Max duration",
+        "value": "6 or 10 seconds"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 1080p"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "Based on input image"
+      },
+      {
+        "label": "Best for",
+        "value": "Image-to-video conversion, fast generation, portrait animation"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Hailuo AI vs. other video models",
+    "description": "Hailuo AI excels at realistic motion and Chinese content. Choose Runway for creative control or Pika for speed and iteration.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Hailuo AI",
+        "highlight": true,
+        "strength": "Realistic motion and physics simulation",
+        "bestFor": "Product demos, realistic scenes, Chinese language content generation",
+        "speed": "Standard"
+      },
+      {
+        "model": "Runway Gen-3",
+        "highlight": false,
+        "strength": "Advanced camera control and cinematography",
+        "bestFor": "Professional filmmaking, precise camera movements, creative direction control",
+        "speed": "Standard"
+      },
+      {
+        "model": "Pika 1.5",
+        "highlight": false,
+        "strength": "Fast iteration with real-time previews",
+        "bestFor": "Quick prototyping, social media content, rapid concept exploration",
+        "speed": "Fast"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Hailuo AI",
+    "description": "From social media content to marketing campaigns, creators use Hailuo AI to generate engaging video content across every format.",
+    "items": [
+      {
+        "icon": "Camera",
+        "title": "Social Media Content",
+        "description": "Generate short-form videos for TikTok, Instagram Reels, and YouTube Shorts with text-to-video prompts in seconds."
+      },
+      {
+        "icon": "Megaphone",
+        "title": "Marketing Campaign Videos",
+        "description": "Create product demos, explainer videos, and promotional content without filming or complex video editing software."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Concept Visualization",
+        "description": "Transform creative ideas and storyboards into visual video sequences for pitches, presentations, and client previews."
+      },
+      {
+        "icon": "Clapperboard",
+        "title": "Video Prototyping",
+        "description": "Rapidly test multiple video concepts and styles before committing to full production, saving time and resources."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Hailuo AI",
+    "stats": [
+      {
+        "value": "5s",
+        "label": "Average generation time for video clips"
+      },
+      {
+        "value": "500K+",
+        "label": "Videos created in the first month"
+      },
+      {
+        "value": "4.7/5",
+        "label": "Average rating from early access users"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "The motion quality is surprisingly natural. I can iterate on concepts fast without burning through my entire budget on test footage.",
+        "name": "Maya Chen",
+        "role": "Independent filmmaker"
+      },
+      {
+        "quote": "We use it for quick social cuts and B-roll. Saves us hours compared to stock libraries, and the results fit our brand better.",
+        "name": "Jordan Miles",
+        "role": "Content lead"
+      },
+      {
+        "quote": "Finally, a video model that handles camera movement well. The physics feel right, which matters when you're prototyping scenes.",
+        "name": "Alex Reeves",
+        "role": "VFX artist"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Hailuo AI?",
+      "answer": "Hailuo AI is a video generation platform developed by MiniMax that creates realistic videos from text prompts. It specializes in generating high-quality, coherent video content with strong motion consistency and natural scene transitions."
+    },
+    {
+      "question": "Is Hailuo AI free to use?",
+      "answer": "Hailuo AI offers a free tier with limited daily credits for video generation. Paid plans provide additional credits, faster processing, longer video durations, and priority access. Pricing varies based on video length and quality settings."
+    },
+    {
+      "question": "How long are videos generated by Hailuo AI?",
+      "answer": "Hailuo AI typically generates videos up to 6 seconds in length. The platform focuses on creating short, high-quality clips with smooth motion and realistic details, suitable for social media, prototyping, and creative projects."
+    },
+    {
+      "question": "How does Hailuo AI compare to Runway and Pika?",
+      "answer": "Hailuo AI competes with Runway and Pika in text-to-video generation, offering strong motion coherence and realistic outputs. Users note its competitive quality and speed, though feature sets and pricing models differ across platforms."
+    },
+    {
+      "question": "How do I use Hailuo AI to generate videos?",
+      "answer": "To use Hailuo AI, create an account, enter a descriptive text prompt detailing your desired video, select generation parameters, and click generate. The AI processes your request and delivers the video within minutes."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create AI Videos with Hailuo Today",
+    "description": "Transform text into high-quality video content in minutes. Join creators worldwide using Hailuo AI's advanced video generation technology to bring ideas to life.",
+    "buttonText": "Start Creating",
+    "buttonLink": "/video-generator?model=hailuo"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "People search for Hailuo AI using various name combinations, provider references, and feature descriptions. These terms help users find the model regardless of how they've heard about it.",
+    "terms": [
+      "Hailuo AI",
+      "MiniMax Hailuo",
+      "MiniMax AI video",
+      "Hailuo video generator",
+      "Hailuo text to video",
+      "MiniMax video AI",
+      "Hailuo free",
+      "Hailuo online",
+      "Hailuo alternative",
+      "MiniMax text to video",
+      "Hailuo AI generator",
+      "MiniMax video model"
+    ]
+  }
+}

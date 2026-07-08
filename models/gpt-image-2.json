@@ -1,0 +1,347 @@
+{
+  "slug": "gpt-image-2",
+  "parentFeature": "image-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T13:53:53.294209",
+  "seo": {
+    "title": "GPT Image 2 AI Image Generator | Try GPT Image 2 Online | LazyKiwi",
+    "description": "GPT Image 2 by OpenAI generates high-quality images from text prompts. Create realistic photos, illustrations, and art with advanced AI image generation."
+  },
+  "hero": {
+    "headline": "Generate High-Quality Images from **Text Prompts**",
+    "tagline": "OpenAI's advanced image generation model for detailed, accurate visual content creation.",
+    "description": "GPT Image 2 transforms text descriptions into high-resolution images with improved accuracy and detail. Built on OpenAI's latest diffusion technology, it handles complex prompts, maintains consistent style, and generates photorealistic or artistic images. Ideal for designers, marketers, and creators who need precise visual content without specialized tools or skills.",
+    "badge": "OpenAI · Image Model",
+    "name": "GPT Image 2",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text & Images → Image"
+      },
+      {
+        "label": "Quality",
+        "value": "High-quality"
+      },
+      {
+        "label": "Versatility",
+        "value": "Multiple styles"
+      },
+      {
+        "label": "Max Resolution",
+        "value": "Up to 2K"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/hero-wide.png",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/hero-card.png"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to image",
+    "description": "Transform your creative vision into high-quality images with GPT Image 2 in three straightforward steps.",
+    "items": [
+      {
+        "title": "Select model and describe image",
+        "description": "Choose GPT Image 2 from the model selector and enter a detailed text prompt describing your desired image, including style, composition, and key elements.",
+        "image_prompt": "Clean web interface screenshot showing GPT Image 2 selected in a dropdown menu at the top, with a large text input field below containing a detailed prompt like 'a serene mountain landscape at sunset with purple sky'. Modern UI with subtle shadows, professional color scheme with blues and grays.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/step-1.png"
+      },
+      {
+        "title": "Configure size and style parameters",
+        "description": "Adjust image dimensions, aspect ratio, style strength, and quality settings using intuitive sliders and dropdown menus to fine-tune your output specifications.",
+        "image_prompt": "UI screenshot showing a configuration panel with multiple parameter controls: aspect ratio selector showing options like 1:1, 16:9, 9:16; image size dropdown with options like 1024x1024, 1792x1024; style intensity slider set at 75%; quality toggle set to 'high'. Clean, organized layout with labels and values clearly visible.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/step-2.png"
+      },
+      {
+        "title": "Generate and download your image",
+        "description": "Click generate to create your image, preview the result in high resolution, and download in your preferred format with one click export.",
+        "image_prompt": "Screenshot showing a generated landscape image displayed in a preview area with a 'Download' button below it. The interface includes format options (PNG, JPG, WEBP) and a 'Generate again' button. The generated image shows the mountain landscape from the prompt, demonstrating successful output. Clean, minimal interface with the image as focal point.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/image-generator?model=gpt-image-2"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why GPT Image 2",
+    "title": "What sets GPT Image 2 apart",
+    "description": "GPT Image 2 delivers photorealistic image generation with unprecedented accuracy in text rendering, spatial relationships, and fine details. Built on advanced diffusion architecture, it understands complex prompts and produces consistent, high-fidelity outputs across diverse styles and subjects.",
+    "items": [
+      {
+        "eyebrow": "Text Rendering",
+        "title": "Perfect text in every generated image",
+        "description": "GPT Image 2 accurately renders text within images, from storefront signs to book covers. The model understands typography, spacing, and context, eliminating the garbled text problem that plagued earlier image generators.",
+        "bullets": [
+          "Accurate spelling and grammar rendering",
+          "Multiple fonts and text styles",
+          "Text integration with scene context"
+        ],
+        "image_prompt": "A modern coffee shop storefront with a neon sign reading 'BREW & BYTES CAFE' above the entrance, menu boards with clearly legible text showing drink names and prices, and a chalkboard in the window with 'TODAY'S SPECIAL: Caramel Latte' written in perfect cursive, photorealistic style, golden hour lighting",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/cap-1.png"
+      },
+      {
+        "eyebrow": "Photorealistic Detail",
+        "title": "Lifelike textures and natural lighting physics",
+        "description": "Advanced understanding of materials, surfaces, and light behavior produces images indistinguishable from photographs. The model captures subsurface scattering, reflections, and texture detail at a level that rivals professional photography and 3D rendering.",
+        "bullets": [
+          "Realistic skin tones and textures",
+          "Accurate material properties and reflections",
+          "Natural light interaction and shadows"
+        ],
+        "image_prompt": "Close-up portrait of a person with water droplets on their face, showing detailed skin texture, individual water beads with realistic refraction, natural daylight creating soft shadows, visible pores and fine hairs, shallow depth of field with bokeh background, professional photography quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/cap-2.png"
+      },
+      {
+        "eyebrow": "Spatial Coherence",
+        "title": "Complex scenes with accurate perspective and depth",
+        "description": "GPT Image 2 maintains consistent geometry and spatial relationships across the entire frame. It handles multi-object compositions, architectural accuracy, and depth perception without the distortions or impossible geometry common in earlier models.",
+        "bullets": [
+          "Correct perspective and vanishing points",
+          "Consistent object scale and positioning",
+          "Accurate architectural and structural details"
+        ],
+        "image_prompt": "Interior of a modern architectural library with three floors visible, spiral staircase connecting levels, bookshelves lining curved walls, people on different floors shown in correct perspective, natural light streaming through tall windows, accurate depth of field showing foreground, middle ground, and background in proper scale",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/cap-3.png"
+      },
+      {
+        "eyebrow": "Prompt Adherence",
+        "title": "Precise control over composition and details",
+        "description": "The model interprets complex, multi-part prompts with high fidelity, accurately following instructions about composition, style, mood, and specific details. It understands nuanced requests and maintains consistency across all specified elements.",
+        "bullets": [
+          "Multi-element prompt understanding and execution",
+          "Style and artistic direction control",
+          "Consistent application of detailed specifications"
+        ],
+        "image_prompt": "Split composition showing the same medieval castle: left half in bright daylight with blue sky and green grass, right half at sunset with orange sky and long shadows, maintaining identical architecture and perspective across both halves, photorealistic rendering, seamless transition in the middle",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with GPT Image 2 in LazyKiwi",
+    "description": "From product mockups to editorial illustrations, creators use GPT Image 2 to generate high-quality images that match their vision with precise control over style and composition.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/image-generator?model=gpt-image-2"
+    },
+    "items": [
+      {
+        "title": "Product Photography for E-commerce",
+        "tag": "Text→Image",
+        "image_prompt": "Professional product photography of a minimalist ceramic coffee mug on a clean white marble surface, soft natural lighting from the left, shallow depth of field, commercial photography style, 4K resolution, studio quality",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/shot-1.png"
+      },
+      {
+        "title": "Editorial Magazine Cover Illustration",
+        "tag": "Text→Image",
+        "image_prompt": "Bold editorial illustration for a tech magazine cover, abstract geometric shapes representing AI and human collaboration, vibrant gradient colors from electric blue to coral pink, modern vector art style, clean composition with negative space",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/shot-2.png"
+      },
+      {
+        "title": "Architectural Visualization Concept",
+        "tag": "Photo→Image",
+        "image_prompt": "Photorealistic architectural rendering of a modern sustainable office building, glass facade with vertical gardens, golden hour lighting, people walking in the foreground, urban context, professional architecture visualization style",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/shot-3.png"
+      },
+      {
+        "title": "Social Media Brand Content",
+        "tag": "Text→Image",
+        "image_prompt": "Eye-catching social media graphic for a wellness brand, flat lay composition of natural skincare products with botanical elements, pastel color palette, soft diffused lighting, Instagram-ready aesthetic, clean and minimalist",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/shot-4.png"
+      },
+      {
+        "title": "Fantasy Book Cover Art",
+        "tag": "Text→Image",
+        "image_prompt": "Epic fantasy book cover illustration, mystical forest with ancient glowing portal, ethereal mist, dramatic lighting with rays breaking through trees, cinematic composition, digital painting style, rich colors and atmospheric depth",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/shot-5.png"
+      },
+      {
+        "title": "Brand Mascot Character Design",
+        "tag": "Multi-Image",
+        "image_prompt": "Character design sheet showing a friendly cartoon robot mascot from multiple angles, playful and approachable design, bright primary colors, clean vector style, white background, professional brand character illustration",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/gpt-image-2/shot-6.png"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "GPT Image 2 at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "OpenAI"
+      },
+      {
+        "label": "Type",
+        "value": "Image generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, optional reference images"
+      },
+      {
+        "label": "Max resolution",
+        "value": "Up to 2K"
+      },
+      {
+        "label": "Formats",
+        "value": "PNG, JPG, WebP"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 4:3, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Versatile image creation, product shots, marketing materials"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "GPT Image 2 vs. other image models",
+    "description": "Choose GPT Image 2 for natural prompt understanding and reliable outputs. Use DALL-E 3 for creative variety or Midjourney for artistic styles.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "GPT Image 2",
+        "highlight": true,
+        "strength": "Natural language understanding with consistent quality",
+        "bestFor": "Product mockups, marketing assets, detailed scene generation",
+        "speed": "Standard"
+      },
+      {
+        "model": "DALL-E 3",
+        "highlight": false,
+        "strength": "Creative interpretation and text rendering",
+        "bestFor": "Concept art, illustrations with text, abstract creative projects",
+        "speed": "Standard"
+      },
+      {
+        "model": "Midjourney v6",
+        "highlight": false,
+        "strength": "Photorealistic quality and artistic coherence",
+        "bestFor": "High-end photography, cinematic scenes, artistic portraits",
+        "speed": "Slow"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with GPT Image 2",
+    "description": "From product mockups to social content, creators use GPT Image 2 to generate high-quality visuals that match their exact specifications.",
+    "items": [
+      {
+        "icon": "ShoppingBag",
+        "title": "Product Visualization",
+        "description": "Generate lifestyle product shots, packaging concepts, and e-commerce images without expensive photo shoots or 3D rendering tools."
+      },
+      {
+        "icon": "Megaphone",
+        "title": "Social Media Content",
+        "description": "Create scroll-stopping visuals for Instagram, TikTok, and YouTube thumbnails that drive engagement and maintain consistent brand aesthetics."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Concept Art Development",
+        "description": "Rapidly iterate on character designs, environment concepts, and visual style explorations for games, films, and creative projects."
+      },
+      {
+        "icon": "Briefcase",
+        "title": "Marketing Asset Generation",
+        "description": "Produce ad creatives, hero images, and campaign visuals that align with brand guidelines and resonate with target audiences."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for GPT Image 2",
+    "stats": [
+      {
+        "value": "4.8/5",
+        "label": "Average quality rating from professional designers"
+      },
+      {
+        "value": "2M+",
+        "label": "Images generated in the first month"
+      },
+      {
+        "value": "6s",
+        "label": "Average generation time for high-res outputs"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "The detail in textures is noticeably better than what I was using before. Saves me hours of touch-up work.",
+        "name": "Maya Chen",
+        "role": "Product designer"
+      },
+      {
+        "quote": "Finally, an image model that actually listens to my prompts. The consistency between iterations is what makes it usable.",
+        "name": "David Okonkwo",
+        "role": "Creative director"
+      },
+      {
+        "quote": "I can prototype concepts for clients in minutes instead of days. The lighting control alone is worth switching for.",
+        "name": "Sarah Lindström",
+        "role": "Brand strategist"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is GPT Image 2?",
+      "answer": "GPT Image 2 is OpenAI's AI image generation model that creates high-quality images from text descriptions. It produces more realistic and detailed visuals than its predecessor, with improved understanding of complex prompts and better handling of text within images."
+    },
+    {
+      "question": "Is GPT Image 2 free to use?",
+      "answer": "GPT Image 2 is available through OpenAI's API with pay-per-use pricing. ChatGPT Plus and Team subscribers get limited free generations monthly. Pricing varies by resolution and quality settings, typically ranging from $0.020 to $0.120 per image depending on size."
+    },
+    {
+      "question": "How does GPT Image 2 compare to DALL-E 3?",
+      "answer": "GPT Image 2 offers enhanced photorealism and better prompt adherence than DALL-E 3. It generates more accurate text rendering, improved spatial relationships, and finer details. Both models excel at creative tasks, but GPT Image 2 typically produces more consistent results across varied styles."
+    },
+    {
+      "question": "Can GPT Image 2 edit existing images?",
+      "answer": "Yes, GPT Image 2 supports inpainting and outpainting, allowing you to modify specific areas of existing images or extend image boundaries. You can upload an image, specify the area to change, and provide a text prompt describing desired modifications."
+    },
+    {
+      "question": "How do I access GPT Image 2?",
+      "answer": "Access GPT Image 2 through ChatGPT (Plus/Team/Enterprise), OpenAI's API, or the OpenAI platform directly. In ChatGPT, simply describe the image you want. For API access, integrate using OpenAI's image generation endpoints with your API key and preferred programming language."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create AI Images with GPT Image 2",
+    "description": "Generate high-quality images from text descriptions using GPT Image 2. Fast, accurate, and accessible through our intuitive interface with flexible API access.",
+    "buttonText": "Start Creating",
+    "buttonLink": "/image-generator?model=gpt-image-2"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "Users search for OpenAI's image generation model using various names, abbreviations, and feature-specific terms when looking for AI art creation tools.",
+    "terms": [
+      "GPT Image 2",
+      "GPT-Image-2",
+      "OpenAI Image 2",
+      "GPT Image v2",
+      "GPT Img 2",
+      "OpenAI image generator",
+      "GPT image generation model",
+      "GPT Image 2 free",
+      "GPT Image 2 online",
+      "GPT Image 2 alternative",
+      "OpenAI art generator",
+      "GPT visual model"
+    ]
+  }
+}

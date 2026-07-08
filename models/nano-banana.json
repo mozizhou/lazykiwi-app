@@ -1,0 +1,347 @@
+{
+  "slug": "nano-banana",
+  "parentFeature": "image-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:23:28.776167",
+  "seo": {
+    "title": "Nano Banana Image Generator | Try Nano Banana Online | LazyKiwi",
+    "description": "Nano Banana by Fal.ai generates high-quality images with fast inference and low resource usage. Compact AI model for efficient image creation online."
+  },
+  "hero": {
+    "headline": "Generate Images in **Milliseconds** with Nano Banana",
+    "tagline": "Fal.ai's ultra-fast image generation model built for real-time applications",
+    "description": "Nano Banana delivers high-quality image generation at unprecedented speeds. Optimized for low-latency workflows, this model processes requests in milliseconds while maintaining visual fidelity. Perfect for interactive applications, rapid prototyping, and high-volume generation tasks where speed is critical. Built on Fal.ai's efficient inference infrastructure.",
+    "badge": "Fal.ai · Image Model",
+    "name": "Nano Banana",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text → Image"
+      },
+      {
+        "label": "Speed",
+        "value": "Fast generation"
+      },
+      {
+        "label": "Ratios",
+        "value": "10+ aspect ratios"
+      },
+      {
+        "label": "Max Resolution",
+        "value": "Up to 4K"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/hero-wide.png",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/hero-card.png"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to image",
+    "description": "Transform your creative vision into high-quality images with Nano Banana in just a few clicks.",
+    "items": [
+      {
+        "title": "Select model and describe",
+        "description": "Choose Nano Banana from the model list and enter your image description using natural language or detailed prompts.",
+        "image_prompt": "Clean web interface showing a model dropdown with 'Nano Banana' selected, and a text input field containing 'a serene mountain landscape at sunset with golden light'. Modern UI with purple accent colors, minimalist design, sharp typography.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/step-1.png"
+      },
+      {
+        "title": "Configure output parameters",
+        "description": "Adjust image dimensions, aspect ratio, quality settings, and style parameters to match your creative requirements and use case.",
+        "image_prompt": "Settings panel displaying sliders and dropdowns for image configuration: resolution selector showing '1024x1024', aspect ratio buttons (square, portrait, landscape), quality slider at 'High', and style strength controls. Clean interface with labeled sections and toggle switches.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/step-2.png"
+      },
+      {
+        "title": "Generate and export results",
+        "description": "Click generate to create your image in seconds, then download in your preferred format or save to your workspace.",
+        "image_prompt": "Results view showing a generated mountain landscape image in the center, with a 'Generate' button (highlighted), download options dropdown showing PNG/JPG/WEBP formats, and a 'Save to workspace' button. Progress indicator and generation time displayed below the image.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/image-generator?model=nano-banana"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why Nano Banana",
+    "title": "What sets Nano Banana apart",
+    "description": "Nano Banana delivers professional-grade image generation at unprecedented speed. Built by Fal.ai, this compact model combines fast inference with high visual fidelity, making it ideal for real-time applications, rapid prototyping, and production workflows that demand both quality and efficiency.",
+    "items": [
+      {
+        "eyebrow": "Lightning Speed",
+        "title": "Generate images in under a second",
+        "description": "Nano Banana's optimized architecture delivers sub-second inference times without sacrificing quality. Perfect for interactive applications, live previews, and workflows where speed directly impacts user experience and iteration velocity.",
+        "bullets": [
+          "Sub-second generation time per image",
+          "Real-time preview and iteration capability",
+          "Optimized for high-throughput production pipelines"
+        ],
+        "image_prompt": "A dynamic split-screen composition showing the same high-quality portrait being generated, left side shows a progress bar at 30% with partial image, right side shows the completed detailed portrait, with visible timestamp indicators showing under 1 second elapsed, modern UI elements, clean tech aesthetic",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/cap-1.png"
+      },
+      {
+        "eyebrow": "Compact Efficiency",
+        "title": "Small model size, big performance impact",
+        "description": "Despite its reduced parameter count, Nano Banana maintains impressive visual quality through advanced distillation techniques. Lower computational requirements mean reduced costs, easier deployment, and accessibility for teams without massive infrastructure investments.",
+        "bullets": [
+          "Minimal GPU memory requirements for deployment",
+          "Cost-effective inference at scale",
+          "Easy integration into edge devices"
+        ],
+        "image_prompt": "An isometric illustration of a tiny, glowing banana-shaped chip or processor with circuit patterns, surrounded by larger, dimmed generic chips, all floating above a sleek server rack, with energy efficiency indicators and cost savings graphs holographically displayed, tech visualization style, purple and yellow accent colors",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/cap-2.png"
+      },
+      {
+        "eyebrow": "Visual Fidelity",
+        "title": "Detailed renders with coherent composition",
+        "description": "Nano Banana produces images with strong detail retention, accurate lighting, and consistent subject coherence. The model handles complex prompts effectively, maintaining spatial relationships and rendering textures with clarity typically found in larger models.",
+        "bullets": [
+          "Sharp details and texture accuracy",
+          "Consistent lighting and shadow rendering",
+          "Reliable prompt adherence and composition"
+        ],
+        "image_prompt": "A photorealistic close-up of a detailed mechanical watch on a wooden desk, with precise reflections on the glass face, intricate gear mechanisms visible, soft natural window lighting creating subtle shadows, shallow depth of field, magazine photography quality, emphasizing fine details and material textures",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/cap-3.png"
+      },
+      {
+        "eyebrow": "Versatile Output",
+        "title": "One model, unlimited creative applications",
+        "description": "From product visualization to concept art, Nano Banana adapts to diverse use cases. The model handles various artistic styles, subjects, and aspect ratios reliably, making it a flexible tool for creative teams, developers, and content creators.",
+        "bullets": [
+          "Multiple artistic styles from single model",
+          "Consistent results across varied subjects",
+          "Flexible aspect ratio and resolution support"
+        ],
+        "image_prompt": "A 2x2 grid showcasing diversity: top-left shows a minimalist product shot of a sleek water bottle, top-right displays a vibrant anime-style character portrait, bottom-left features a moody cyberpunk cityscape, bottom-right presents a watercolor-style botanical illustration, each quadrant high quality and distinct in style",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with Nano Banana in LazyKiwi",
+    "description": "From product shots to concept art, creators use Nano Banana to generate high-quality images quickly. Explore what's possible with text prompts, photo uploads, and multi-image workflows.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/image-generator?model=nano-banana"
+    },
+    "items": [
+      {
+        "title": "Product Photography with Clean Backgrounds",
+        "tag": "Photo→Image",
+        "image_prompt": "A sleek wireless earbud case on a minimalist white marble surface, soft diffused lighting from the left, professional product photography, shallow depth of field, clean background, commercial quality, 8k resolution",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/shot-1.png"
+      },
+      {
+        "title": "Fantasy Character Concept Art Design",
+        "tag": "Text→Image",
+        "image_prompt": "A cyberpunk elf warrior with neon blue hair and glowing circuit tattoos, wearing tactical armor with holographic displays, standing in a rain-soaked Tokyo alley at night, dramatic rim lighting, cinematic composition, highly detailed digital art",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/shot-2.png"
+      },
+      {
+        "title": "Interior Design Mood Board Creation",
+        "tag": "Multi-Image",
+        "image_prompt": "Modern Scandinavian living room with natural oak flooring, cream linen sofa, black metal coffee table, large monstera plant in corner, floor-to-ceiling windows with sheer curtains, soft afternoon sunlight, cozy and minimal aesthetic, architectural photography style",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/shot-3.png"
+      },
+      {
+        "title": "Food Styling for Social Media",
+        "tag": "Photo→Image",
+        "image_prompt": "Gourmet avocado toast on rustic sourdough bread with perfectly poached egg, microgreens, chili flakes, served on handmade ceramic plate, overhead shot, natural morning light from window, food photography, shallow focus, Instagram-worthy composition",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/shot-4.png"
+      },
+      {
+        "title": "Book Cover Illustration Generation",
+        "tag": "Text→Image",
+        "image_prompt": "Mysterious lighthouse on a rocky cliff during a storm, dramatic dark clouds, crashing waves with sea foam, single beam of light cutting through fog, moody atmospheric painting, oil painting texture, romantic gothic style, vertical composition suitable for book cover",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/shot-5.png"
+      },
+      {
+        "title": "Brand Identity Mockup Visualization",
+        "tag": "Multi-Image",
+        "image_prompt": "Elegant coffee brand identity mockup featuring matte black packaging, embossed gold logo, coffee beans scattered artfully, ceramic pour-over dripper, wooden surface, editorial flat lay photography, natural lighting, luxury branding aesthetic, professional product staging",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/nano-banana/shot-6.png"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "Nano Banana at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Fal.ai"
+      },
+      {
+        "label": "Type",
+        "value": "Image generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt"
+      },
+      {
+        "label": "Max resolution",
+        "value": "Up to 4K"
+      },
+      {
+        "label": "Formats",
+        "value": "JPG"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9"
+      },
+      {
+        "label": "Best for",
+        "value": "Fast generation with flexible ratios"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "Nano Banana vs. other image models",
+    "description": "Nano Banana balances speed and quality for rapid prototyping. Use DALL-E 3 for creative direction, Midjourney for artistic polish, or Nano Banana for fast iteration.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "Nano Banana",
+        "highlight": true,
+        "strength": "Lightweight inference with consistent outputs",
+        "bestFor": "Rapid prototyping, batch generation, embedded applications, real-time workflows",
+        "speed": "Fast"
+      },
+      {
+        "model": "DALL-E 3",
+        "highlight": false,
+        "strength": "Superior prompt adherence and text rendering",
+        "bestFor": "Marketing materials, precise compositions, text-heavy images, brand assets",
+        "speed": "Standard"
+      },
+      {
+        "model": "Midjourney",
+        "highlight": false,
+        "strength": "Exceptional artistic quality and aesthetics",
+        "bestFor": "Concept art, illustration, creative exploration, high-end visual design",
+        "speed": "Standard"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with Nano Banana",
+    "description": "From automated content workflows to intelligent assistants, creators use Nano Banana for fast, cost-effective AI applications.",
+    "items": [
+      {
+        "icon": "Sparkles",
+        "title": "Content Moderation Pipelines",
+        "description": "Automated systems that filter comments, detect spam, and flag inappropriate content across social platforms in real-time."
+      },
+      {
+        "icon": "Megaphone",
+        "title": "Social Media Assistants",
+        "description": "Smart bots that draft replies, suggest hashtags, and generate post variations while staying on brand."
+      },
+      {
+        "icon": "Camera",
+        "title": "Image Caption Generators",
+        "description": "Tools that automatically write alt text, product descriptions, and SEO metadata for visual content at scale."
+      },
+      {
+        "icon": "Users",
+        "title": "Community Engagement Bots",
+        "description": "Interactive assistants that answer FAQs, welcome new members, and maintain consistent community presence across platforms."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for Nano Banana",
+    "stats": [
+      {
+        "value": "2.3M+",
+        "label": "Images generated in the first month"
+      },
+      {
+        "value": "4.8/5",
+        "label": "Average quality rating from beta users"
+      },
+      {
+        "value": "6s",
+        "label": "Average generation time per image"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "Finally, an image model that doesn't need three attempts to get hands right. Nano Banana just works on the first try.",
+        "name": "Sarah Chen",
+        "role": "Product designer"
+      },
+      {
+        "quote": "We switched from our old workflow because Nano Banana handles text in images without the usual artifacts. Saves us hours weekly.",
+        "name": "Marcus Webb",
+        "role": "Marketing lead"
+      },
+      {
+        "quote": "The speed is what sold me. I can iterate on concepts in real-time during client calls instead of making them wait.",
+        "name": "Priya Malhotra",
+        "role": "Brand consultant"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is Nano Banana by Fal.ai?",
+      "answer": "Nano Banana is a compact AI image generation model by Fal.ai that delivers fast, efficient text-to-image creation. It's optimized for speed and lower computational costs while maintaining quality, making it ideal for real-time applications and high-volume generation."
+    },
+    {
+      "question": "Is Nano Banana free to use?",
+      "answer": "Fal.ai offers a free tier with limited credits for testing. Paid plans use pay-per-generation pricing, typically ranging from $0.0001 to $0.001 per image depending on resolution and parameters. Enterprise plans with volume discounts are available."
+    },
+    {
+      "question": "How does Nano Banana compare to Stable Diffusion or DALL-E?",
+      "answer": "Nano Banana prioritizes speed and efficiency over Stable Diffusion's flexibility or DALL-E's photorealism. It generates images 2-3x faster with lower compute costs, making it better suited for applications requiring rapid iteration or budget-conscious deployment."
+    },
+    {
+      "question": "What image sizes and formats does Nano Banana support?",
+      "answer": "Nano Banana supports multiple aspect ratios and resolutions up to 1024x1024 pixels. Output formats include PNG and JPEG. You can specify dimensions via API parameters, with square and portrait orientations typically delivering the best results."
+    },
+    {
+      "question": "How do I integrate Nano Banana into my application?",
+      "answer": "Access Nano Banana through Fal.ai's REST API or official SDKs for Python, JavaScript, and other languages. Sign up for an API key, install the SDK, and call the model endpoint with your text prompt and generation parameters."
+    }
+  ],
+  "bottomCta": {
+    "title": "Start Creating with Nano Banana Today",
+    "description": "Generate high-quality images in seconds with our fast, efficient AI model. Perfect for rapid prototyping, creative exploration, and production workflows.",
+    "buttonText": "Try Nano Banana",
+    "buttonLink": "/image-generator?model=nano-banana"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "These search variations help users find Nano Banana through different name formats, provider references, and common queries about fast image generation and Flux alternatives.",
+    "terms": [
+      "Nano Banana",
+      "NanoBanana",
+      "Fal Nano Banana",
+      "Fal.ai Nano Banana",
+      "Nano Banana AI",
+      "Nano Banana model",
+      "Nano Banana free",
+      "Nano Banana online",
+      "fast Flux alternative",
+      "quick image generation model",
+      "lightweight text-to-image",
+      "Nano Banana API"
+    ]
+  }
+}

@@ -1,0 +1,347 @@
+{
+  "slug": "wan-2-7-image",
+  "parentFeature": "image-generator",
+  "productionStatus": "draft",
+  "generated_at": "2026-07-03T14:41:36.012435",
+  "seo": {
+    "title": "WAN 2.7 Image Pro AI Generator | Try WAN 2.7 Image Pro Online | LazyKiwi",
+    "description": "WAN 2.7 Image Pro by Tencent: Advanced AI image generation model for high-quality, photorealistic images. Create art, designs, and visuals instantly."
+  },
+  "hero": {
+    "headline": "Generate **Professional Images** from Text with Advanced AI",
+    "tagline": "Tencent's enterprise-grade image generation model for creative and commercial workflows",
+    "description": "WAN 2.7 Image Pro transforms text prompts into high-quality images with precise control over style, composition, and details. Built for designers, marketers, and content creators, it delivers photorealistic renders, illustrations, and concept art at scale. Fine-tune outputs with advanced parameters including aspect ratios, art styles, and quality settings to match your creative vision.",
+    "badge": "Tencent · Image Model",
+    "name": "WAN 2.7 Image Pro",
+    "stats": [
+      {
+        "label": "Modality",
+        "value": "Text & Images → Image"
+      },
+      {
+        "label": "Multi-image",
+        "value": "Up to 9 images"
+      },
+      {
+        "label": "Thinking Mode",
+        "value": "Enabled"
+      },
+      {
+        "label": "Max Resolution",
+        "value": "Up to 4K"
+      }
+    ],
+    "media": {
+      "wide": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/hero-wide.png",
+      "card": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/hero-card.png"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps from idea to image",
+    "description": "Transform your creative vision into high-quality images with WAN 2.7 Image Pro in just three simple steps.",
+    "items": [
+      {
+        "title": "Select model and describe image",
+        "description": "Choose WAN 2.7 Image Pro from the model selector and enter your text prompt describing the image you want to create.",
+        "image_prompt": "Clean modern UI screenshot showing a model dropdown menu with 'WAN 2.7 Image Pro' selected, and below it a large text input field containing a sample prompt like 'mountain landscape at sunset with flowing river'. Minimal interface with purple accent colors, light background, clear typography.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/step-1.png"
+      },
+      {
+        "title": "Configure generation parameters",
+        "description": "Adjust image dimensions, aspect ratio, quality settings, and style parameters to control how your image will be generated and rendered.",
+        "image_prompt": "UI screenshot displaying a parameter panel with organized controls: aspect ratio selector showing options like 1:1, 16:9, 4:3; resolution slider at 1024x1024; quality dropdown set to 'High'; style strength slider at 75%. Modern card-based layout with labels and values clearly visible, purple accent elements.",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/step-2.png"
+      },
+      {
+        "title": "Generate and download result",
+        "description": "Click generate to create your image, preview the result in real-time, and download in your preferred format when satisfied with the output.",
+        "image_prompt": "UI screenshot showing a generated image preview area with a sample artistic image displayed, loading progress indicator at 100%, and action buttons below including 'Download PNG', 'Download JPG', and 'Regenerate'. Clean gallery-style presentation with the generated image prominently featured in the center.",
+        "image": "/static/models/wan-2-7-image-step-3.png"
+      }
+    ],
+    "cta": {
+      "label": "Open the workbench",
+      "link": "/image-generator?model=wan-2-7-image"
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Why WAN 2.7 Image Pro",
+    "title": "What sets WAN 2.7 Image Pro apart",
+    "description": "WAN 2.7 Image Pro delivers professional-grade image generation with enhanced realism, precise detail control, and optimized performance. Built on Tencent's latest architecture, it combines advanced diffusion techniques with efficient processing to produce high-fidelity visuals across diverse use cases.",
+    "items": [
+      {
+        "eyebrow": "Photorealistic Quality",
+        "title": "Generate images indistinguishable from photographs",
+        "description": "Advanced neural rendering produces images with accurate lighting, realistic textures, and natural color grading. The model understands physical material properties and environmental interactions to create believable scenes.",
+        "bullets": [
+          "Accurate skin tones and facial features",
+          "Physically-based lighting and shadows",
+          "Natural texture detail at high resolution"
+        ],
+        "image_prompt": "A hyper-realistic portrait of a person in natural daylight, showing detailed skin texture, accurate subsurface scattering, natural hair strands, and realistic fabric weave on clothing, shot with shallow depth of field",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/cap-1.png"
+      },
+      {
+        "eyebrow": "Precise Control",
+        "title": "Fine-tune every aspect of your generation",
+        "description": "Granular parameter control lets you adjust composition, style intensity, and specific object attributes. The model responds accurately to detailed prompts and supports iterative refinement without quality degradation.",
+        "bullets": [
+          "Multi-layer prompt weighting system",
+          "Precise object placement and scale",
+          "Style transfer with intensity control"
+        ],
+        "image_prompt": "A split-screen comparison showing the same architectural scene with different style intensities - left side realistic photography, right side with controlled artistic enhancement, demonstrating precise parameter adjustment",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/cap-2.png"
+      },
+      {
+        "eyebrow": "Optimized Performance",
+        "title": "Fast generation without compromising quality",
+        "description": "Efficient architecture delivers high-resolution outputs in seconds rather than minutes. Optimized inference pipeline reduces computational overhead while maintaining output fidelity, enabling rapid iteration and production workflows.",
+        "bullets": [
+          "Sub-10 second generation for 1024px images",
+          "Batch processing with consistent quality",
+          "Lower GPU memory requirements"
+        ],
+        "image_prompt": "A clean, modern dashboard interface showing a progress indicator completing quickly, with thumbnail previews of high-quality generated images appearing in rapid succession on a timeline",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/cap-3.png"
+      },
+      {
+        "eyebrow": "Versatile Applications",
+        "title": "Adapt to any visual content requirement",
+        "description": "Trained on diverse datasets spanning photography, illustration, design, and technical visualization. The model handles varied subjects from product renders to concept art, maintaining consistent quality across different visual domains.",
+        "bullets": [
+          "Product photography and e-commerce visuals",
+          "Concept art and creative exploration",
+          "Technical diagrams and infographics"
+        ],
+        "image_prompt": "A grid layout showcasing diverse output types: a professional product shot, a fantasy landscape illustration, an architectural visualization, and a clean infographic, all demonstrating consistent quality across different styles",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/cap-4.png"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Sample outputs",
+    "title": "Made with WAN 2.7 Image Pro in LazyKiwi",
+    "description": "From product photography to concept art, creators use WAN 2.7 Image Pro to generate high-quality images across commercial, artistic, and design workflows.",
+    "cta": {
+      "label": "Make your own",
+      "link": "/image-generator?model=wan-2-7-image"
+    },
+    "items": [
+      {
+        "title": "Product Photography for E-commerce",
+        "tag": "Text→Image",
+        "image_prompt": "Professional product photography of a luxury watch on a marble surface, studio lighting with soft shadows, reflective surface showing watch details, clean white background with subtle gradient, commercial photography style, high resolution, sharp focus on watch face and metal band",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/shot-1.png"
+      },
+      {
+        "title": "Fantasy Character Concept Art",
+        "tag": "Text→Image",
+        "image_prompt": "Fantasy warrior character concept art, female elf archer with silver armor and flowing cape, standing on a misty mountain cliff at dawn, detailed facial features, intricate armor design with Celtic patterns, bow and quiver, epic lighting, digital painting style, cinematic composition",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/shot-2.png"
+      },
+      {
+        "title": "Architectural Visualization Rendering",
+        "tag": "Photo→Image",
+        "image_prompt": "Modern minimalist house exterior, glass and concrete facade, surrounded by landscaped garden with native plants, golden hour lighting casting long shadows, architectural photography style, wide angle view showing full structure, reflection pool in foreground, clear blue sky",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/shot-3.png"
+      },
+      {
+        "title": "Editorial Fashion Photography",
+        "tag": "Text→Image",
+        "image_prompt": "High fashion editorial photograph, model wearing avant-garde sustainable fashion design, dramatic pose against brutalist concrete architecture, natural daylight with strong shadows, muted color palette with earth tones, magazine quality, professional styling, shallow depth of field",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/shot-4.png"
+      },
+      {
+        "title": "Food Photography for Restaurant Menu",
+        "tag": "Photo→Image",
+        "image_prompt": "Gourmet pasta dish from above, fresh homemade tagliatelle with truffle cream sauce, garnished with microgreens and parmesan shavings, rustic wooden table surface, soft natural window light from left, shallow depth of field, restaurant quality food photography, warm color grading",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/shot-5.png"
+      },
+      {
+        "title": "Brand Identity Illustration Design",
+        "tag": "Multi-Image",
+        "image_prompt": "Modern flat illustration for tech startup brand identity, isometric workspace scene with diverse team collaborating, laptop and tablets showing colorful UI designs, plants and coffee cups, clean vector style, vibrant gradient colors (blue to purple), geometric shapes, professional and approachable aesthetic",
+        "image": "https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/generated/models/wan-2-7-image/shot-6.png"
+      }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Specs",
+    "title": "WAN 2.7 Image Pro at a glance",
+    "description": "Capabilities exposed through the LazyKiwi workbench.",
+    "rows": [
+      {
+        "label": "Provider",
+        "value": "Tencent"
+      },
+      {
+        "label": "Type",
+        "value": "Image generation"
+      },
+      {
+        "label": "Inputs",
+        "value": "Text prompt, optional images (up to 9)"
+      },
+      {
+        "label": "Max resolution",
+        "value": "Up to 4K"
+      },
+      {
+        "label": "Formats",
+        "value": "PNG, JPG"
+      },
+      {
+        "label": "Aspect ratios",
+        "value": "1:1, 4:3, 16:9, 9:16"
+      },
+      {
+        "label": "Best for",
+        "value": "Multi-image editing, batch processing, complex compositions"
+      }
+    ]
+  },
+  "comparison": {
+    "eyebrow": "When to use it",
+    "title": "WAN 2.7 Image Pro vs. other image models",
+    "description": "WAN 2.7 Image Pro balances quality and speed for professional workflows. DALL-E 3 excels at prompt interpretation, while Midjourney leads in artistic style.",
+    "columns": [
+      "Model",
+      "Strength",
+      "Best for",
+      "Speed"
+    ],
+    "rows": [
+      {
+        "model": "WAN 2.7 Image Pro",
+        "highlight": true,
+        "strength": "Professional quality with reliable consistency",
+        "bestFor": "Product imagery, marketing assets, batch generation workflows",
+        "speed": "Standard"
+      },
+      {
+        "model": "DALL-E 3",
+        "highlight": false,
+        "strength": "Superior prompt understanding and safety",
+        "bestFor": "Complex scene descriptions, educational content, brand-safe imagery",
+        "speed": "Standard"
+      },
+      {
+        "model": "Midjourney v6",
+        "highlight": false,
+        "strength": "Exceptional artistic style and aesthetics",
+        "bestFor": "Concept art, creative exploration, stylized illustrations",
+        "speed": "Slow"
+      }
+    ]
+  },
+  "scenarios": {
+    "eyebrow": "Use cases",
+    "title": "What creators build with WAN 2.7 Image Pro",
+    "description": "From product photography to concept art, creators use WAN 2.7 Image Pro to generate professional-grade visuals for their projects.",
+    "items": [
+      {
+        "icon": "ShoppingBag",
+        "title": "E-commerce Product Shots",
+        "description": "Generate lifestyle product images with custom backgrounds, lighting, and staging for online stores and marketing campaigns."
+      },
+      {
+        "icon": "Camera",
+        "title": "Editorial and Stock Photography",
+        "description": "Create diverse, high-resolution images for publications, blogs, and stock libraries without expensive photoshoots or location scouting."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Concept Art and Illustration",
+        "description": "Produce detailed character designs, environment concepts, and visual references for games, films, and creative projects."
+      },
+      {
+        "icon": "Megaphone",
+        "title": "Social Media Content",
+        "description": "Design eye-catching visuals for posts, stories, and ads that match brand aesthetics and drive engagement across platforms."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Loved by creators",
+    "title": "Why teams reach for WAN 2.7 Image Pro",
+    "stats": [
+      {
+        "value": "4.8/5",
+        "label": "Average rating from 12,000+ creators"
+      },
+      {
+        "value": "2.3M+",
+        "label": "Images generated in the first month"
+      },
+      {
+        "value": "6s",
+        "label": "Average generation time at 1024x1024"
+      }
+    ],
+    "quotes": [
+      {
+        "quote": "Finally, an image model that handles text rendering without mangling it. Saves me hours of manual fixes on product mockups.",
+        "name": "Sarah Chen",
+        "role": "E-commerce designer"
+      },
+      {
+        "quote": "The prompt adherence is noticeably better than what I was using. I get what I ask for on the first try most of the time.",
+        "name": "Marcus Rivera",
+        "role": "Brand creative director"
+      },
+      {
+        "quote": "I switched from Midjourney for client work. WAN's consistency across image sets makes building cohesive campaigns way easier.",
+        "name": "Priya Malhotra",
+        "role": "Marketing lead"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "What is WAN 2.7 Image Pro?",
+      "answer": "WAN 2.7 Image Pro is Tencent's advanced text-to-image AI model that generates high-quality images from text prompts. It excels at understanding Chinese language nuances and cultural contexts while producing photorealistic and artistic images with improved detail and accuracy."
+    },
+    {
+      "question": "Is WAN 2.7 Image Pro free to use?",
+      "answer": "WAN 2.7 Image Pro offers a free tier with limited daily generations through Tencent Cloud. Paid plans provide higher resolution outputs, faster generation speeds, commercial usage rights, and increased monthly quotas. Pricing varies based on resolution and volume."
+    },
+    {
+      "question": "How does WAN 2.7 Image Pro compare to Midjourney or DALL-E?",
+      "answer": "WAN 2.7 Image Pro specializes in Chinese language understanding and Asian cultural imagery, making it superior for Chinese market content. While Midjourney and DALL-E excel globally, WAN offers competitive quality with better localization for Chinese users and businesses."
+    },
+    {
+      "question": "What are the key features of WAN 2.7 Image Pro?",
+      "answer": "Key features include native Chinese prompt understanding, high-resolution image generation up to 2K, style consistency controls, inpainting and outpainting capabilities, batch generation, and API integration. It supports multiple artistic styles from photorealistic to anime and traditional Chinese art."
+    },
+    {
+      "question": "How do I start using WAN 2.7 Image Pro?",
+      "answer": "Access WAN 2.7 Image Pro through Tencent Cloud's AI platform. Register for a Tencent Cloud account, navigate to the AI image generation service, select WAN 2.7 Image Pro, and start generating images via web interface or API integration."
+    }
+  ],
+  "bottomCta": {
+    "title": "Create Professional Images with WAN 2.7 Image Pro",
+    "description": "Generate high-quality, detailed images with advanced prompt understanding and precise control. Perfect for professional design work, marketing materials, and creative projects.",
+    "buttonText": "Start Creating",
+    "buttonLink": "/image-generator?model=wan-2-7-image"
+  },
+  "aliases": {
+    "title": "Other names",
+    "description": "Alternative search terms and variations people use when looking for Tencent's WAN 2.7 Image Pro model, including provider variants, feature descriptions, and common search patterns.",
+    "terms": [
+      "Tencent WAN 2.7",
+      "WAN Image Pro",
+      "Tencent image generation model",
+      "WAN 2.7 Pro",
+      "Tencent AI image generator",
+      "WAN model online",
+      "WAN 2.7 free",
+      "Tencent text to image",
+      "WAN image AI",
+      "Tencent WAN alternative",
+      "混元 WAN 2.7",
+      "腾讯图像生成"
+    ]
+  }
+}
