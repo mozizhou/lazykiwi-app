@@ -28,6 +28,10 @@ export async function getMyImageGenerationTasks({ pageNo = 1, pageSize = 50 } = 
   return request(`/ai/image-generator/my-page?pageNo=${pageNo}&pageSize=${pageSize}`);
 }
 
+export async function getImageTemplates() {
+  return request("/ai/image-generator/templates", { auth: false });
+}
+
 export async function waitForImageGeneration(id, onUpdate) {
   let latest = null;
   for (let i = 0; i < MAX_POLL_COUNT; i += 1) {

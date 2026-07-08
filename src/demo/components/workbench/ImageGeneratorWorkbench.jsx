@@ -35,6 +35,7 @@ import {
   getImageCredits,
 } from './imageGeneratorData.js';
 import {
+  getImageTemplates,
   getMyImageGenerationTasks,
   submitImageGeneration,
   uploadImageFile,
@@ -82,10 +83,17 @@ const IMAGE_MODEL_ROUTE_ALIASES = {
 function getImageTemplateByRouteValue(requested) {
   if (!requested) return null;
   const normalized = modelSlug(requested).replace(/^image-/, '');
-  return IMAGE_TEMPLATES_VISIBLE.find((template) => {
+  return findTemplateByRouteValue(IMAGE_TEMPLATES_VISIBLE, normalized);
+}
+
+function findTemplateByRouteValue(templates, requested) {
+  if (!requested) return null;
+  const normalized = modelSlug(requested).replace(/^image-/, '');
+  return templates.find((template) => {
     const candidates = [
       template.id,
       template.name,
+      template.slug,
       modelSlug(template.name),
     ].map(modelSlug);
     return candidates.includes(normalized);
@@ -94,8 +102,12 @@ function getImageTemplateByRouteValue(requested) {
 
 function getQueryImageTemplate() {
   if (typeof window === 'undefined') return null;
-  const requested = new URLSearchParams(window.location.search).get('template');
-  return getImageTemplateByRouteValue(requested);
+  return getImageTemplateByRouteValue(getQueryImageTemplateValue());
+}
+
+function getQueryImageTemplateValue() {
+  if (typeof window === 'undefined') return null;
+  return new URLSearchParams(window.location.search).get('template');
 }
 
 function getQueryImageModel() {
@@ -106,8 +118,90 @@ function getQueryImageModel() {
   return IMAGE_MODELS.find((model) => model.id === requested || modelSlug(model.id) === normalized || modelSlug(model.name) === normalized) || null;
 }
 
+function templateTitleFromSlug(slug = '') {
+  return String(slug)
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function toUiTemplate(remoteTemplate) {
+  const slug = remoteTemplate.slug || String(remoteTemplate.id || '');
+  const local = IMAGE_TEMPLATES.find((template) =>
+    template.id === slug ||
+    template.templateId === remoteTemplate.id ||
+    modelSlug(template.name) === modelSlug(slug)
+  );
+  const imageUrl = remoteTemplate.imageUrl || remoteTemplate.image_url || '';
+  const imageBeforeUrl = remoteTemplate.imageBeforeUrl || remoteTemplate.image_before_url || '';
+  const imageAfterUrl = remoteTemplate.imageAfterUrl || remoteTemplate.image_after_url || '';
+  const uploadCount = remoteTemplate.imageCount || remoteTemplate.image_count || local?.uploadCount || local?.requiredImageCount || 1;
+
+  return {
+    ...(local || {}),
+    id: slug,
+    templateId: remoteTemplate.id || local?.templateId,
+    name: local?.name || templateTitleFromSlug(slug),
+    desc: local?.desc || '',
+    img: imageUrl || imageAfterUrl || imageBeforeUrl || local?.img || '',
+    imageUrl,
+    imageBeforeUrl,
+    imageAfterUrl,
+    uploadCount,
+    requiredImageCount: uploadCount,
+  };
+}
+
 function quantityToNumber(quantity) {
   return parseInt(String(quantity || '1x'), 10) || 1;
+}
+
+function TemplateThumbnail({ template, className = "h-full w-full" }) {
+  if (template.imageBeforeUrl && template.imageAfterUrl) {
+    return (
+      <div className={`relative overflow-hidden bg-gray-100 ${className}`}>
+        <img
+          src={encodeURI(template.imageAfterUrl)}
+          alt={template.name}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        />
+        <div className="absolute bottom-2 left-2 flex items-start">
+          <div className="h-11 w-11 -rotate-3 overflow-hidden rounded-lg border-2 border-white bg-white shadow-md sm:h-12 sm:w-12">
+            <img
+              src={encodeURI(template.imageBeforeUrl)}
+              alt=""
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <svg
+            viewBox="0 0 42 30"
+            aria-hidden="true"
+            className="-ml-0.5 mt-0.5 h-6 w-8 text-white/85 drop-shadow-[0_1px_2px_rgba(0,0,0,0.22)]"
+          >
+            <path
+              d="M2 26C8 10 20 5 33 7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
+            <path
+              d="M30 1L40 8L29 14Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={encodeURI(template.img)}
+      alt={template.name}
+      className={`${className} object-cover transition-transform duration-500 group-hover:scale-[1.04]`}
+    />
+  );
 }
 
 function getDisplayResultUrls(task) {
@@ -610,11 +704,7 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
             {/* Template preview thumbnail + name below 鈥?centred vertically */}
             <div className="shrink-0 flex flex-col items-start gap-1.5 self-center">
               <div className="relative w-[88px] bg-gray-100 rounded-xl overflow-hidden shadow-sm">
-                <img
-                  src={encodeURI(activeTemplate.img)}
-                  alt={activeTemplate.name}
-                  className="w-full h-auto object-cover"
-                />
+                <TemplateThumbnail template={activeTemplate} className="h-[58px] w-full" />
                 {/* 脳 to dismiss 鈥?top-right of card */}
                 <button
                   type="button"
@@ -876,6 +966,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const [canvasTab, setCanvasTab]     = useState('templates'); // 'templates' | 'history'
   const [history, setHistory]         = useState(SEED_HISTORY);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [imageTemplates, setImageTemplates] = useState(IMAGE_TEMPLATES_VISIBLE);
 
   // Active mode inside the dock (mirrors what ImageCreationPanel reports via callback)
   const [activeMode, setActiveMode]   = useState('text-to-image');
@@ -898,6 +989,24 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const panelRef = useRef(null);
 
   useEffect(() => {
+    getImageTemplates()
+      .then((templates) => {
+        if (!Array.isArray(templates) || templates.length === 0) return;
+        const nextTemplates = templates.map(toUiTemplate).filter((template) => template.templateId && template.img);
+        if (nextTemplates.length === 0) return;
+        setImageTemplates(nextTemplates);
+        const requestedTemplate = findTemplateByRouteValue(nextTemplates, routeTemplate || getQueryImageTemplateValue());
+        if (requestedTemplate) {
+          setCanvasTab('templates');
+          handleSetTemplate(requestedTemplate);
+        }
+      })
+      .catch((error) => {
+        console.warn('[Image Template Load Failed]', error);
+      });
+  }, [routeTemplate]);
+
+  useEffect(() => {
     const requestedTemplate = getImageTemplateByRouteValue(routeTemplate);
     if (!requestedTemplate) return;
     setCanvasTab('templates');
@@ -906,14 +1015,14 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
 
   useEffect(() => {
     const handleRouteChange = () => {
-      const requestedTemplate = getQueryImageTemplate();
+      const requestedTemplate = findTemplateByRouteValue(imageTemplates, getQueryImageTemplateValue());
       if (!requestedTemplate) return;
       setCanvasTab('templates');
       handleSetTemplate(requestedTemplate);
     };
     window.addEventListener('lazykiwi:route-change', handleRouteChange);
     return () => window.removeEventListener('lazykiwi:route-change', handleRouteChange);
-  }, []);
+  }, [imageTemplates]);
 
   useEffect(() => {
     getMyImageGenerationTasks({ pageNo: 1, pageSize: 50 })
@@ -947,7 +1056,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
     if (item.status === 40) {
       setCanvasTab('history');
       if (item.template) {
-        const t = IMAGE_TEMPLATES.find((x) => x.name === item.template) || null;
+        const t = imageTemplates.find((x) => x.name === item.template) || null;
         setSelectedTemplate(t);
         if (t) setLastSelectedTemplate(t);
       } else {
@@ -975,7 +1084,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const handleRegenerate = (item) => {
     setCanvasTab('templates');
     if (item.template) {
-      const t = IMAGE_TEMPLATES.find(x => x.name === item.template) || null;
+      const t = imageTemplates.find(x => x.name === item.template) || null;
       setSelectedTemplate(t);
       if (t) setLastSelectedTemplate(t);
     } else {
@@ -1036,7 +1145,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
               /* Template mode: show photo-effects template cards */
               <div className="max-w-7xl mx-auto px-6 py-6 sm:px-8 sm:py-8">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 gap-y-6">
-                  {IMAGE_TEMPLATES_VISIBLE.map((t) => (
+                  {imageTemplates.map((t) => (
                     <button
                       key={t.id}
                       type="button"
@@ -1044,11 +1153,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
                       className="group flex flex-col text-left focus:outline-none"
                     >
                       <div className="w-full aspect-video overflow-hidden rounded-xl bg-gray-100 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md">
-                        <img
-                          src={encodeURI(t.img)}
-                          alt={t.name}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                        />
+                        <TemplateThumbnail template={t} />
                       </div>
                       <p className="mt-2 px-0.5 text-[13px] font-medium text-gray-600 truncate transition-colors group-hover:text-gray-900">
                         {t.name}
