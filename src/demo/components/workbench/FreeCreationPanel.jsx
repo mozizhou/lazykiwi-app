@@ -769,16 +769,16 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
       {/* ── B. Active Template workbench (preview + upload + generate) ─────── */}
       {mode === 'template' && template && (
         <div className="flex flex-col px-4 py-2.5 sm:px-6 sm:py-3 gap-2">
-          <div className="flex items-center gap-5 min-h-[105px]">
-            {/* Left: Template Preview thumbnail + name/category below — centred vertically */}
-            <div className="shrink-0 flex flex-col items-start gap-1.5 self-center">
-              <div className="relative w-[108px] bg-zinc-950 rounded-xl overflow-hidden flex items-center justify-center shadow-inner" style={{minHeight: '88px'}}>
+          <p className="text-[12px] text-gray-500">Upload media to apply this template.</p>
+          <div className="flex items-start gap-4">
+            {/* Template preview — same size as upload slot */}
+            <div className="shrink-0 flex flex-col items-start gap-1.5 w-[88px]">
+              <div className="relative h-[88px] w-[88px] bg-zinc-950 rounded-xl overflow-hidden flex items-center justify-center shadow-inner">
                 <img
                   src={encodeURI(template.img)}
                   alt={template.name}
-                  className="w-full h-full object-contain"
+                  className="h-full w-full object-contain"
                 />
-                {/* × to dismiss template — in card top-right corner */}
                 <button
                   type="button"
                   onClick={(e) => {
@@ -793,77 +793,77 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
                   <X size={10} />
                 </button>
               </div>
-              <p className="text-[12px] font-semibold text-gray-800 truncate max-w-[108px]">{template.name}</p>
+              <p className="text-[12px] font-semibold text-gray-800 truncate max-w-[88px]">{template.name}</p>
               {template.category && (
-                <p className="text-[10px] text-gray-400 truncate max-w-[108px] -mt-1">{template.category}</p>
+                <p className="text-[10px] text-gray-400 truncate max-w-[88px] -mt-1">{template.category}</p>
               )}
             </div>
 
-            {/* Right: Upload requirements */}
-            <div className="flex-1 flex flex-col gap-3 py-1">
-              <p className="text-[12px] text-gray-500">Upload media to apply this template.</p>
-
-              <div className="flex items-center gap-3">
-                {template.mode === 'image-to-video' && (
-                  <ImageUploadBox
-                    value={effectiveImage}
-                    onChange={(value, file) => {
-                      setImageFrame(value);
-                      setImageFrameFile(file || null);
-                    }}
-                    onClear={() => {
-                      setImageFrame('');
-                      setImageFrameFile(null);
-                    }}
-                    className="w-[80px]"
-                  />
-                )}
-                {template.mode === 'start-end' && (
-                  <>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[11px] font-semibold text-gray-600 pl-1">Start</span>
-                      <ImageUploadBox
-                        value={effectiveStart}
-                        previewValue={hoveredPreset?.startFrame}
-                        onChange={(value, file) => {
-                          setStartFrame(value);
-                          setStartFrameFile(file || null);
-                        }}
-                        onClear={() => {
-                          setStartFrame('');
-                          setStartFrameFile(null);
-                        }}
-                        className="w-[72px]"
-                      />
+            {/* Upload slots — parallel to template preview, equal height */}
+            <div className="flex flex-1 items-center gap-3 min-w-0">
+              {template.mode === 'image-to-video' && (
+                <ImageUploadBox
+                  value={effectiveImage}
+                  onChange={(value, file) => {
+                    setImageFrame(value);
+                    setImageFrameFile(file || null);
+                  }}
+                  onClear={() => {
+                    setImageFrame('');
+                    setImageFrameFile(null);
+                  }}
+                  aspect="aspect-square"
+                  className="h-[88px] w-[88px] shrink-0"
+                />
+              )}
+              {template.mode === 'start-end' && (
+                <>
+                  <div className="flex flex-col gap-1 shrink-0">
+                    <span className="text-[11px] font-semibold text-gray-600 pl-1">Start</span>
+                    <ImageUploadBox
+                      value={effectiveStart}
+                      previewValue={hoveredPreset?.startFrame}
+                      onChange={(value, file) => {
+                        setStartFrame(value);
+                        setStartFrameFile(file || null);
+                      }}
+                      onClear={() => {
+                        setStartFrame('');
+                        setStartFrameFile(null);
+                      }}
+                      aspect="aspect-square"
+                      className="h-[88px] w-[88px]"
+                    />
+                  </div>
+                  <div className="flex flex-col items-center justify-center self-end pb-[44px] px-0.5 text-gray-300">
+                    <ArrowRight size={16} />
+                  </div>
+                  <div className="flex flex-col gap-1 shrink-0">
+                    <div className="flex items-center gap-1.5 pl-1">
+                      <span className="text-[11px] font-semibold text-gray-600">End</span>
+                      <span className="text-[9px] font-medium text-gray-400 bg-gray-100 px-1.5 py-[1px] rounded-full">Optional</span>
                     </div>
-                    <div className="flex flex-col items-center justify-center pt-7 px-0.5 text-gray-300">
-                      <ArrowRight size={16} />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-1.5 pl-1">
-                        <span className="text-[11px] font-semibold text-gray-600">End</span>
-                        <span className="text-[9px] font-medium text-gray-400 bg-gray-100 px-1.5 py-[1px] rounded-full">Optional</span>
-                      </div>
-                      <ImageUploadBox
-                        value={effectiveEnd}
-                        previewValue={hoveredPreset?.endFrame}
-                        onChange={(value, file) => {
-                          setEndFrame(value);
-                          setEndFrameFile(file || null);
-                        }}
-                        onClear={() => {
-                          setEndFrame('');
-                          setEndFrameFile(null);
-                        }}
-                        className="w-[72px]"
-                      />
-                    </div>
-                  </>
-                )}
+                    <ImageUploadBox
+                      value={effectiveEnd}
+                      previewValue={hoveredPreset?.endFrame}
+                      onChange={(value, file) => {
+                        setEndFrame(value);
+                        setEndFrameFile(file || null);
+                      }}
+                      onClear={() => {
+                        setEndFrame('');
+                        setEndFrameFile(null);
+                      }}
+                      aspect="aspect-square"
+                      className="h-[88px] w-[88px]"
+                    />
+                  </div>
+                </>
+              )}
 
-                <div className="flex-1 min-w-0" />
+              <div className="flex-1 min-w-0" />
 
-                <div className="self-end mt-auto flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                   <ParameterPicker
                     label="Duration"
                     options={durationOptions}
@@ -947,14 +947,13 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
                   </PrimaryButton>
                 </div>
               </div>
-              {generationError && (
-                <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[12px] font-semibold text-red-600">
-                  <AlertCircle size={13} className="shrink-0" />
-                  <span className="min-w-0 truncate">{generationError}. Credits were not charged.</span>
-                </div>
-              )}
             </div>
-          </div>
+          {generationError && (
+            <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[12px] font-semibold text-red-600">
+              <AlertCircle size={13} className="shrink-0" />
+              <span className="min-w-0 truncate">{generationError}. Credits were not charged.</span>
+            </div>
+          )}
         </div>
       )}
 

@@ -400,30 +400,33 @@ export const MODE_PRESETS = {
   'start-end': [
     {
       id: 'start-end-01',
-      title: 'Paris Turnback',
-      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-01-paris-turnback-preview.png',
-      prompt: 'Create a smooth cinematic transition of a woman turning back on a quiet Paris street, with the Eiffel Tower in the background.',
+      title: 'Mirror to Red Carpet',
+      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/04_start.png',
+      prompt: 'Horizontal 16:9 cinematic one-transition video, 7 seconds. Start in a small messy apartment bathroom in the morning. A young American creator in a hoodie looks tired, standing in front of a foggy mirror with toothbrush cup, towel, and bathroom light visible. The scene feels ordinary and funny.\n\nSingle transition: the creator wipes the foggy mirror with one hand. As the hand moves across the mirror, the reflection transforms smoothly into a glamorous red-carpet entrance at night. The bathroom behind them morphs into flashing camera lights, velvet ropes, and a crowd of photographers with no logos or readable text. Keep the same person and face consistent.\n\nEnd with the same creator now standing confidently on the red carpet in a sharp stylish outfit, finishing the same wiping hand motion like a pose, surprised but enjoying it. Style: realistic American celebrity glow-up comedy, clean transition, cinematic lighting, one simple mirror-wipe effect, no subtitles, no text, no logo, no watermark.\n\nAvoid: blood, gore, injury, realistic violence, weapons, disturbing horror, distorted faces, extra fingers, broken hands, unreadable text, subtitles, logos, watermarks, low-quality motion, flickering faces, inconsistent character identity, overly cartoonish style.',
       mode: 'start-end',
-      startFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-01-paris-turnback-start.png',
-      endFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-01-paris-turnback-end.png'
+      video: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/04_mirror_to_red_carpet_ad0a086f-0b2b-461d-a3ec-7b5c16afc798_1.mp4',
+      startFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/04_start.png',
+      endFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/04_end.png'
     },
     {
       id: 'start-end-02',
-      title: 'Paris Café Flyover',
-      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-02-paris-cafe-preview.png',
-      prompt: 'Create a smooth flying camera transition from a Paris café street view to an elegant aerial view above the café.',
+      title: 'Laundry Spin to Neon Party',
+      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/05_start.png',
+      prompt: 'Horizontal 16:9 cinematic one-transition video, 7 seconds. Start in a normal American apartment laundry room at night. A stylish young American woman puts a bright jacket into a washing machine, looking bored. The room has baskets, folded clothes, soft overhead light, and a normal domestic feeling.\n\nSingle transition: the camera pushes into the spinning washing machine window as the clothes rotate. The circular motion fills the entire frame and becomes a clean spin transition into colorful neon party lights. Keep the spinning motion smooth and easy to understand.\n\nEnd in a lively rooftop party at night with the same woman stepping out of the spinning light effect, now wearing the bright jacket, looking confident and excited. The city skyline is behind her, friends are blurred in the background, music-video lighting, no logos, no readable text. Style: viral outfit-change transition, realistic, polished, energetic, one clear spin transition only, no subtitles, no watermark.\n\nAvoid: blood, gore, injury, realistic violence, weapons, disturbing horror, distorted faces, extra fingers, broken hands, unreadable text, subtitles, logos, watermarks, low-quality motion, flickering faces, inconsistent character identity, overly cartoonish style.',
       mode: 'start-end',
-      startFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-02-paris-cafe-start.png',
-      endFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-02-paris-cafe-end.png'
+      video: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/05_laundry_spin_to_neon_party_2f1e4018-d079-42de-9994-a4661b7300f8_1.mp4',
+      startFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/05_start.png',
+      endFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/05_end.png'
     },
     {
       id: 'start-end-03',
-      title: 'Pool Dive',
-      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-03-pool-dive-preview.png',
-      prompt: 'Create a seamless transition from a poolside dive into a vivid underwater world with coral reefs and tropical fish.',
+      title: 'Locker to Concert Stage',
+      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/06_start.png',
+      prompt: 'Horizontal 16:9 cinematic one-transition video, 7 seconds. Start in a bright American high school hallway during the day. A teenage American student stands at a locker, holding notebooks, looking shy and nervous. Other students pass in the background, lockers and classroom doors visible, no readable text.\n\nSingle transition: the student opens the locker door toward the camera. As the door covers the lens, the inside of the locker turns into a burst of colored stage lights. The camera passes through the dark locker interior and emerges onto a concert stage. Keep it as one smooth door-wipe transition.\n\nEnd with the same student on a small neon concert stage, wearing the same base outfit with subtle performance details, holding a microphone, surprised but smiling as the crowd lights glow in the background. Style: American teen movie fantasy, inspiring and funny, colorful stage lighting, realistic faces, one clear locker-door transition, no subtitles, no text, no logo, no watermark.\n\nAvoid: blood, gore, injury, realistic violence, weapons, disturbing horror, distorted faces, extra fingers, broken hands, unreadable text, subtitles, logos, watermarks, low-quality motion, flickering faces, inconsistent character identity, overly cartoonish style.',
       mode: 'start-end',
-      startFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-03-pool-dive-start.png',
-      endFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/start-end-frames/startend-03-pool-dive-end.png'
+      video: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/06_coffee_cup_to_rooftop_c05dbc11-05bc-4e34-871e-088ce2cb8676_1.mp4',
+      startFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/06_start.png',
+      endFrame: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/start-end-frames/06_end.png'
     }
   ]
 };

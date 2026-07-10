@@ -1,16 +1,17 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   /* Home — kept for future homepage landing nav entry */
   Video, Image, X,
   ChevronLeft, ChevronRight, User, LifeBuoy, LogOut, Zap, Copy,
-  Check, LogIn, UserPlus
+  Check, LogIn, UserPlus, LayoutDashboard
 } from 'lucide-react';
 import clsx from 'clsx';
 import { SITE_URL } from '@/lib/api/config';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { getProfileDisplay } from '@/lib/user/display';
+import { adminService } from '@/lib/admin/service';
 
 // HOME category removed from console nav.
 // The Home page code is preserved in src/pages/Home.jsx for reuse as homepage landing.
@@ -43,6 +44,22 @@ export default function Sidebar({
 }) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [supportCopied, setSupportCopied] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    if (!isLoggedIn) {
+      setIsAdmin(false);
+      return undefined;
+    }
+    adminService.checkAdmin().then((result) => {
+      if (mounted) setIsAdmin(result);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [isLoggedIn]);
+
   const { profile, credits, loginEmail, loading: profileLoading } = useUserProfile();
   const displayEmailSource = loginEmail || authSession?.email || null;
   const { nickname, email, initials } = getProfileDisplay(
@@ -275,6 +292,18 @@ export default function Sidebar({
               "absolute bottom-full mb-2 z-50 rounded-2xl border border-gray-200/60 bg-white/95 backdrop-blur-md p-1.5 shadow-2xl flex flex-col gap-0.5 w-60",
               isCollapsed ? "left-14" : "left-4"
             )}>
+              {isAdmin && (
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    window.location.assign('/admin');
+                  }}
+                  className="w-full px-3 py-2.5 text-left hover:bg-gray-50 rounded-xl flex items-center gap-2.5 text-[13px] font-semibold text-gray-700 transition"
+                >
+                  <LayoutDashboard size={15} className="text-kiwi-green-dark" />
+                  管理后台
+                </button>
+              )}
               <button
                 onClick={() => {
                   navigateToPage?.('settings', '/settings');

@@ -1,4 +1,4 @@
-import { APP_URL, SITE_URL } from "./api/config";
+﻿import { APP_URL, SITE_URL } from "./api/config";
 
 export function appUrl(path = "/app/video-generator") {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;

@@ -759,6 +759,17 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
                     counterClassName="bottom-1.5 right-1.5"
                   />
                 </div>
+
+                {/* Generate on the same row as the upload box so the template
+                    panel isn't a row taller than the other modes. */}
+                <div className="flex shrink-0 items-end sm:self-stretch">
+                  <GenerateButton
+                    onGenerate={handleGenerate}
+                    canGenerate={canGenerate}
+                    credits={credits}
+                    isRetrying={Boolean(generationError)}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -769,24 +780,6 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
               <span className="min-w-0 truncate">{generationError}. Credits were not charged.</span>
             </div>
           )}
-
-          {/* Controls row */}
-          <ControlsRow
-            mode={mode}
-            selectedModel={selectedModel}
-            onModelChange={setSelectedModel}
-            aspect={aspect}
-            onAspectChange={setAspect}
-            quality={quality}
-            onQualityChange={setQuality}
-            quantity={quantity}
-            onQuantityChange={setQuantity}
-            credits={credits}
-            onGenerate={handleGenerate}
-            canGenerate={canGenerate}
-            isGenerating={isGenerating}
-            isRetrying={Boolean(generationError)}
-          />
         </div>
       )}
 
@@ -938,25 +931,36 @@ function ControlsRow({ mode, selectedModel, onModelChange, aspect, onAspectChang
 
       {/* Generate button */}
       <div className="ml-auto">
-        <button
-          type="button"
-          onClick={onGenerate}
-          disabled={!canGenerate}
-          className={`inline-flex h-9 items-center gap-2 rounded-xl px-5 text-[13px] font-bold transition-all shadow-sm ${
-            canGenerate
-              ? 'bg-kiwi-green text-gray-900 hover:bg-kiwi-green-dark hover:shadow-md active:scale-95'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          }`}
-        >
-          {isRetrying ? 'Retry' : 'Generate'}
-          <span className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-[1px] text-[10px] font-bold ${
-            canGenerate ? 'bg-gray-900/15 text-gray-900' : 'bg-gray-200 text-gray-400'
-          }`}>
-            {credits} cr
-          </span>
-        </button>
+        <GenerateButton
+          onGenerate={onGenerate}
+          canGenerate={canGenerate}
+          credits={credits}
+          isRetrying={isRetrying}
+        />
       </div>
     </div>
+  );
+}
+
+function GenerateButton({ onGenerate, canGenerate, credits, isRetrying = false }) {
+  return (
+    <button
+      type="button"
+      onClick={onGenerate}
+      disabled={!canGenerate}
+      className={`inline-flex h-9 items-center gap-2 rounded-xl px-5 text-[13px] font-bold transition-all shadow-sm ${
+        canGenerate
+          ? 'bg-kiwi-green text-gray-900 hover:bg-kiwi-green-dark hover:shadow-md active:scale-95'
+          : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+      }`}
+    >
+      {isRetrying ? 'Retry' : 'Generate'}
+      <span className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-[1px] text-[10px] font-bold ${
+        canGenerate ? 'bg-gray-900/15 text-gray-900' : 'bg-gray-200 text-gray-400'
+      }`}>
+        {credits} cr
+      </span>
+    </button>
   );
 }
 
@@ -1025,6 +1029,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   }, [imageTemplates]);
 
   useEffect(() => {
+    if (!isAuthenticated()) return;
     getMyImageGenerationTasks({ pageNo: 1, pageSize: 50 })
       .then((page) => {
         const list = page?.list || [];

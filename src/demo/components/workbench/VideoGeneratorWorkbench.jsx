@@ -25,6 +25,7 @@ import {
   getMyVideoGenerationTasks,
   waitForVideoGeneration,
 } from '../../lib/videoGenerator.js';
+import { isAuthenticated } from '../../lib/auth.js';
 
 const HLS_SCRIPT_URL = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js';
 let hlsScriptPromise = null;
@@ -322,6 +323,10 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
     };
 
     const loadHistory = async () => {
+      if (!isAuthenticated()) {
+        setIsHistoryLoading(false);
+        return;
+      }
       setIsHistoryLoading(true);
       try {
         const page = await getMyVideoGenerationTasks({ pageNo: 1, pageSize: 50 });
@@ -339,7 +344,7 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
             });
           });
       } catch (error) {
-        console.error('[Video History Load Failed]', error);
+        console.warn('[Video History Load Failed]', error);
       } finally {
         if (!cancelled) setIsHistoryLoading(false);
       }
