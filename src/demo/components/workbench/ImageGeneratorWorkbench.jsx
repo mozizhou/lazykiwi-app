@@ -100,6 +100,17 @@ function findTemplateByRouteValue(templates, requested) {
   }) || null;
 }
 
+function findHistoryTemplate(templates, item) {
+  return item?.templateData || templates.find((template) =>
+    String(template.templateId) === String(item?.templateId)
+    || (item?.template && (
+      template.name === item.template
+      || modelSlug(template.name) === modelSlug(item.template)
+      || modelSlug(template.id) === modelSlug(item.template)
+    ))
+  ) || null;
+}
+
 function getQueryImageTemplate() {
   if (typeof window === 'undefined') return null;
   return getImageTemplateByRouteValue(getQueryImageTemplateValue());
@@ -225,6 +236,7 @@ function taskToHistoryItem(task) {
     type: 'image',
     sourceType: task.generateType === 1 ? 'template' : 'free',
     entryTab: task.generateType === 1 ? 'template' : 'text-to-image',
+    templateId: task.templateId || null,
     prompt: task.prompt || '(no prompt)',
     model: task.modelName || IMAGE_MODELS[0].name,
     aspect: task.ratio || '1:1',
@@ -242,6 +254,7 @@ function taskToHistoryItem(task) {
       originalName: '',
     })),
     template: template?.name || null,
+    templateData: template || null,
     status: task.status,
     errorMessage: task.errorMessage,
     date: new Date(task.createTime || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
@@ -462,7 +475,10 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
         ? [{ id: 'img_hist_1', previewUrl: historyRef, displayName: 'Image 1', originalName: '' }]
         : []);
       if (item.template) {
-        const restoredTemplate = IMAGE_TEMPLATES.find((template) => template.name === item.template) || {
+        const restoredTemplate = item.templateData || IMAGE_TEMPLATES.find((template) =>
+          String(template.templateId) === String(item.templateId) || template.name === item.template
+        ) || {
+          templateId: item.templateId,
           name: item.template,
           img: item.referenceImage || '',
         };
@@ -582,7 +598,9 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
           ...img,
           previewUrl: inputImageUrls[index] || img.previewUrl,
         })),
+        templateId: activeTemplate?.templateId ?? null,
         template: activeTemplate?.name ?? null,
+        templateData: activeTemplate || null,
         status: task.status,
         date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
       };
@@ -609,7 +627,9 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
         images: [],
         referenceImage: refImage || '',
         referenceImages,
+        templateId: activeTemplate?.templateId ?? null,
         template: activeTemplate?.name ?? null,
+        templateData: activeTemplate || null,
         status: 40,
         errorMessage: message,
         date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
@@ -1038,6 +1058,12 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
         const nextTemplates = templates.map(toUiTemplate).filter((template) => template.templateId && template.img);
         if (nextTemplates.length === 0) return;
         setImageTemplates(nextTemplates);
+        setHistory((previous) => previous.map((item) => {
+          const template = findHistoryTemplate(nextTemplates, item);
+          return template
+            ? { ...item, templateId: template.templateId, template: template.name, templateData: template }
+            : item;
+        }));
         const requestedTemplate = findTemplateByRouteValue(nextTemplates, routeTemplate || getQueryImageTemplateValue());
         if (requestedTemplate) {
           setCanvasTab('templates');
@@ -1093,7 +1119,13 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
       const index = prev.findIndex((existing) => existing.id === item.id);
       if (index === -1) return [item, ...prev];
       const next = [...prev];
-      next[index] = { ...next[index], ...item };
+      next[index] = {
+        ...next[index],
+        ...item,
+        templateId: item.templateId || next[index].templateId,
+        template: item.template || next[index].template,
+        templateData: item.templateData || next[index].templateData,
+      };
       return next;
     });
     setIsGenerating(false);
@@ -1127,15 +1159,25 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
 
   const handleRegenerate = (item) => {
     setCanvasTab('templates');
-    if (item.template) {
-      const t = imageTemplates.find(x => x.name === item.template) || null;
+    const isTemplateEntry = item.sourceType === 'template'
+      || item.entryTab === 'template'
+      || Boolean(item.templateId)
+      || Boolean(item.template);
+    let restoredItem = item;
+    if (isTemplateEntry) {
+      const t = findHistoryTemplate(imageTemplates, item) || {
+        templateId: item.templateId,
+        name: item.template || 'Image Template',
+        img: item.referenceImage || '',
+      };
       setSelectedTemplate(t);
-      if (t) setLastSelectedTemplate(t);
+      setLastSelectedTemplate(t);
+      restoredItem = { ...item, template: t.name, templateId: t.templateId, templateData: t };
     } else {
       setSelectedTemplate(null);
     }
     setTimeout(() => {
-      panelRef.current?.applyHistory(item);
+      panelRef.current?.applyHistory(restoredItem);
     }, 0);
   };
 
