@@ -1255,6 +1255,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
                   {groupedHistory[date].map((item) => {
                     const imgs = item.images && item.images.length > 0 ? item.images : [{id: item.id}];
                     const isMulti = imgs.length > 1;
+                    const isPending = item.status === 10 || item.status === 20;
                     return (
                       <div key={item.id} className="group flex flex-col gap-2.5">
                         <div className="relative aspect-square w-full flex items-center justify-center">
@@ -1293,6 +1294,11 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
                                       <span className="px-3 text-center text-[12px] font-semibold text-red-400">
                                         Failed
                                       </span>
+                                    ) : isPending ? (
+                                      <div className="flex flex-col items-center gap-2 text-kiwi-green-dark">
+                                        <LoaderCircle size={24} className="animate-spin" />
+                                        <span className="text-[11px] font-semibold">Generating...</span>
+                                      </div>
                                     ) : (
                                       <ImageIcon size={20} className="text-gray-300" />
                                     )}
