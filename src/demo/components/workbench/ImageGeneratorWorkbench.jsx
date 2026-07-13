@@ -972,6 +972,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [imageTemplates, setImageTemplates] = useState(IMAGE_TEMPLATES_VISIBLE);
   const [previewImage, setPreviewImage] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   // Active mode inside the dock (mirrors what ImageCreationPanel reports via callback)
   const [activeMode, setActiveMode]   = useState('text-to-image');
@@ -994,13 +995,18 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const panelRef = useRef(null);
 
   useEffect(() => {
-    if (!previewImage) return undefined;
+    if (!previewImage && !deleteTarget) return undefined;
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setPreviewImage(null);
+      if (event.key !== 'Escape') return;
+      if (deleteTarget) {
+        setDeleteTarget(null);
+      } else {
+        setPreviewImage(null);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [previewImage]);
+  }, [previewImage, deleteTarget]);
 
   const handleDownloadImage = async (image) => {
     const pathname = new URL(image.url, window.location.href).pathname;
@@ -1365,7 +1371,10 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
                                     <RefreshCw size={11} />
                                   </button>
                                   <button
-                                    onClick={(e) => { e.stopPropagation(); handleDeleteSubImage(item.id, subImg.id); }}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setDeleteTarget({ itemId: item.id, subId: subImg.id });
+                                    }}
                                     title="Delete"
                                     className="flex h-7 w-7 items-center justify-center rounded-full bg-black/45 hover:bg-red-500 text-white backdrop-blur-md transition-all shadow active:scale-95"
                                   >
@@ -1398,6 +1407,47 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
         )}
 
       </div>
+
+      {deleteTarget && (
+        <div
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setDeleteTarget(null);
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="delete-image-title"
+            className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-6 shadow-2xl"
+          >
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-50 text-red-500">
+              <Trash2 size={20} />
+            </div>
+            <h3 id="delete-image-title" className="mt-4 text-lg font-bold text-gray-900">Delete image?</h3>
+            <p className="mt-2 text-[13px] leading-5 text-gray-500">This action cannot be undone.</p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setDeleteTarget(null)}
+                className="h-10 rounded-xl border border-gray-200 px-4 text-[13px] font-semibold text-gray-600 transition hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  handleDeleteSubImage(deleteTarget.itemId, deleteTarget.subId);
+                  setDeleteTarget(null);
+                }}
+                className="h-10 rounded-xl bg-red-500 px-4 text-[13px] font-bold text-white transition hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {previewImage && (
         <div
