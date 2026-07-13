@@ -1338,7 +1338,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-14">
                   {groupedHistory[date].map((item) => {
                     const imgs = item.images && item.images.length > 0 ? item.images : [{id: item.id}];
                     const isMulti = imgs.length > 1;
