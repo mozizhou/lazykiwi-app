@@ -16,7 +16,7 @@
 import { useState, useRef, useCallback, forwardRef, useImperativeHandle, useEffect } from 'react';
 import {
   ArrowLeft, Play, RefreshCw, Trash2, LoaderCircle, ImageIcon,
-  ArrowUp, X, Plus, HelpCircle, AlertCircle,
+  ArrowUp, X, Plus, HelpCircle, AlertCircle, Download,
 } from 'lucide-react';
 import { Dropdown } from './Dropdown.jsx';
 import { PrimaryButton, PillGroup, ClearableTextarea } from './primitives.jsx';
@@ -971,6 +971,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const [history, setHistory]         = useState(SEED_HISTORY);
   const [isGenerating, setIsGenerating] = useState(false);
   const [imageTemplates, setImageTemplates] = useState(IMAGE_TEMPLATES_VISIBLE);
+  const [previewImage, setPreviewImage] = useState(null);
 
   // Active mode inside the dock (mirrors what ImageCreationPanel reports via callback)
   const [activeMode, setActiveMode]   = useState('text-to-image');
@@ -991,6 +992,38 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   };
 
   const panelRef = useRef(null);
+
+  useEffect(() => {
+    if (!previewImage) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setPreviewImage(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [previewImage]);
+
+  const handleDownloadImage = async (image) => {
+    const pathname = new URL(image.url, window.location.href).pathname;
+    const extension = pathname.match(/\.(png|jpe?g|webp|gif)$/i)?.[0] || '.png';
+    const filename = `lazykiwi-image-${image.id || Date.now()}${extension}`;
+    try {
+      const response = await fetch(image.url);
+      if (!response.ok) throw new Error('Image download failed');
+      const objectUrl = URL.createObjectURL(await response.blob());
+      const link = document.createElement('a');
+      link.href = objectUrl;
+      link.download = filename;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    } catch {
+      const link = document.createElement('a');
+      link.href = image.url;
+      link.download = filename;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.click();
+    }
+  };
 
   useEffect(() => {
     getImageTemplates()
@@ -1277,9 +1310,20 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
                                 key={subImg.id}
                                 onMouseEnter={() => setHoveredSubCardId(subImg.id)}
                                 onMouseLeave={() => setHoveredSubCardId(null)}
+                                onClick={() => {
+                                  if (subImg.url) setPreviewImage({ ...subImg, prompt: item.prompt });
+                                }}
+                                onKeyDown={(event) => {
+                                  if (subImg.url && (event.key === 'Enter' || event.key === ' ')) {
+                                    event.preventDefault();
+                                    setPreviewImage({ ...subImg, prompt: item.prompt });
+                                  }
+                                }}
+                                role={subImg.url ? 'button' : undefined}
+                                tabIndex={subImg.url ? 0 : undefined}
                                 className={`absolute w-full h-full rounded-2xl overflow-hidden border shadow-sm transition-all duration-300 ease-out group/sub ${
                                   isHovered ? 'border-gray-300 bg-white' : 'border-gray-200/40 bg-gray-100'
-                                }`}
+                                } ${subImg.url ? 'cursor-zoom-in' : ''}`}
                                 style={{
                                   zIndex: isHovered ? 50 : idx,
                                   transform: isHovered
@@ -1354,6 +1398,39 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
         )}
 
       </div>
+
+      {previewImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-8"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setPreviewImage(null);
+          }}
+        >
+          <div className="relative flex max-h-full max-w-full flex-col items-center gap-4">
+            <img
+              src={previewImage.url}
+              alt={previewImage.prompt || 'Generated image preview'}
+              className="max-h-[calc(100vh-120px)] max-w-[calc(100vw-32px)] rounded-2xl object-contain shadow-2xl"
+            />
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => handleDownloadImage(previewImage)}
+                className="inline-flex h-10 items-center gap-2 rounded-xl bg-kiwi-green px-4 text-[13px] font-bold text-gray-900 transition hover:bg-kiwi-green-dark"
+              >
+                <Download size={16} /> Download
+              </button>
+              <button
+                type="button"
+                onClick={() => setPreviewImage(null)}
+                className="inline-flex h-10 items-center gap-2 rounded-xl bg-white/15 px-4 text-[13px] font-semibold text-white transition hover:bg-white/25"
+              >
+                <X size={16} /> Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 鈹€鈹€ Floating dock 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€ */}
       <div className="absolute bottom-0 left-0 right-0 z-20 px-5 pb-5 pt-2">
