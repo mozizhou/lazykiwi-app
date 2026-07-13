@@ -28,6 +28,12 @@ export async function getMyImageGenerationTasks({ pageNo = 1, pageSize = 50 } = 
   return request(`/ai/image-generator/my-page?pageNo=${pageNo}&pageSize=${pageSize}`);
 }
 
+export async function deleteImageGenerationTask(id) {
+  return request(`/ai/image-generator/delete?id=${encodeURIComponent(id)}`, {
+    method: "DELETE",
+  });
+}
+
 export async function getImageTemplates() {
   return request("/ai/image-generator/templates", { auth: false });
 }

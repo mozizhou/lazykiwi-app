@@ -35,6 +35,7 @@ import {
   getImageCredits,
 } from './imageGeneratorData.js';
 import {
+  deleteImageGenerationTask,
   getImageTemplates,
   getMyImageGenerationTasks,
   submitImageGeneration,
@@ -44,12 +45,6 @@ import {
 import { isAuthenticated } from '../../lib/auth.js';
 
 // 鈹€鈹€鈹€ Demo seed history 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
-const SEED_HISTORY = [
-  { id: 1, prompt: 'Selfie under the northern lights', model: 'GPT Image 2', aspect: '1:1', count: 1, date: 'May 25', images: [{id: '1-1'}] },
-  { id: 2, prompt: 'Elderly woman fed by a cat',       model: 'FLUX.1 Schnell', aspect: '4:3', count: 2, date: 'May 25', images: [{id: '2-1'}, {id: '2-2'}] },
-  { id: 3, prompt: 'Classroom documentary shot',       model: 'Seedream 5.0',  aspect: '16:9', count: 1, date: 'May 24', images: [{id: '3-1'}] },
-];
-
 /**
  * Parse @[Image N] mentions from prompt and map to image entries.
  */
@@ -988,11 +983,13 @@ function GenerateButton({ onGenerate, canGenerate, credits, isRetrying = false }
 
 export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const [canvasTab, setCanvasTab]     = useState('templates'); // 'templates' | 'history'
-  const [history, setHistory]         = useState(SEED_HISTORY);
+  const [history, setHistory]         = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [imageTemplates, setImageTemplates] = useState(IMAGE_TEMPLATES_VISIBLE);
   const [previewImage, setPreviewImage] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
 
   // Active mode inside the dock (mirrors what ImageCreationPanel reports via callback)
   const [activeMode, setActiveMode]   = useState('text-to-image');
@@ -1098,9 +1095,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
     getMyImageGenerationTasks({ pageNo: 1, pageSize: 50 })
       .then((page) => {
         const list = page?.list || [];
-        if (list.length) {
-          setHistory(list.map(taskToHistoryItem));
-        }
+        setHistory(list.map(taskToHistoryItem));
       })
       .catch((error) => {
         console.warn('[Image History Load Failed]', error);
@@ -1147,14 +1142,19 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const handleRemoveHistory = (id) =>
     setHistory((prev) => prev.filter((h) => h.id !== id));
 
-  const handleDeleteSubImage = (itemId, subId) => {
-    setHistory((prev) => prev.map(item => {
-      if (item.id === itemId && item.images) {
-        const newImages = item.images.filter(img => img.id !== subId);
-        return { ...item, images: newImages };
-      }
-      return item;
-    }).filter(item => !item.images || item.images.length > 0));
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget || isDeleting) return;
+    setIsDeleting(true);
+    setDeleteError('');
+    try {
+      await deleteImageGenerationTask(deleteTarget.itemId);
+      handleRemoveHistory(deleteTarget.itemId);
+      setDeleteTarget(null);
+    } catch (error) {
+      setDeleteError(error.message || 'Delete failed. Please try again.');
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleRegenerate = (item) => {
@@ -1415,7 +1415,8 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      setDeleteTarget({ itemId: item.id, subId: subImg.id });
+                                      setDeleteError('');
+                                      setDeleteTarget({ itemId: item.id });
                                     }}
                                     title="Delete"
                                     className="flex h-7 w-7 items-center justify-center rounded-full bg-black/45 hover:bg-red-500 text-white backdrop-blur-md transition-all shadow active:scale-95"
@@ -1454,7 +1455,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
         <div
           className="fixed inset-0 z-[110] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm"
           onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setDeleteTarget(null);
+            if (!isDeleting && event.target === event.currentTarget) setDeleteTarget(null);
           }}
         >
           <div
@@ -1468,23 +1469,23 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
             </div>
             <h3 id="delete-image-title" className="mt-4 text-lg font-bold text-gray-900">Delete image?</h3>
             <p className="mt-2 text-[13px] leading-5 text-gray-500">This action cannot be undone.</p>
+            {deleteError && <p className="mt-3 text-[12px] font-medium text-red-500">{deleteError}</p>}
             <div className="mt-6 flex justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setDeleteTarget(null)}
+                disabled={isDeleting}
                 className="h-10 rounded-xl border border-gray-200 px-4 text-[13px] font-semibold text-gray-600 transition hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  handleDeleteSubImage(deleteTarget.itemId, deleteTarget.subId);
-                  setDeleteTarget(null);
-                }}
+                onClick={handleConfirmDelete}
+                disabled={isDeleting}
                 className="h-10 rounded-xl bg-red-500 px-4 text-[13px] font-bold text-white transition hover:bg-red-600"
               >
-                Delete
+                {isDeleting ? 'Deleting...' : 'Delete'}
               </button>
             </div>
           </div>
