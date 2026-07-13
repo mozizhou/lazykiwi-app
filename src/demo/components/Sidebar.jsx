@@ -8,7 +8,6 @@ import {
   Check, LogIn, UserPlus, LayoutDashboard
 } from 'lucide-react';
 import clsx from 'clsx';
-import { SITE_URL } from '@/lib/api/config';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { getProfileDisplay } from '@/lib/user/display';
 import { adminService } from '@/lib/admin/service';
@@ -25,8 +24,6 @@ const IA = [
     ]
   }
 ];
-
-const homeHref = SITE_URL.replace(/\/$/, '') || '/';
 
 export default function Sidebar({
   activePage,
@@ -117,14 +114,15 @@ export default function Sidebar({
       )}>
         {/* Logo and Brand */}
         {!isCollapsed ? (
-          <a
-            href={homeHref}
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
             className="flex items-center gap-2.5 rounded-lg pl-3 pr-2 py-1 font-bold tracking-tight text-gray-900 transition hover:bg-gray-100"
-            aria-label="Go to LazyKiwi homepage"
+            aria-label="Refresh LazyKiwi workbench"
           >
             <img src="https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/kiwi-logo.svg" alt="LazyKiwi Logo" width={28} height={28} className="shrink-0" />
             <span className="text-base font-extrabold text-gray-900">LazyKiwi</span>
-          </a>
+          </button>
         ) : (
           <button
             type="button"
