@@ -380,7 +380,13 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
         )}
         <button
           type="button"
-          onClick={() => setCanvasTab('history')}
+          onClick={() => {
+            if (!isAuthenticated()) {
+              window.dispatchEvent(new CustomEvent('lazykiwi:open-auth'));
+              return;
+            }
+            setCanvasTab('history');
+          }}
           className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-4 text-[13px] font-semibold transition-all duration-200 ${
             canvasTab === 'history'
               ? 'bg-gray-900 text-white shadow-sm'
