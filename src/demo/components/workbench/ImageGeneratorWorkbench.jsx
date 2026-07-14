@@ -439,6 +439,7 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
   // Generation state
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState('');
+  const isSubmittingRef = useRef(false);
 
   const effectiveQuantity = mode === 'template' ? '1x' : quantity;
   const credits = getImageCredits(selectedModel, effectiveQuantity);
@@ -535,7 +536,8 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
       window.dispatchEvent(new CustomEvent('lazykiwi:open-auth'));
       return;
     }
-    if (isGenerating) return;
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
     setGenerationError('');
     setIsGenerating(true);
     onGenerateStart?.();
@@ -603,7 +605,7 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
       waitForImageGeneration(task.id, (latest) => {
         if (!latest) return;
         onGenerated?.(taskToHistoryItem(latest));
-      }).finally(() => setIsGenerating(false));
+      });
     } catch (error) {
       console.error('[Image Generate Failed]', error);
       const message = error.message || 'Generation failed';
@@ -629,6 +631,8 @@ const ImageCreationPanel = forwardRef(function ImageCreationPanel({
         errorMessage: message,
         date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
       });
+    } finally {
+      isSubmittingRef.current = false;
       setIsGenerating(false);
     }
   };
@@ -984,6 +988,7 @@ function GenerateButton({ onGenerate, canGenerate, credits, isRetrying = false }
 export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
   const [canvasTab, setCanvasTab]     = useState('templates'); // 'templates' | 'history'
   const [history, setHistory]         = useState([]);
+  const [isHistoryLoading, setIsHistoryLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [imageTemplates, setImageTemplates] = useState(IMAGE_TEMPLATES_VISIBLE);
   const [previewImage, setPreviewImage] = useState(null);
@@ -1090,17 +1095,23 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
     return () => window.removeEventListener('lazykiwi:route-change', handleRouteChange);
   }, [imageTemplates]);
 
-  useEffect(() => {
+  const loadImageHistory = useCallback(async () => {
     if (!isAuthenticated()) return;
-    getMyImageGenerationTasks({ pageNo: 1, pageSize: 50 })
-      .then((page) => {
-        const list = page?.list || [];
-        setHistory(list.map(taskToHistoryItem));
-      })
-      .catch((error) => {
-        console.warn('[Image History Load Failed]', error);
-      });
+    setIsHistoryLoading(true);
+    try {
+      const page = await getMyImageGenerationTasks({ pageNo: 1, pageSize: 50 });
+      const list = page?.list || [];
+      setHistory(list.map(taskToHistoryItem));
+    } catch (error) {
+      console.warn('[Image History Load Failed]', error);
+    } finally {
+      setIsHistoryLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadImageHistory();
+  }, [loadImageHistory]);
 
   // 鈹€鈹€ Callbacks 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 
@@ -1216,6 +1227,7 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
               return;
             }
             setCanvasTab('history');
+            loadImageHistory();
           }}
           className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-4 text-[13px] font-semibold transition-all duration-200 ${
             canvasTab === 'history'
@@ -1223,7 +1235,10 @@ export default function ImageGeneratorWorkbench({ routeMode, routeTemplate }) {
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
           }`}
         >
-          <ImageIcon size={13} /> My Image
+          {isHistoryLoading
+            ? <LoaderCircle size={13} className="animate-spin" />
+            : <ImageIcon size={13} />}
+          My Image
         </button>
       </div>
 

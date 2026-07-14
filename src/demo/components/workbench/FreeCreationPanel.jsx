@@ -662,7 +662,8 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
       waitForVideoGeneration(task.id, (latest) => {
         if (!latest) return;
         onGenerated?.(taskToHistoryItem(latest));
-      }).finally(() => setIsGenerating(false));
+      });
+      setIsGenerating(false);
       setPrompt('');
       setImageFrame('');
       setImageFrameFile(null);
@@ -910,7 +911,8 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
                         waitForVideoGeneration(task.id, (latest) => {
                           if (!latest) return;
                           onGenerated?.(taskToHistoryItem(latest, template));
-                        }).finally(() => setIsGenerating(false));
+                        });
+                        setIsGenerating(false);
                         // Do NOT call onClearTemplate() — keep the template selected
                         // so the bottom dock stays in the template workbench state
                         // (State C: generation done, template still visible)
