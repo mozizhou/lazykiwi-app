@@ -10,6 +10,7 @@ import AuthModal from "@/demo/components/AuthModal";
 import { getStoredAuth, isAuthenticated, logout as logoutAuth } from "@/demo/lib/auth";
 import { AUTH_CHANGE_EVENT } from "@/lib/auth/events";
 import { authStorage } from "@/lib/auth/storage";
+import { siteUrl } from "@/lib/routes";
 import Home from "@/demo/pages/Home";
 import VideoEffects from "@/demo/pages/VideoEffects";
 import VideoGenerator from "@/demo/pages/VideoGenerator";
@@ -78,6 +79,14 @@ export function DemoConsole({ initialPage }: { initialPage: string }) {
 
   const navigateToPage = (pageId: string, path?: string) => {
     if (path) {
+      if (path === "/pricing") {
+        const configuredPricingUrl = siteUrl(path);
+        const pricingUrl = configuredPricingUrl === `${window.location.origin}${path}`
+          ? "https://lazykiwi.ai/pricing"
+          : configuredPricingUrl;
+        window.location.assign(pricingUrl);
+        return;
+      }
       let targetPath = path;
       if (path.startsWith("/video-generator")) targetPath = path.replace("/video-generator", "/app/video-generator");
       else if (path.startsWith("/image-generator")) targetPath = path.replace("/image-generator", "/app/image-generator");
