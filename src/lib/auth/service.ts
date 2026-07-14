@@ -136,6 +136,8 @@ export const authService = {
 
     state,
 
+    redirectUri,
+
   }: {
 
     type?: number;
@@ -144,7 +146,11 @@ export const authService = {
 
     state: string;
 
+    redirectUri?: string;
+
   }) {
+
+    const resolvedRedirectUri = redirectUri ?? getDefaultRedirectUri();
 
     const data = await apiRequest<LoginResponse>("/member/auth/social-login", {
 
@@ -152,7 +158,7 @@ export const authService = {
 
       auth: false,
 
-      body: { type, code, state },
+      body: { type, code, state, redirectUri: resolvedRedirectUri },
 
     });
 
