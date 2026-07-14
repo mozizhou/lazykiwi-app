@@ -137,7 +137,48 @@ function TemplatePreviewMedia({ template }) {
   );
 }
 
-// ─── API history mapping ─────────────────────────────────────────────────────
+function PresetPreviewMedia({ preset }) {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !preset.video) return undefined;
+    const play = () => {
+      const request = video.play();
+      if (request?.catch) request.catch(() => {});
+    };
+    video.addEventListener('loadedmetadata', play, { once: true });
+    return () => {
+      video.removeEventListener('loadedmetadata', play);
+      video.removeAttribute('src');
+      video.load();
+    };
+  }, [preset.video]);
+
+  if (preset.video) {
+    return (
+      <video
+        ref={videoRef}
+        src={encodeURI(preset.video)}
+        aria-label={preset.title || 'Preset preview'}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+      />
+    );
+  }
+
+  return (
+    <img
+      src={encodeURI(preset.thumbnail)}
+      alt=""
+      className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+    />
+  );
+}
+
 function taskToHistoryItem(task) {
   return {
     id: task.id,
@@ -448,11 +489,7 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
                         onMouseLeave={() => setHoveredPreset(null)}
                         className={`group relative h-full flex-shrink-0 rounded-xl overflow-hidden bg-gray-100 focus:outline-none transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md ${isAnotherHovered ? 'opacity-40' : 'opacity-100'}`}
                       >
-                        <img
-                          src={encodeURI(preset.thumbnail)}
-                          alt=""
-                          className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-                        />
+                        <PresetPreviewMedia preset={preset} />
                       </button>
                     );
                   })}

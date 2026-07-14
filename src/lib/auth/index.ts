@@ -25,7 +25,7 @@ export const startGoogleLogin = () => authService.startGoogleLogin();
 
 
 
-export const socialLogin = (form: { type?: number; code: string; state: string }) =>
+export const socialLogin = (form: { type?: number; code: string; state: string; redirectUri?: string }) =>
 
   authService.socialLogin(form);
 

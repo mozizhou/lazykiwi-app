@@ -18,7 +18,11 @@ function AuthCallbackContent() {
       return;
     }
 
-    socialLogin({ code, state })
+    socialLogin({
+      code,
+      state,
+      redirectUri: `${window.location.origin}/auth/callback`,
+    })
       .then(() => {
         window.location.replace(appUrl("/app/video-generator"));
       })

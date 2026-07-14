@@ -352,25 +352,28 @@ export const MODE_PRESETS = {
   'text-to-video': [
     {
       id: 'text-01',
-      title: 'Suspense Highway',
-      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/text-to-video/text-01-porsche-highway.png',
-      prompt: 'A Porsche 911 drives alone on an empty highway in a suspenseful cinematic atmosphere, with a moody blue-black color palette.',
-      mode: 'text-to-video'
+      title: 'Elevator Outfit Change',
+      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/text-to-video/01_elevator_ding_outfits_7a3769d5-a52e-4cc6-877e-ed40df1e480d_1.mp4',
+      video: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/text-to-video/01_elevator_ding_outfits_7a3769d5-a52e-4cc6-877e-ed40df1e480d_1.mp4',
+      prompt: 'Horizontal 16:9 cinematic viral short video, 8 seconds. A young American office worker in a modern office elevator is late for an important meeting, holding a coffee and a laptop bag, looking stressed but funny. The elevator doors close. With every elevator ding, the lights flash once and their outfit changes instantly into a more ridiculous but stylish version: first messy office clothes, then a gym coach look, then a formal tuxedo, then a shiny futuristic business outfit. Keep the same person and face consistent.\n\nCamera: start with a medium-wide shot inside the elevator, centered and stable. Use quick punchy cuts synced to the elevator dings, slight camera shake and motion blur during each outfit change, then end with the doors opening to a boardroom hallway. The worker steps out in the futuristic business outfit, suddenly confident, while coworkers in the hallway stare in disbelief.\n\nStyle: realistic American workplace comedy, glossy cinematic lighting, clean faces, expressive reaction, fast TikTok hook energy, funny but premium. No subtitles, no readable text, no logos, no watermark.\n\nAvoid: blood, gore, injury, realistic violence, weapons, disturbing horror, distorted faces, extra fingers, broken hands, unreadable text, subtitles, logos, watermarks, low-quality motion, flickering faces, inconsistent character identity, overly cartoonish style.',
+      mode: 'text-to-video',
     },
     {
       id: 'text-02',
-      title: 'Zombie Ignition',
-      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/text-to-video/text-02-zombie-cigarette.png',
-      prompt: 'A European man holds a cigarette in his mouth and prepares to light it, while a wave of zombies surges in the background, in a blue-black apocalyptic tone.',
-      mode: 'text-to-video'
+      title: 'Reverse Rain Crosswalk',
+      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/text-to-video/02_reverse_rain_crosswalk_95a96e59-e62b-439d-99c6-a4116d863ab8_1.mp4',
+      video: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/text-to-video/02_reverse_rain_crosswalk_95a96e59-e62b-439d-99c6-a4116d863ab8_1.mp4',
+      prompt: 'Horizontal 16:9 cinematic magic-realism short video, 8 seconds. A stylish young American woman stands at a rainy city crosswalk at night, soaked but calm, surrounded by wet pavement, reflections, taxis, streetlights, and blurred pedestrians. She opens a small black umbrella, pauses, then snaps her fingers with a tiny smile.\n\nAt the snap, the rain freezes in midair around her like thousands of glittering beads. The camera slowly pushes in as all raindrops reverse upward into the sky, leaving a perfectly dry circle around her. People in the background keep moving normally for a moment, then stop and stare. She lowers the umbrella, completely dry, and walks forward with confident energy while the city behind her still glows with rain.\n\nStyle: realistic American city night, cinematic reflections, blue and amber lighting, smooth slow motion, magical but believable, strong visual hook in the first 2 seconds, no text, no logo, no watermark.\n\nAvoid: blood, gore, injury, realistic violence, weapons, disturbing horror, distorted faces, extra fingers, broken hands, unreadable text, subtitles, logos, watermarks, low-quality motion, flickering faces, inconsistent character identity, overly cartoonish style.',
+      mode: 'text-to-video',
     },
     {
       id: 'text-03',
-      title: 'Battlefield Rescue',
-      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/assets/presets/text-to-video/text-03-soldier-rescue.png',
-      prompt: 'A male and a female soldier support an injured man between them, while a blurred army stands in the background, creating a tense cinematic war scene.',
-      mode: 'text-to-video'
-    }
+      title: 'Drive-Thru Time Glitch',
+      thumbnail: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/text-to-video/03_microwave_portal_snack_786000fe-4bc3-4160-b78a-104988f5d238_1.mp4',
+      video: 'https://lazykiwi.oss-accelerate.aliyuncs.com/web-assets/presets/text-to-video/03_microwave_portal_snack_786000fe-4bc3-4160-b78a-104988f5d238_1.mp4',
+      prompt: 'Horizontal 16:9 funny cinematic short video, 8 seconds. A young American man sits in his car at a generic suburban drive-thru at night, no brand signs, warm menu-board glow, rain on the windshield, neon reflections. He reaches for a paper drink cup from the drive-thru window. The moment he touches it, the entire scene glitches in time.\nThe car interior briefly transforms into a 1950s diner booth with chrome details and warm jukebox lighting, then snaps back to the modern car, then glitches again into a sleek futuristic car cockpit. The man looks around in total confusion, still holding the same drink cup. The drive-thru worker at the window stays calm and casually gives him a paper bag as if this happens all the time. End with the man staring at the bag while it softly glows from inside.\nStyle: realistic comedy sci-fi, American suburb at night, one clear character, expressive face, clean cinematic lighting, playful time-glitch VFX, no readable text, no logos, no subtitles, no watermark.\nAvoid: blood, gore, injury, realistic violence, weapons, disturbing horror, distorted faces, extra fingers, broken hands, unreadable text, subtitles, logos, watermarks, low-quality motion, flickering faces, inconsistent character identity, overly cartoonish style.',
+      mode: 'text-to-video',
+    },
   ],
   'image-to-video': [
     {
