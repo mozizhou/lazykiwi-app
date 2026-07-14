@@ -266,7 +266,6 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
       return next;
     });
     setIsGenerating(false);
-    setCanvasTab('history');
     if (historyItem.status === 40) {
       if (historyItem.template) {
         const failedTemplate = TEMPLATES.find((item) => item.name === historyItem.template);
