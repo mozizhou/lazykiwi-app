@@ -965,7 +965,7 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
             {/* Generator */}
             {(mode === 'text-to-video' || mode === 'image-to-video') && (
               <div className="flex items-start gap-4 h-full">
-                <div className="flex w-[80px] shrink-0 flex-col gap-1.5">
+                <div className="flex shrink-0 flex-col gap-1.5">
                   <div className="flex items-center gap-1.5 pl-1">
                     <span className="text-[11px] font-semibold text-gray-600">Ref</span>
                     <span className="rounded-full bg-gray-100 px-1.5 py-[1px] text-[9px] font-medium text-gray-400">
@@ -975,7 +975,7 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
                   <MultiImageUpload
                     images={imageFrames}
                     onImagesChange={handleImagesChange}
-                    className="w-full"
+                    className="w-[80px]"
                   />
                 </div>
                 <div className="flex-1 relative h-full">
