@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowUpRight, Check, Loader2, Pencil } from 'lucide-react';
 import { billingService } from '@/lib/billing/service';
+import { pricingUrl } from '@/lib/routes';
 import { userService } from '@/lib/user/service';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 
@@ -242,7 +243,7 @@ export default function Settings({ navigateToPage }) {
           </div>
           <button
             type="button"
-            onClick={() => navigateToPage?.('pricing', '/pricing')}
+            onClick={() => window.location.assign(pricingUrl())}
             className="flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-black"
           >
             Upgrade plans

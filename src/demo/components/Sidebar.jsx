@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { getProfileDisplay } from '@/lib/user/display';
 import { adminService } from '@/lib/admin/service';
+import { pricingUrl } from '@/lib/routes';
 
 // HOME category removed from console nav.
 // The Home page code is preserved in src/pages/Home.jsx for reuse as homepage landing.
@@ -201,7 +202,7 @@ export default function Sidebar({
         {isLoggedIn && (
           <button
             type="button"
-            onClick={() => navigateToPage?.('pricing', '/pricing')}
+            onClick={() => window.location.assign(pricingUrl())}
             title={isCollapsed ? 'Upgrade' : undefined}
             className={clsx(
               "flex items-center justify-center rounded-xl bg-gray-900 font-bold text-white transition hover:bg-black",

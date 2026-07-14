@@ -1,10 +1,18 @@
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/backend";
 export const TENANT_ID = process.env.NEXT_PUBLIC_TENANT_ID ?? "1";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+function readSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+  if (appUrl.includes("app.lazykiwi.ai")) return "https://lazykiwi.ai";
+  return "http://localhost:3000";
+}
+
+export const SITE_URL = readSiteUrl();
 export const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL ??
   (SITE_URL.includes("localhost") || SITE_URL.includes("127.0.0.1")
-    ? SITE_URL
+    ? "http://localhost:3001"
     : "https://app.lazykiwi.ai");
 export const AUTH_COOKIE_DOMAIN =
   process.env.NEXT_PUBLIC_AUTH_COOKIE_DOMAIN ??

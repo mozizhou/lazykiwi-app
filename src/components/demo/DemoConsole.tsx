@@ -79,12 +79,8 @@ export function DemoConsole({ initialPage }: { initialPage: string }) {
 
   const navigateToPage = (pageId: string, path?: string) => {
     if (path) {
-      if (path === "/pricing") {
-        const configuredPricingUrl = siteUrl(path);
-        const pricingUrl = configuredPricingUrl === `${window.location.origin}${path}`
-          ? "https://lazykiwi.ai/pricing"
-          : configuredPricingUrl;
-        window.location.assign(pricingUrl);
+      if (path === "/pricing" || pageId === "pricing") {
+        window.location.assign(siteUrl("/pricing"));
         return;
       }
       let targetPath = path;
