@@ -1,4 +1,6 @@
-import { apiRequest } from "../api/client";
+import { apiRequest, parseApiResponse } from "../api/client";
+import { API_BASE_URL, TENANT_ID } from "../api/config";
+import { authStorage } from "../auth/storage";
 
 export type NameCount = {
   key: string;
@@ -253,6 +255,154 @@ export type AdminTaskDetail = {
   ledger: CreditLedger[];
 };
 
+// ==================== 配置管理（套餐 / 积分包） ====================
+
+export type BillingProduct = {
+  id: number;
+  productType: number;
+  code: string;
+  name: string;
+  badge: string | null;
+  positioning: string | null;
+  monthlyCredits: number | null;
+  yearlyCredits: number | null;
+  priceMonthlyAmount: number | null;
+  priceYearlyAmount: number | null;
+  priceOnetimeAmount: number | null;
+  currency: string | null;
+  stripePriceMonthly: string | null;
+  stripePriceYearly: string | null;
+  stripePriceOnetime: string | null;
+  features: string[];
+  parallelTasks: number | null;
+  buttonText: string | null;
+  status: number;
+  sort: number;
+  remark: string | null;
+  createTime: string | null;
+  updateTime: string | null;
+};
+
+export type BillingProductQuery = {
+  productType?: number;
+  status?: number;
+  keyword?: string;
+  pageNo?: number;
+  pageSize?: number;
+};
+
+export type BillingProductPayload = {
+  id?: number;
+  productType: number;
+  code: string;
+  name: string;
+  badge?: string | null;
+  positioning?: string | null;
+  monthlyCredits?: number | null;
+  yearlyCredits?: number | null;
+  priceMonthlyAmount?: number | null;
+  priceYearlyAmount?: number | null;
+  priceOnetimeAmount?: number | null;
+  currency?: string | null;
+  stripePriceMonthly?: string | null;
+  stripePriceYearly?: string | null;
+  stripePriceOnetime?: string | null;
+  features?: string[];
+  parallelTasks?: number | null;
+  buttonText?: string | null;
+  status?: number;
+  sort?: number;
+  remark?: string | null;
+};
+
+// ==================== SEO 管理 ====================
+
+export type SeoMeta = {
+  id: number;
+  pageKey: string;
+  pageGroup: string | null;
+  path: string | null;
+  title: string | null;
+  description: string | null;
+  keywords: string | null;
+  ogTitle: string | null;
+  ogDescription: string | null;
+  ogImage: string | null;
+  canonical: string | null;
+  noIndex: number;
+  status: number;
+  sort: number;
+  remark: string | null;
+  createTime: string | null;
+  updateTime: string | null;
+};
+
+export type SeoMetaQuery = {
+  group?: string;
+  status?: number;
+  keyword?: string;
+  pageNo?: number;
+  pageSize?: number;
+};
+
+export type SeoMetaPayload = {
+  id?: number;
+  pageKey: string;
+  pageGroup?: string | null;
+  path?: string | null;
+  title?: string | null;
+  description?: string | null;
+  keywords?: string | null;
+  ogTitle?: string | null;
+  ogDescription?: string | null;
+  ogImage?: string | null;
+  canonical?: string | null;
+  noIndex?: number;
+  status?: number;
+  sort?: number;
+  remark?: string | null;
+};
+
+// ==================== 模板页面管理 ====================
+
+export type TemplateBlock = {
+  id: string;
+  type: string;
+  data: Record<string, unknown>;
+};
+
+export type TemplatePage = {
+  id: number;
+  slug: string;
+  name: string;
+  templateType: string;
+  contentJson: string | null;
+  status: number;
+  sort: number;
+  remark: string | null;
+  createTime: string | null;
+  updateTime: string | null;
+};
+
+export type TemplatePageQuery = {
+  templateType?: string;
+  status?: number;
+  keyword?: string;
+  pageNo?: number;
+  pageSize?: number;
+};
+
+export type TemplatePagePayload = {
+  id?: number;
+  slug: string;
+  name: string;
+  templateType?: string;
+  contentJson?: string | null;
+  status?: number;
+  sort?: number;
+  remark?: string | null;
+};
+
 function buildQuery(params: Record<string, unknown>): string {
   const search = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
@@ -343,5 +493,122 @@ export const adminService = {
     return apiRequest<AdminTaskDetail>(
       `/ai/lazykiwi/admin/task/detail?taskKind=${taskKind}&taskId=${taskId}`,
     );
+  },
+
+  // ==================== 配置管理（套餐 / 积分包） ====================
+  async getProductPage(query: BillingProductQuery = {}): Promise<PageResult<BillingProduct>> {
+    return apiRequest<PageResult<BillingProduct>>(
+      `/ai/lazykiwi/admin/config/product/page${buildQuery(query as Record<string, unknown>)}`,
+    );
+  },
+  async getProduct(id: number): Promise<BillingProduct> {
+    return apiRequest<BillingProduct>(`/ai/lazykiwi/admin/config/product/get?id=${id}`);
+  },
+  async createProduct(payload: BillingProductPayload): Promise<number> {
+    return apiRequest<number>("/ai/lazykiwi/admin/config/product/create", {
+      method: "POST",
+      body: payload,
+    });
+  },
+  async updateProduct(payload: BillingProductPayload): Promise<boolean> {
+    return apiRequest<boolean>("/ai/lazykiwi/admin/config/product/update", {
+      method: "PUT",
+      body: payload,
+    });
+  },
+  async deleteProduct(id: number): Promise<boolean> {
+    return apiRequest<boolean>(`/ai/lazykiwi/admin/config/product/delete?id=${id}`, {
+      method: "DELETE",
+    });
+  },
+  async updateProductStatus(id: number, status: number): Promise<boolean> {
+    return apiRequest<boolean>(
+      `/ai/lazykiwi/admin/config/product/status?id=${id}&status=${status}`,
+      { method: "PUT" },
+    );
+  },
+
+  // ==================== SEO 管理 ====================
+  async getSeoPage(query: SeoMetaQuery = {}): Promise<PageResult<SeoMeta>> {
+    return apiRequest<PageResult<SeoMeta>>(
+      `/ai/lazykiwi/admin/seo/page${buildQuery(query as Record<string, unknown>)}`,
+    );
+  },
+  async getSeo(id: number): Promise<SeoMeta> {
+    return apiRequest<SeoMeta>(`/ai/lazykiwi/admin/seo/get?id=${id}`);
+  },
+  async createSeo(payload: SeoMetaPayload): Promise<number> {
+    return apiRequest<number>("/ai/lazykiwi/admin/seo/create", {
+      method: "POST",
+      body: payload,
+    });
+  },
+  async updateSeo(payload: SeoMetaPayload): Promise<boolean> {
+    return apiRequest<boolean>("/ai/lazykiwi/admin/seo/update", {
+      method: "PUT",
+      body: payload,
+    });
+  },
+  async deleteSeo(id: number): Promise<boolean> {
+    return apiRequest<boolean>(`/ai/lazykiwi/admin/seo/delete?id=${id}`, {
+      method: "DELETE",
+    });
+  },
+  async updateSeoStatus(id: number, status: number): Promise<boolean> {
+    return apiRequest<boolean>(
+      `/ai/lazykiwi/admin/seo/status?id=${id}&status=${status}`,
+      { method: "PUT" },
+    );
+  },
+
+  // ==================== 模板页面管理 ====================
+  async getTemplatePagePage(query: TemplatePageQuery = {}): Promise<PageResult<TemplatePage>> {
+    return apiRequest<PageResult<TemplatePage>>(
+      `/ai/lazykiwi/admin/template-page/page${buildQuery(query as Record<string, unknown>)}`,
+    );
+  },
+  async getTemplatePage(id: number): Promise<TemplatePage> {
+    return apiRequest<TemplatePage>(`/ai/lazykiwi/admin/template-page/get?id=${id}`);
+  },
+  async createTemplatePage(payload: TemplatePagePayload): Promise<number> {
+    return apiRequest<number>("/ai/lazykiwi/admin/template-page/create", {
+      method: "POST",
+      body: payload,
+    });
+  },
+  async updateTemplatePage(payload: TemplatePagePayload): Promise<boolean> {
+    return apiRequest<boolean>("/ai/lazykiwi/admin/template-page/update", {
+      method: "PUT",
+      body: payload,
+    });
+  },
+  async deleteTemplatePage(id: number): Promise<boolean> {
+    return apiRequest<boolean>(`/ai/lazykiwi/admin/template-page/delete?id=${id}`, {
+      method: "DELETE",
+    });
+  },
+  async updateTemplatePageStatus(id: number, status: number): Promise<boolean> {
+    return apiRequest<boolean>(
+      `/ai/lazykiwi/admin/template-page/status?id=${id}&status=${status}`,
+      { method: "PUT" },
+    );
+  },
+
+  // ==================== 文件上传（复用 infra 上传接口，返回 OSS 直链） ====================
+  async uploadFile(file: File, directory = "template-page"): Promise<string> {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("directory", directory);
+    const headers: Record<string, string> = { "tenant-id": TENANT_ID };
+    const token = authStorage.getAccessToken();
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+    const response = await fetch(`${API_BASE_URL}/infra/file/upload`, {
+      method: "POST",
+      headers,
+      body: formData,
+    });
+    return parseApiResponse(response, true) as Promise<string>;
   },
 };

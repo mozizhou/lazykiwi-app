@@ -3,6 +3,7 @@ import {
   LayoutDashboard, Users, Receipt, Coins, Images, ListChecks, Settings2, Search,
   ArrowUpRight, RefreshCw, Loader2, ShieldAlert, TrendingUp, CreditCard, Video, Image as ImageIcon,
   X, Wallet, ScrollText, SlidersHorizontal, Plus, Minus, Eye, Mail, Package,
+  FileText, ArrowUp, ArrowDown, Trash2, Upload, ArrowLeft,
 } from 'lucide-react';
 import { adminService } from '@/lib/admin/service';
 
@@ -13,8 +14,9 @@ const NAV_SECTIONS = [
   { id: 'credits', label: '积分管理', icon: Coins, enabled: true },
   { id: 'content', label: '内容管理', icon: Images, enabled: true },
   { id: 'tasks', label: '任务管理', icon: ListChecks, enabled: true },
-  { id: 'config', label: '配置管理', icon: Settings2 },
-  { id: 'seo', label: 'SEO 管理', icon: Search },
+  { id: 'config', label: '配置管理', icon: Settings2, enabled: true },
+  { id: 'seo', label: 'SEO 管理', icon: Search, enabled: true },
+  { id: 'pages', label: '模板页面', icon: FileText, enabled: true },
 ];
 
 const BIZ_TYPE_OPTIONS = [
@@ -92,6 +94,12 @@ export default function AdminDashboard({ navigateToPage }) {
             <ContentSection navigateToPage={navigateToPage} />
           ) : activeSection === 'tasks' ? (
             <TasksSection navigateToPage={navigateToPage} />
+          ) : activeSection === 'config' ? (
+            <ConfigSection navigateToPage={navigateToPage} />
+          ) : activeSection === 'seo' ? (
+            <SeoSection navigateToPage={navigateToPage} />
+          ) : activeSection === 'pages' ? (
+            <PagesSection navigateToPage={navigateToPage} />
           ) : (
             <DashboardSection navigateToPage={navigateToPage} />
           )}
@@ -1700,6 +1708,1388 @@ function TaskDetailModal({ taskKind, taskId, onClose }) {
 }
 
 // ==================== 通用组件 ====================
+
+// ==================== 配置管理（套餐 / 积分包） ====================
+
+const PRODUCT_TYPE_PLAN = 1;
+const PRODUCT_TYPE_PACK = 2;
+
+function ConfigSection({ navigateToPage }) {
+  const [productType, setProductType] = useState(PRODUCT_TYPE_PLAN);
+  const [keyword, setKeyword] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [pageNo, setPageNo] = useState(1);
+  const [data, setData] = useState({ list: [], total: 0 });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [editing, setEditing] = useState(null); // product object | 'new' | null
+  const pageSize = 20;
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const result = await adminService.getProductPage({ productType, keyword, pageNo, pageSize });
+      setData(result);
+    } catch (err) {
+      setError(err?.message || '加载失败');
+    } finally {
+      setLoading(false);
+    }
+  }, [productType, keyword, pageNo]);
+
+  useEffect(() => { load(); }, [load]);
+
+  const isPlan = productType === PRODUCT_TYPE_PLAN;
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    setPageNo(1);
+    setKeyword(searchInput.trim());
+  };
+
+  const toggleStatus = async (row) => {
+    try {
+      await adminService.updateProductStatus(row.id, row.status === 1 ? 0 : 1);
+      load();
+    } catch (err) {
+      alert(err?.message || '操作失败');
+    }
+  };
+
+  const remove = async (row) => {
+    if (!window.confirm(`确认删除「${row.name}」(${row.code})？`)) return;
+    try {
+      await adminService.deleteProduct(row.id);
+      load();
+    } catch (err) {
+      alert(err?.message || '删除失败');
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <SectionHeader
+        title="配置管理"
+        subtitle="管理订阅套餐与积分包的价格、积分与展示信息（数据库驱动）"
+        navigateToPage={navigateToPage}
+        onRefresh={load}
+        refreshing={loading}
+        extraAction={(
+          <button
+            type="button"
+            onClick={() => setEditing('new')}
+            className="inline-flex items-center gap-2 rounded-xl bg-kiwi-green px-4 py-2.5 text-sm font-bold text-white transition hover:bg-kiwi-green-dark"
+          >
+            <Plus size={15} />
+            新建{isPlan ? '套餐' : '积分包'}
+          </button>
+        )}
+      />
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="inline-flex rounded-xl border border-gray-200 bg-white p-1">
+          {[
+            { id: PRODUCT_TYPE_PLAN, label: '订阅套餐' },
+            { id: PRODUCT_TYPE_PACK, label: '积分包' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => { setProductType(tab.id); setPageNo(1); }}
+              className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
+                productType === tab.id ? 'bg-kiwi-light-green text-kiwi-green-dark' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <form onSubmit={onSearch} className="flex gap-2">
+          <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="按标识 / 名称搜索"
+            className="w-56 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium outline-none focus:border-kiwi-green"
+          />
+          <button type="submit" className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-black">搜索</button>
+        </form>
+      </div>
+
+      <TableShell
+        loading={loading}
+        error={error}
+        empty={!loading && !error && data.list.length === 0}
+        headers={isPlan
+          ? ['排序', '标识', '名称', '月/年积分', '月付', '年付', '并发', '状态', '操作']
+          : ['排序', '标识', '名称', '积分', '一次性价格', '状态', '操作']}
+      >
+        {data.list.map((row) => (
+          <tr key={row.id} className="border-t border-gray-100 hover:bg-gray-50/60">
+            <td className="px-4 py-3 text-gray-400">{row.sort}</td>
+            <td className="px-4 py-3 font-mono text-xs text-gray-600">{row.code}</td>
+            <td className="px-4 py-3">
+              <div className="font-bold text-gray-900">{row.name}</div>
+              {row.badge ? <span className="mt-0.5 inline-block rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-600">{row.badge}</span> : null}
+            </td>
+            {isPlan ? (
+              <>
+                <td className="px-4 py-3 text-gray-700">{formatNumber(row.monthlyCredits)} / {formatNumber(row.yearlyCredits)}</td>
+                <td className="px-4 py-3 text-gray-700">{formatCurrency(row.priceMonthlyAmount)}</td>
+                <td className="px-4 py-3 text-gray-700">{formatCurrency(row.priceYearlyAmount)}</td>
+                <td className="px-4 py-3 text-gray-700">{row.parallelTasks ?? '-'}</td>
+              </>
+            ) : (
+              <>
+                <td className="px-4 py-3 text-gray-700">{formatNumber(row.monthlyCredits)}</td>
+                <td className="px-4 py-3 text-gray-700">{formatCurrency(row.priceOnetimeAmount)}</td>
+              </>
+            )}
+            <td className="px-4 py-3">
+              <button type="button" onClick={() => toggleStatus(row)}>
+                <StatusPill label={row.status === 1 ? '启用' : '停用'} tone={row.status === 1 ? 'green' : 'gray'} />
+              </button>
+            </td>
+            <td className="px-4 py-3">
+              <div className="flex gap-2">
+                <button type="button" onClick={() => setEditing(row)} className="rounded-lg border border-gray-200 px-2.5 py-1 text-xs font-bold text-gray-600 transition hover:bg-gray-50">编辑</button>
+                <button type="button" onClick={() => remove(row)} className="rounded-lg border border-rose-200 px-2.5 py-1 text-xs font-bold text-rose-600 transition hover:bg-rose-50">删除</button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </TableShell>
+
+      <Pagination pageNo={pageNo} pageSize={pageSize} total={data.total} onChange={setPageNo} />
+
+      {editing ? (
+        <ProductEditModal
+          product={editing === 'new' ? null : editing}
+          defaultType={productType}
+          onClose={() => setEditing(null)}
+          onSuccess={() => { setEditing(null); load(); }}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function ProductEditModal({ product, defaultType, onClose, onSuccess }) {
+  const isEdit = Boolean(product);
+  const [form, setForm] = useState(() => ({
+    productType: product?.productType ?? defaultType,
+    code: product?.code ?? '',
+    name: product?.name ?? '',
+    badge: product?.badge ?? '',
+    positioning: product?.positioning ?? '',
+    monthlyCredits: product?.monthlyCredits ?? 0,
+    yearlyCredits: product?.yearlyCredits ?? 0,
+    priceMonthlyAmount: product?.priceMonthlyAmount ?? 0,
+    priceYearlyAmount: product?.priceYearlyAmount ?? 0,
+    priceOnetimeAmount: product?.priceOnetimeAmount ?? 0,
+    currency: product?.currency ?? 'usd',
+    stripePriceMonthly: product?.stripePriceMonthly ?? '',
+    stripePriceYearly: product?.stripePriceYearly ?? '',
+    stripePriceOnetime: product?.stripePriceOnetime ?? '',
+    parallelTasks: product?.parallelTasks ?? 0,
+    buttonText: product?.buttonText ?? 'Buy Now',
+    status: product?.status ?? 1,
+    sort: product?.sort ?? 0,
+    featuresText: (product?.features ?? []).join('\n'),
+  }));
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+
+  const isPlan = Number(form.productType) === PRODUCT_TYPE_PLAN;
+  const set = (key) => (e) => setForm((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!form.code.trim() || !form.name.trim()) {
+      setError('标识与名称必填');
+      return;
+    }
+    const payload = {
+      id: product?.id,
+      productType: Number(form.productType),
+      code: form.code.trim(),
+      name: form.name.trim(),
+      badge: form.badge.trim() || null,
+      positioning: form.positioning.trim() || null,
+      monthlyCredits: Number(form.monthlyCredits) || 0,
+      yearlyCredits: Number(form.yearlyCredits) || 0,
+      priceMonthlyAmount: Number(form.priceMonthlyAmount) || 0,
+      priceYearlyAmount: Number(form.priceYearlyAmount) || 0,
+      priceOnetimeAmount: Number(form.priceOnetimeAmount) || 0,
+      currency: form.currency.trim() || 'usd',
+      stripePriceMonthly: form.stripePriceMonthly.trim() || null,
+      stripePriceYearly: form.stripePriceYearly.trim() || null,
+      stripePriceOnetime: form.stripePriceOnetime.trim() || null,
+      parallelTasks: Number(form.parallelTasks) || 0,
+      buttonText: form.buttonText.trim() || null,
+      status: Number(form.status),
+      sort: Number(form.sort) || 0,
+      features: form.featuresText.split('\n').map((s) => s.trim()).filter(Boolean),
+    };
+    setSubmitting(true);
+    try {
+      if (isEdit) {
+        await adminService.updateProduct(payload);
+      } else {
+        await adminService.createProduct(payload);
+      }
+      onSuccess();
+    } catch (err) {
+      setError(err?.message || '保存失败');
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8 overflow-y-auto" onClick={onClose}>
+      <div className="w-full max-w-2xl rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-extrabold text-gray-900">{isEdit ? '编辑' : '新建'}{isPlan ? '套餐' : '积分包'}</h3>
+          <button type="button" onClick={onClose} className="rounded-lg p-1 text-gray-400 transition hover:bg-gray-100"><X size={18} /></button>
+        </div>
+
+        <form onSubmit={submit} className="mt-5 space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="类型">
+              <select value={form.productType} onChange={set('productType')} className={inputCls} disabled={isEdit}>
+                <option value={PRODUCT_TYPE_PLAN}>订阅套餐</option>
+                <option value={PRODUCT_TYPE_PACK}>积分包</option>
+              </select>
+            </Field>
+            <Field label="排序"><input type="number" value={form.sort} onChange={set('sort')} className={inputCls} /></Field>
+            <Field label="标识 code"><input value={form.code} onChange={set('code')} placeholder="starter" className={inputCls} /></Field>
+            <Field label="名称"><input value={form.name} onChange={set('name')} placeholder="Starter" className={inputCls} /></Field>
+            <Field label="角标 badge"><input value={form.badge} onChange={set('badge')} placeholder="Most Popular" className={inputCls} /></Field>
+            <Field label="按钮文案"><input value={form.buttonText} onChange={set('buttonText')} placeholder="Buy Now" className={inputCls} /></Field>
+          </div>
+
+          <Field label="定位副标题"><input value={form.positioning} onChange={set('positioning')} className={inputCls} /></Field>
+
+          {isPlan ? (
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="月度积分"><input type="number" value={form.monthlyCredits} onChange={set('monthlyCredits')} className={inputCls} /></Field>
+              <Field label="年付每期积分"><input type="number" value={form.yearlyCredits} onChange={set('yearlyCredits')} className={inputCls} /></Field>
+              <Field label="月付价格（分）"><input type="number" value={form.priceMonthlyAmount} onChange={set('priceMonthlyAmount')} className={inputCls} /></Field>
+              <Field label="年付总价（分）"><input type="number" value={form.priceYearlyAmount} onChange={set('priceYearlyAmount')} className={inputCls} /></Field>
+              <Field label="并发任务数"><input type="number" value={form.parallelTasks} onChange={set('parallelTasks')} className={inputCls} /></Field>
+              <Field label="货币"><input value={form.currency} onChange={set('currency')} className={inputCls} /></Field>
+              <Field label="Stripe 月付价格 ID"><input value={form.stripePriceMonthly} onChange={set('stripePriceMonthly')} placeholder="price_..." className={inputCls} /></Field>
+              <Field label="Stripe 年付价格 ID"><input value={form.stripePriceYearly} onChange={set('stripePriceYearly')} placeholder="price_..." className={inputCls} /></Field>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="发放积分"><input type="number" value={form.monthlyCredits} onChange={set('monthlyCredits')} className={inputCls} /></Field>
+              <Field label="一次性价格（分）"><input type="number" value={form.priceOnetimeAmount} onChange={set('priceOnetimeAmount')} className={inputCls} /></Field>
+              <Field label="货币"><input value={form.currency} onChange={set('currency')} className={inputCls} /></Field>
+              <Field label="Stripe 一次性价格 ID"><input value={form.stripePriceOnetime} onChange={set('stripePriceOnetime')} placeholder="price_..." className={inputCls} /></Field>
+            </div>
+          )}
+
+          <Field label="特性列表（每行一条）">
+            <textarea value={form.featuresText} onChange={set('featuresText')} rows={5} className={`${inputCls} font-mono text-xs`} placeholder={'4,500 fast generation points / month\n2 parallel tasks'} />
+          </Field>
+
+          <Field label="状态">
+            <select value={form.status} onChange={set('status')} className={inputCls}>
+              <option value={1}>启用</option>
+              <option value={0}>停用</option>
+            </select>
+          </Field>
+
+          {error ? <p className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-600">{error}</p> : null}
+
+          <div className="flex gap-3 pt-2">
+            <button type="button" onClick={onClose} className="flex-1 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-bold text-gray-600 transition hover:bg-gray-50">取消</button>
+            <button type="submit" disabled={submitting} className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-black disabled:opacity-60">
+              {submitting ? <Loader2 size={15} className="animate-spin" /> : null}
+              保存
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// ==================== SEO 管理 ====================
+
+const SEO_GROUP_OPTIONS = [
+  { value: '', label: '全部分组' },
+  { value: 'static', label: '静态页' },
+  { value: 'blog', label: '博客' },
+  { value: 'model', label: '模型' },
+  { value: 'effect', label: '特效' },
+  { value: 'tool', label: '工具' },
+  { value: 'template', label: '模板' },
+];
+
+function SeoSection({ navigateToPage }) {
+  const [group, setGroup] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [pageNo, setPageNo] = useState(1);
+  const [data, setData] = useState({ list: [], total: 0 });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [editing, setEditing] = useState(null);
+  const pageSize = 20;
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const result = await adminService.getSeoPage({ group, keyword, pageNo, pageSize });
+      setData(result);
+    } catch (err) {
+      setError(err?.message || '加载失败');
+    } finally {
+      setLoading(false);
+    }
+  }, [group, keyword, pageNo]);
+
+  useEffect(() => { load(); }, [load]);
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    setPageNo(1);
+    setKeyword(searchInput.trim());
+  };
+
+  const toggleStatus = async (row) => {
+    try {
+      await adminService.updateSeoStatus(row.id, row.status === 1 ? 0 : 1);
+      load();
+    } catch (err) {
+      alert(err?.message || '操作失败');
+    }
+  };
+
+  const remove = async (row) => {
+    if (!window.confirm(`确认删除「${row.pageKey}」？`)) return;
+    try {
+      await adminService.deleteSeo(row.id);
+      load();
+    } catch (err) {
+      alert(err?.message || '删除失败');
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <SectionHeader
+        title="SEO 管理"
+        subtitle="按页面 key 覆盖 SEO 元信息，未配置的页面回退到前端静态数据"
+        navigateToPage={navigateToPage}
+        onRefresh={load}
+        refreshing={loading}
+        extraAction={(
+          <button
+            type="button"
+            onClick={() => setEditing('new')}
+            className="inline-flex items-center gap-2 rounded-xl bg-kiwi-green px-4 py-2.5 text-sm font-bold text-white transition hover:bg-kiwi-green-dark"
+          >
+            <Plus size={15} />
+            新建覆盖
+          </button>
+        )}
+      />
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <select
+          value={group}
+          onChange={(e) => { setGroup(e.target.value); setPageNo(1); }}
+          className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-kiwi-green"
+        >
+          {SEO_GROUP_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+        <form onSubmit={onSearch} className="flex gap-2">
+          <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="按 key / 标题 / 路径搜索"
+            className="w-56 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium outline-none focus:border-kiwi-green"
+          />
+          <button type="submit" className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-black">搜索</button>
+        </form>
+      </div>
+
+      <TableShell
+        loading={loading}
+        error={error}
+        empty={!loading && !error && data.list.length === 0}
+        headers={['排序', 'Page Key', '分组', '路径', '标题', 'noindex', '状态', '操作']}
+      >
+        {data.list.map((row) => (
+          <tr key={row.id} className="border-t border-gray-100 hover:bg-gray-50/60">
+            <td className="px-4 py-3 text-gray-400">{row.sort}</td>
+            <td className="px-4 py-3 font-mono text-xs text-gray-600">{row.pageKey}</td>
+            <td className="px-4 py-3"><StatusPill label={row.pageGroup || 'static'} tone="blue" /></td>
+            <td className="px-4 py-3 font-mono text-xs text-gray-500">{row.path || '-'}</td>
+            <td className="px-4 py-3 max-w-[280px] truncate text-gray-800" title={row.title || ''}>{row.title || '-'}</td>
+            <td className="px-4 py-3">{row.noIndex === 1 ? <StatusPill label="noindex" tone="rose" /> : <span className="text-gray-300">-</span>}</td>
+            <td className="px-4 py-3">
+              <button type="button" onClick={() => toggleStatus(row)}>
+                <StatusPill label={row.status === 1 ? '启用' : '停用'} tone={row.status === 1 ? 'green' : 'gray'} />
+              </button>
+            </td>
+            <td className="px-4 py-3">
+              <div className="flex gap-2">
+                <button type="button" onClick={() => setEditing(row)} className="rounded-lg border border-gray-200 px-2.5 py-1 text-xs font-bold text-gray-600 transition hover:bg-gray-50">编辑</button>
+                <button type="button" onClick={() => remove(row)} className="rounded-lg border border-rose-200 px-2.5 py-1 text-xs font-bold text-rose-600 transition hover:bg-rose-50">删除</button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </TableShell>
+
+      <Pagination pageNo={pageNo} pageSize={pageSize} total={data.total} onChange={setPageNo} />
+
+      {editing ? (
+        <SeoEditModal
+          meta={editing === 'new' ? null : editing}
+          onClose={() => setEditing(null)}
+          onSuccess={() => { setEditing(null); load(); }}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function SeoEditModal({ meta, onClose, onSuccess }) {
+  const isEdit = Boolean(meta);
+  const [form, setForm] = useState(() => ({
+    pageKey: meta?.pageKey ?? '',
+    pageGroup: meta?.pageGroup ?? 'static',
+    path: meta?.path ?? '',
+    title: meta?.title ?? '',
+    description: meta?.description ?? '',
+    keywords: meta?.keywords ?? '',
+    ogTitle: meta?.ogTitle ?? '',
+    ogDescription: meta?.ogDescription ?? '',
+    ogImage: meta?.ogImage ?? '',
+    canonical: meta?.canonical ?? '',
+    noIndex: meta?.noIndex ?? 0,
+    status: meta?.status ?? 1,
+    sort: meta?.sort ?? 0,
+  }));
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const set = (key) => (e) => setForm((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!form.pageKey.trim()) {
+      setError('Page Key 必填');
+      return;
+    }
+    const payload = {
+      id: meta?.id,
+      pageKey: form.pageKey.trim(),
+      pageGroup: form.pageGroup.trim() || 'static',
+      path: form.path.trim() || null,
+      title: form.title.trim() || null,
+      description: form.description.trim() || null,
+      keywords: form.keywords.trim() || null,
+      ogTitle: form.ogTitle.trim() || null,
+      ogDescription: form.ogDescription.trim() || null,
+      ogImage: form.ogImage.trim() || null,
+      canonical: form.canonical.trim() || null,
+      noIndex: Number(form.noIndex),
+      status: Number(form.status),
+      sort: Number(form.sort) || 0,
+    };
+    setSubmitting(true);
+    try {
+      if (isEdit) {
+        await adminService.updateSeo(payload);
+      } else {
+        await adminService.createSeo(payload);
+      }
+      onSuccess();
+    } catch (err) {
+      setError(err?.message || '保存失败');
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8 overflow-y-auto" onClick={onClose}>
+      <div className="w-full max-w-2xl rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-extrabold text-gray-900">{isEdit ? '编辑' : '新建'} SEO 覆盖</h3>
+          <button type="button" onClick={onClose} className="rounded-lg p-1 text-gray-400 transition hover:bg-gray-100"><X size={18} /></button>
+        </div>
+
+        <form onSubmit={submit} className="mt-5 space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Page Key"><input value={form.pageKey} onChange={set('pageKey')} placeholder="home / blog:my-slug" className={inputCls} disabled={isEdit} /></Field>
+            <Field label="分组">
+              <select value={form.pageGroup} onChange={set('pageGroup')} className={inputCls}>
+                {SEO_GROUP_OPTIONS.filter((o) => o.value).map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </Field>
+          </div>
+          <Field label="路径 path"><input value={form.path} onChange={set('path')} placeholder="/pricing" className={inputCls} /></Field>
+          <Field label="标题 title"><input value={form.title} onChange={set('title')} className={inputCls} /></Field>
+          <Field label="描述 description"><textarea value={form.description} onChange={set('description')} rows={3} className={inputCls} /></Field>
+          <Field label="关键词 keywords"><input value={form.keywords} onChange={set('keywords')} placeholder="ai video, text to video" className={inputCls} /></Field>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="OG 标题"><input value={form.ogTitle} onChange={set('ogTitle')} className={inputCls} /></Field>
+            <Field label="OG 图片 URL"><input value={form.ogImage} onChange={set('ogImage')} className={inputCls} /></Field>
+          </div>
+          <Field label="OG 描述"><textarea value={form.ogDescription} onChange={set('ogDescription')} rows={2} className={inputCls} /></Field>
+          <Field label="Canonical"><input value={form.canonical} onChange={set('canonical')} placeholder="https://lazykiwi.ai/pricing" className={inputCls} /></Field>
+          <div className="grid grid-cols-3 gap-4">
+            <Field label="排序"><input type="number" value={form.sort} onChange={set('sort')} className={inputCls} /></Field>
+            <Field label="noindex">
+              <select value={form.noIndex} onChange={set('noIndex')} className={inputCls}>
+                <option value={0}>否</option>
+                <option value={1}>是</option>
+              </select>
+            </Field>
+            <Field label="状态">
+              <select value={form.status} onChange={set('status')} className={inputCls}>
+                <option value={1}>启用</option>
+                <option value={0}>停用</option>
+              </select>
+            </Field>
+          </div>
+
+          {error ? <p className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-600">{error}</p> : null}
+
+          <div className="flex gap-3 pt-2">
+            <button type="button" onClick={onClose} className="flex-1 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-bold text-gray-600 transition hover:bg-gray-50">取消</button>
+            <button type="submit" disabled={submitting} className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-black disabled:opacity-60">
+              {submitting ? <Loader2 size={15} className="animate-spin" /> : null}
+              保存
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+const inputCls = 'w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium outline-none focus:border-kiwi-green disabled:bg-gray-50 disabled:text-gray-400';
+
+function Field({ label, children }) {
+  return (
+    <div>
+      <label className="mb-1.5 block text-xs font-bold text-gray-500">{label}</label>
+      {children}
+    </div>
+  );
+}
+
+// ==================== 模板页面管理 ====================
+
+const TEMPLATE_TYPE_OPTIONS = [
+  { value: '', label: '全部类型' },
+  { value: 'video', label: '视频' },
+  { value: 'image', label: '图片' },
+];
+
+const PAGE_STATUS_OPTIONS = [
+  { value: '', label: '全部状态' },
+  { value: '1', label: '已发布' },
+  { value: '0', label: '草稿' },
+];
+
+const BLOCK_TYPES = [
+  { type: 'hero', label: 'Hero 首屏' },
+  { type: 'what_it_is', label: '功能卡片' },
+  { type: 'scenarios', label: '应用场景' },
+  { type: 'faq', label: '常见问题' },
+  { type: 'cta', label: '行动号召' },
+  { type: 'other_names', label: '关键词 / 别名' },
+  { type: 'rich_text', label: '富文本' },
+  { type: 'image', label: '单张图片' },
+  { type: 'gallery', label: '图片画廊' },
+  { type: 'heading', label: '小标题' },
+  { type: 'spacer', label: '空白间距' },
+];
+const BLOCK_LABELS = Object.fromEntries(BLOCK_TYPES.map((b) => [b.type, b.label]));
+
+function blockDefaultData(type) {
+  switch (type) {
+    case 'hero':
+      return { title: '', description: '', image: '', image_before: '', image_after: '' };
+    case 'what_it_is':
+      return { eyebrow: '', title: '', intro: '', cards: [] };
+    case 'scenarios':
+      return { eyebrow: '', title: '', description: '', scenarios: [] };
+    case 'faq':
+      return { eyebrow: '', title: '', faqs: [] };
+    case 'cta':
+      return { headline: '', supporting_text: '', button_text: '' };
+    case 'other_names':
+      return { title: '', description: '', keywords: [] };
+    case 'rich_text':
+      return { markdown: '' };
+    case 'image':
+      return { url: '', alt: '', caption: '' };
+    case 'gallery':
+      return { images: [] };
+    case 'heading':
+      return { text: '' };
+    default:
+      return {};
+  }
+}
+
+function makeBlock(type) {
+  const rand = Math.random().toString(36).slice(2, 6);
+  return { id: `b${Date.now().toString(36)}${rand}`, type, data: blockDefaultData(type) };
+}
+
+function PagesSection({ navigateToPage }) {
+  const [view, setView] = useState('list'); // list | editor
+  const [editingId, setEditingId] = useState(null); // number | 'new' | null
+
+  const [templateType, setTemplateType] = useState('');
+  const [status, setStatus] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [pageNo, setPageNo] = useState(1);
+  const [data, setData] = useState({ list: [], total: 0 });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const pageSize = 20;
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const result = await adminService.getTemplatePagePage({
+        templateType: templateType || undefined,
+        status: status === '' ? undefined : Number(status),
+        keyword,
+        pageNo,
+        pageSize,
+      });
+      setData(result);
+    } catch (err) {
+      setError(err?.message || '加载失败');
+    } finally {
+      setLoading(false);
+    }
+  }, [templateType, status, keyword, pageNo]);
+
+  useEffect(() => { if (view === 'list') load(); }, [load, view]);
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    setPageNo(1);
+    setKeyword(searchInput.trim());
+  };
+
+  const openEditor = (id) => { setEditingId(id); setView('editor'); };
+
+  const togglePublish = async (row) => {
+    try {
+      await adminService.updateTemplatePageStatus(row.id, row.status === 1 ? 0 : 1);
+      load();
+    } catch (err) {
+      alert(err?.message || '操作失败');
+    }
+  };
+
+  const remove = async (row) => {
+    if (!window.confirm(`确认删除「${row.name || row.slug}」？`)) return;
+    try {
+      await adminService.deleteTemplatePage(row.id);
+      load();
+    } catch (err) {
+      alert(err?.message || '删除失败');
+    }
+  };
+
+  if (view === 'editor') {
+    return (
+      <TemplatePageEditor
+        pageId={editingId === 'new' ? null : editingId}
+        navigateToPage={navigateToPage}
+        onBack={() => { setView('list'); setEditingId(null); }}
+        onSaved={() => { setView('list'); setEditingId(null); }}
+      />
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <SectionHeader
+        title="模板页面"
+        subtitle="用模块化区块构建 / 编辑模板落地页，发布后营销站服务端直接渲染，无需重新部署"
+        navigateToPage={navigateToPage}
+        onRefresh={load}
+        refreshing={loading}
+        extraAction={(
+          <button
+            type="button"
+            onClick={() => openEditor('new')}
+            className="inline-flex items-center gap-2 rounded-xl bg-kiwi-green px-4 py-2.5 text-sm font-bold text-white transition hover:bg-kiwi-green-dark"
+          >
+            <Plus size={15} />
+            新建页面
+          </button>
+        )}
+      />
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2">
+          <select
+            value={templateType}
+            onChange={(e) => { setTemplateType(e.target.value); setPageNo(1); }}
+            className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-kiwi-green"
+          >
+            {TEMPLATE_TYPE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+          <select
+            value={status}
+            onChange={(e) => { setStatus(e.target.value); setPageNo(1); }}
+            className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-kiwi-green"
+          >
+            {PAGE_STATUS_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
+        <form onSubmit={onSearch} className="flex gap-2">
+          <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="按 slug / 名称搜索"
+            className="w-56 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium outline-none focus:border-kiwi-green"
+          />
+          <button type="submit" className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-black">搜索</button>
+        </form>
+      </div>
+
+      <TableShell
+        loading={loading}
+        error={error}
+        empty={!loading && !error && data.list.length === 0}
+        headers={['排序', 'Slug', '名称', '类型', '状态', '更新时间', '操作']}
+      >
+        {data.list.map((row) => (
+          <tr key={row.id} className="border-t border-gray-100 hover:bg-gray-50/60">
+            <td className="px-4 py-3 text-gray-400">{row.sort}</td>
+            <td className="px-4 py-3 font-mono text-xs text-gray-600">{row.slug}</td>
+            <td className="px-4 py-3 max-w-[240px] truncate text-gray-800" title={row.name || ''}>{row.name || '-'}</td>
+            <td className="px-4 py-3"><StatusPill label={row.templateType === 'image' ? '图片' : '视频'} tone={row.templateType === 'image' ? 'violet' : 'blue'} /></td>
+            <td className="px-4 py-3">
+              <button type="button" onClick={() => togglePublish(row)}>
+                <StatusPill label={row.status === 1 ? '已发布' : '草稿'} tone={row.status === 1 ? 'green' : 'gray'} />
+              </button>
+            </td>
+            <td className="px-4 py-3 text-xs text-gray-500">{formatDateTime(row.updateTime)}</td>
+            <td className="px-4 py-3">
+              <div className="flex gap-2">
+                <button type="button" onClick={() => openEditor(row.id)} className="rounded-lg border border-gray-200 px-2.5 py-1 text-xs font-bold text-gray-600 transition hover:bg-gray-50">编辑</button>
+                <button type="button" onClick={() => remove(row)} className="rounded-lg border border-rose-200 px-2.5 py-1 text-xs font-bold text-rose-600 transition hover:bg-rose-50">删除</button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </TableShell>
+
+      <Pagination pageNo={pageNo} pageSize={pageSize} total={data.total} onChange={setPageNo} />
+    </div>
+  );
+}
+
+function TemplatePageEditor({ pageId, onBack, onSaved }) {
+  const isEdit = Boolean(pageId);
+  const [tab, setTab] = useState('content'); // content | seo
+  const [loading, setLoading] = useState(isEdit);
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [meta, setMeta] = useState({ slug: '', name: '', templateType: 'video', status: 0, sort: 0 });
+  const [blocks, setBlocks] = useState([]);
+
+  useEffect(() => {
+    if (!isEdit) { setLoading(false); return; }
+    let mounted = true;
+    (async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const page = await adminService.getTemplatePage(pageId);
+        if (!mounted) return;
+        setMeta({
+          slug: page.slug || '',
+          name: page.name || '',
+          templateType: page.templateType || 'video',
+          status: page.status ?? 0,
+          sort: page.sort ?? 0,
+        });
+        let parsed = [];
+        if (page.contentJson) {
+          try {
+            const json = JSON.parse(page.contentJson);
+            if (Array.isArray(json?.blocks)) parsed = json.blocks;
+          } catch { parsed = []; }
+        }
+        setBlocks(parsed.map((b) => ({ id: b.id || makeBlock(b.type).id, type: b.type, data: b.data || {} })));
+      } catch (err) {
+        if (mounted) setError(err?.message || '加载失败');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, [pageId, isEdit]);
+
+  const setMetaField = (key) => (e) => setMeta((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const addBlock = (type) => setBlocks((prev) => [...prev, makeBlock(type)]);
+  const insertBelow = (index, type) => setBlocks((prev) => {
+    const next = [...prev];
+    next.splice(index + 1, 0, makeBlock(type));
+    return next;
+  });
+  const updateBlockData = (index, nextData) => setBlocks((prev) => prev.map((b, i) => (i === index ? { ...b, data: nextData } : b)));
+  const moveBlock = (index, dir) => setBlocks((prev) => {
+    const target = index + dir;
+    if (target < 0 || target >= prev.length) return prev;
+    const next = [...prev];
+    [next[index], next[target]] = [next[target], next[index]];
+    return next;
+  });
+  const removeBlock = (index) => setBlocks((prev) => prev.filter((_, i) => i !== index));
+
+  const save = async () => {
+    setError('');
+    if (!meta.slug.trim()) { setError('slug 必填'); setTab('content'); return; }
+    if (!meta.name.trim()) { setError('名称必填'); setTab('content'); return; }
+    const payload = {
+      id: isEdit ? pageId : undefined,
+      slug: meta.slug.trim(),
+      name: meta.name.trim(),
+      templateType: meta.templateType || 'video',
+      status: Number(meta.status),
+      sort: Number(meta.sort) || 0,
+      contentJson: JSON.stringify({ blocks }),
+    };
+    setSaving(true);
+    try {
+      if (isEdit) {
+        await adminService.updateTemplatePage(payload);
+      } else {
+        await adminService.createTemplatePage(payload);
+      }
+      onSaved();
+    } catch (err) {
+      setError(err?.message || '保存失败');
+      setSaving(false);
+    }
+  };
+
+  if (loading) return <LoadingBlock />;
+
+  return (
+    <div className="space-y-6">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <button type="button" onClick={onBack} className="mb-2 inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 transition hover:text-gray-900">
+            <ArrowLeft size={14} /> 返回列表
+          </button>
+          <h1 className="text-3xl font-extrabold tracking-tight">{isEdit ? '编辑模板页面' : '新建模板页面'}</h1>
+          <p className="mt-1 text-sm text-gray-500">左侧选择区块添加到正文，每个区块为一行模块，可上下移动、删除</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <a
+            href={meta.slug ? `https://lazykiwi.ai/templates/${meta.slug}` : undefined}
+            target="_blank"
+            rel="noreferrer"
+            className={`inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-gray-700 transition hover:bg-gray-50 ${meta.slug ? '' : 'pointer-events-none opacity-40'}`}
+          >
+            预览 <ArrowUpRight size={15} />
+          </a>
+          <button
+            type="button"
+            onClick={save}
+            disabled={saving}
+            className="inline-flex items-center gap-2 rounded-xl bg-kiwi-green px-5 py-2.5 text-sm font-bold text-white transition hover:bg-kiwi-green-dark disabled:opacity-60"
+          >
+            {saving ? <Loader2 size={15} className="animate-spin" /> : null}
+            保存
+          </button>
+        </div>
+      </header>
+
+      <section className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Field label="Slug"><input value={meta.slug} onChange={setMetaField('slug')} placeholder="360-rotation" className={inputCls} disabled={isEdit} /></Field>
+          <Field label="名称"><input value={meta.name} onChange={setMetaField('name')} className={inputCls} /></Field>
+          <Field label="类型">
+            <select value={meta.templateType} onChange={setMetaField('templateType')} className={inputCls}>
+              <option value="video">视频</option>
+              <option value="image">图片</option>
+            </select>
+          </Field>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="排序"><input type="number" value={meta.sort} onChange={setMetaField('sort')} className={inputCls} /></Field>
+            <Field label="状态">
+              <select value={meta.status} onChange={setMetaField('status')} className={inputCls}>
+                <option value={0}>草稿</option>
+                <option value={1}>已发布</option>
+              </select>
+            </Field>
+          </div>
+        </div>
+      </section>
+
+      <div className="flex gap-2 border-b border-gray-200">
+        {[{ id: 'content', label: '内容' }, { id: 'seo', label: 'SEO' }].map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setTab(t.id)}
+            className={`-mb-px rounded-t-xl px-5 py-2.5 text-sm font-bold transition ${tab === t.id ? 'border-x border-t border-gray-200 bg-white text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {error ? <ErrorBlock message={error} /> : null}
+
+      {tab === 'content' ? (
+        <div className="grid gap-5 lg:grid-cols-[220px_1fr]">
+          <aside className="lg:sticky lg:top-6 lg:self-start">
+            <div className="rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm">
+              <p className="mb-3 text-xs font-bold uppercase tracking-wide text-gray-400">区块面板</p>
+              <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
+                {BLOCK_TYPES.map((b) => (
+                  <button
+                    key={b.type}
+                    type="button"
+                    onClick={() => addBlock(b.type)}
+                    className="flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-left text-sm font-semibold text-gray-700 transition hover:border-kiwi-green hover:bg-kiwi-light-green/40"
+                  >
+                    <Plus size={13} className="text-kiwi-green-dark" />
+                    {b.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          <div className="space-y-4">
+            {blocks.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-sm text-gray-400">
+                从左侧区块面板选择模块添加到正文
+              </div>
+            ) : null}
+            {blocks.map((block, index) => (
+              <BlockCard
+                key={block.id}
+                block={block}
+                index={index}
+                total={blocks.length}
+                onChange={(nextData) => updateBlockData(index, nextData)}
+                onMove={(dir) => moveBlock(index, dir)}
+                onRemove={() => removeBlock(index)}
+                onInsertBelow={(type) => insertBelow(index, type)}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <TemplateSeoTab slug={meta.slug} name={meta.name} />
+      )}
+    </div>
+  );
+}
+
+function BlockCard({ block, index, total, onChange, onMove, onRemove, onInsertBelow }) {
+  const set = (key, value) => onChange({ ...block.data, [key]: value });
+  return (
+    <div className="rounded-2xl border border-gray-200/80 bg-white shadow-sm">
+      <div className="flex items-center justify-between border-b border-gray-100 px-4 py-2.5">
+        <div className="flex items-center gap-2">
+          <span className="rounded-lg bg-gray-100 px-2 py-0.5 text-[11px] font-bold text-gray-500">#{index + 1}</span>
+          <span className="text-sm font-bold text-gray-800">{BLOCK_LABELS[block.type] || block.type}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <button type="button" title="上移" disabled={index === 0} onClick={() => onMove(-1)} className="rounded-lg border border-gray-200 p-1.5 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowUp size={14} /></button>
+          <button type="button" title="下移" disabled={index === total - 1} onClick={() => onMove(1)} className="rounded-lg border border-gray-200 p-1.5 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowDown size={14} /></button>
+          <select
+            value=""
+            onChange={(e) => { if (e.target.value) { onInsertBelow(e.target.value); e.target.value = ''; } }}
+            title="在下方插入"
+            className="rounded-lg border border-gray-200 px-1.5 py-1.5 text-xs font-semibold text-gray-500 outline-none focus:border-kiwi-green"
+          >
+            <option value="">＋ 下方插入…</option>
+            {BLOCK_TYPES.map((b) => <option key={b.type} value={b.type}>{b.label}</option>)}
+          </select>
+          <button type="button" title="删除" onClick={onRemove} className="rounded-lg border border-rose-200 p-1.5 text-rose-600 transition hover:bg-rose-50"><Trash2 size={14} /></button>
+        </div>
+      </div>
+      <div className="p-4">
+        <BlockFields type={block.type} data={block.data} set={set} onChange={onChange} />
+      </div>
+    </div>
+  );
+}
+
+function BlockFields({ type, data, set, onChange }) {
+  switch (type) {
+    case 'hero':
+      return (
+        <div className="space-y-4">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="描述"><textarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <ImageInput label="主图" value={data.image || ''} onChange={(v) => set('image', v)} />
+            <ImageInput label="Before 图" value={data.image_before || ''} onChange={(v) => set('image_before', v)} />
+            <ImageInput label="After 图" value={data.image_after || ''} onChange={(v) => set('image_after', v)} />
+          </div>
+        </div>
+      );
+    case 'what_it_is':
+      return (
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="引言"><textarea value={data.intro || ''} onChange={(e) => set('intro', e.target.value)} rows={2} className={inputCls} /></Field>
+          <RepeatableList
+            label="卡片"
+            items={data.cards || []}
+            onChange={(items) => onChange({ ...data, cards: items })}
+            newItem={() => ({ icon: 'sparkles', title: '', description: '' })}
+            render={(item, upd) => (
+              <div className="grid gap-3 sm:grid-cols-[120px_1fr]">
+                <Field label="图标">
+                  <select value={item.icon || 'sparkles'} onChange={(e) => upd({ ...item, icon: e.target.value })} className={inputCls}>
+                    {['scene', 'subject', 'motion', 'camera', 'sparkles', 'magic', 'video'].map((ic) => <option key={ic} value={ic}>{ic}</option>)}
+                  </select>
+                </Field>
+                <div className="space-y-2">
+                  <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+                  <textarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+                </div>
+              </div>
+            )}
+          />
+        </div>
+      );
+    case 'scenarios':
+      return (
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="描述"><textarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <RepeatableList
+            label="场景"
+            items={data.scenarios || []}
+            onChange={(items) => onChange({ ...data, scenarios: items })}
+            newItem={() => ({ image: '', title: '', category: '', description: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <ImageInput label="配图" value={item.image || ''} onChange={(v) => upd({ ...item, image: v })} />
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+                  <input value={item.category || ''} onChange={(e) => upd({ ...item, category: e.target.value })} placeholder="分类" className={inputCls} />
+                </div>
+                <textarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    case 'faq':
+      return (
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <RepeatableList
+            label="问答"
+            items={data.faqs || []}
+            onChange={(items) => onChange({ ...data, faqs: items })}
+            newItem={() => ({ question: '', answer: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <input value={item.question || ''} onChange={(e) => upd({ ...item, question: e.target.value })} placeholder="问题" className={inputCls} />
+                <textarea value={item.answer || ''} onChange={(e) => upd({ ...item, answer: e.target.value })} rows={2} placeholder="回答" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    case 'cta':
+      return (
+        <div className="space-y-4">
+          <Field label="标题"><input value={data.headline || ''} onChange={(e) => set('headline', e.target.value)} className={inputCls} /></Field>
+          <Field label="辅助文案"><textarea value={data.supporting_text || ''} onChange={(e) => set('supporting_text', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="按钮文案"><input value={data.button_text || ''} onChange={(e) => set('button_text', e.target.value)} placeholder="Start creating" className={inputCls} /></Field>
+        </div>
+      );
+    case 'other_names':
+      return (
+        <div className="space-y-4">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="描述"><textarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="关键词（逗号分隔）">
+            <input
+              value={(data.keywords || []).join(', ')}
+              onChange={(e) => set('keywords', e.target.value.split(',').map((s) => s.trim()).filter(Boolean))}
+              placeholder="ai video, motion, 360 spin"
+              className={inputCls}
+            />
+          </Field>
+        </div>
+      );
+    case 'rich_text':
+      return (
+        <Field label="Markdown（支持 # 标题、- 列表、空行分段）">
+          <textarea value={data.markdown || ''} onChange={(e) => set('markdown', e.target.value)} rows={6} className={`${inputCls} font-mono`} />
+        </Field>
+      );
+    case 'image':
+      return (
+        <div className="space-y-3">
+          <ImageInput label="图片" value={data.url || ''} onChange={(v) => set('url', v)} />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Alt 文本"><input value={data.alt || ''} onChange={(e) => set('alt', e.target.value)} className={inputCls} /></Field>
+            <Field label="图注"><input value={data.caption || ''} onChange={(e) => set('caption', e.target.value)} className={inputCls} /></Field>
+          </div>
+        </div>
+      );
+    case 'gallery':
+      return (
+        <RepeatableList
+          label="图片"
+          items={data.images || []}
+          onChange={(items) => onChange({ ...data, images: items })}
+          newItem={() => ({ url: '', alt: '' })}
+          render={(item, upd) => (
+            <div className="space-y-2">
+              <ImageInput label="图片" value={item.url || ''} onChange={(v) => upd({ ...item, url: v })} />
+              <input value={item.alt || ''} onChange={(e) => upd({ ...item, alt: e.target.value })} placeholder="Alt 文本" className={inputCls} />
+            </div>
+          )}
+        />
+      );
+    case 'heading':
+      return <Field label="小标题文本"><input value={data.text || ''} onChange={(e) => set('text', e.target.value)} className={inputCls} /></Field>;
+    case 'spacer':
+      return <p className="text-sm text-gray-400">空白间距区块，无需配置。</p>;
+    default:
+      return <p className="text-sm text-gray-400">未知区块类型：{type}</p>;
+  }
+}
+
+function RepeatableList({ label, items, onChange, newItem, render }) {
+  const list = Array.isArray(items) ? items : [];
+  const update = (index, value) => onChange(list.map((it, i) => (i === index ? value : it)));
+  const move = (index, dir) => {
+    const target = index + dir;
+    if (target < 0 || target >= list.length) return;
+    const next = [...list];
+    [next[index], next[target]] = [next[target], next[index]];
+    onChange(next);
+  };
+  const remove = (index) => onChange(list.filter((_, i) => i !== index));
+  return (
+    <div>
+      <div className="mb-2 flex items-center justify-between">
+        <label className="text-xs font-bold text-gray-500">{label}（{list.length}）</label>
+        <button type="button" onClick={() => onChange([...list, newItem()])} className="inline-flex items-center gap-1 rounded-lg border border-gray-200 px-2.5 py-1 text-xs font-bold text-gray-600 transition hover:bg-gray-50">
+          <Plus size={12} /> 添加
+        </button>
+      </div>
+      <div className="space-y-3">
+        {list.map((item, index) => (
+          <div key={index} className="rounded-xl border border-gray-100 bg-gray-50/60 p-3">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-[11px] font-bold text-gray-400">#{index + 1}</span>
+              <div className="flex gap-1.5">
+                <button type="button" disabled={index === 0} onClick={() => move(index, -1)} className="rounded-md border border-gray-200 bg-white p-1 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowUp size={12} /></button>
+                <button type="button" disabled={index === list.length - 1} onClick={() => move(index, 1)} className="rounded-md border border-gray-200 bg-white p-1 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowDown size={12} /></button>
+                <button type="button" onClick={() => remove(index)} className="rounded-md border border-rose-200 bg-white p-1 text-rose-600 transition hover:bg-rose-50"><Trash2 size={12} /></button>
+              </div>
+            </div>
+            {render(item, (value) => update(index, value))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ImageInput({ label, value, onChange }) {
+  const [uploading, setUploading] = useState(false);
+  const [err, setErr] = useState('');
+  const onFile = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    setErr('');
+    setUploading(true);
+    try {
+      const url = await adminService.uploadFile(file);
+      onChange(url);
+    } catch (uploadErr) {
+      setErr(uploadErr?.message || '上传失败');
+    } finally {
+      setUploading(false);
+    }
+  };
+  return (
+    <div>
+      <label className="mb-1.5 block text-xs font-bold text-gray-500">{label}</label>
+      {value ? (
+        <div className="mb-2 overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={value} alt={label} className="h-28 w-full object-cover" />
+        </div>
+      ) : null}
+      <div className="flex gap-2">
+        <input value={value || ''} onChange={(e) => onChange(e.target.value)} placeholder="图片 URL" className={inputCls} />
+        <label className="inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-bold text-gray-600 transition hover:bg-gray-50">
+          {uploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+          上传
+          <input type="file" accept="image/*" onChange={onFile} className="hidden" disabled={uploading} />
+        </label>
+      </div>
+      {err ? <p className="mt-1 text-xs font-semibold text-rose-500">{err}</p> : null}
+    </div>
+  );
+}
+
+function TemplateSeoTab({ slug, name }) {
+  const pageKey = slug ? `template:${slug}` : '';
+  const [loading, setLoading] = useState(Boolean(slug));
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [existing, setExisting] = useState(null);
+  const [form, setForm] = useState({ title: '', description: '', keywords: '', ogTitle: '', ogDescription: '', ogImage: '', canonical: '', noIndex: 0, status: 1 });
+
+  useEffect(() => {
+    if (!slug) { setLoading(false); return; }
+    let mounted = true;
+    (async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const result = await adminService.getSeoPage({ group: 'template', keyword: slug, pageSize: 50 });
+        if (!mounted) return;
+        const row = (result.list || []).find((r) => r.pageKey === pageKey) || null;
+        setExisting(row);
+        if (row) {
+          setForm({
+            title: row.title ?? '', description: row.description ?? '', keywords: row.keywords ?? '',
+            ogTitle: row.ogTitle ?? '', ogDescription: row.ogDescription ?? '', ogImage: row.ogImage ?? '',
+            canonical: row.canonical ?? '', noIndex: row.noIndex ?? 0, status: row.status ?? 1,
+          });
+        }
+      } catch (err) {
+        if (mounted) setError(err?.message || '加载失败');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, [slug, pageKey]);
+
+  const set = (key) => (e) => { setSaved(false); setForm((prev) => ({ ...prev, [key]: e.target.value })); };
+
+  const save = async () => {
+    if (!slug) { setError('请先填写 slug 并保存内容'); return; }
+    setError('');
+    const payload = {
+      id: existing?.id,
+      pageKey,
+      pageGroup: 'template',
+      path: `/templates/${slug}`,
+      title: form.title.trim() || null,
+      description: form.description.trim() || null,
+      keywords: form.keywords.trim() || null,
+      ogTitle: form.ogTitle.trim() || null,
+      ogDescription: form.ogDescription.trim() || null,
+      ogImage: form.ogImage.trim() || null,
+      canonical: form.canonical.trim() || null,
+      noIndex: Number(form.noIndex),
+      status: Number(form.status),
+      sort: existing?.sort ?? 0,
+    };
+    setSaving(true);
+    try {
+      if (existing) {
+        await adminService.updateSeo(payload);
+      } else {
+        const id = await adminService.createSeo(payload);
+        setExisting({ ...payload, id });
+      }
+      setSaved(true);
+    } catch (err) {
+      setError(err?.message || '保存失败');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (!slug) {
+    return <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-sm text-gray-400">请先在“内容”标签填写 slug 并保存，再配置 SEO</div>;
+  }
+  if (loading) return <LoadingBlock />;
+
+  return (
+    <section className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm">
+      <div className="mb-5 flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-extrabold text-gray-900">页面 SEO</h2>
+          <p className="mt-0.5 text-xs font-medium text-gray-400">Page Key：<span className="font-mono">{pageKey}</span>{existing ? '' : '（尚未创建，保存后生成）'}</p>
+        </div>
+        <button type="button" onClick={save} disabled={saving} className="inline-flex items-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-black disabled:opacity-60">
+          {saving ? <Loader2 size={15} className="animate-spin" /> : null}
+          保存 SEO
+        </button>
+      </div>
+      <div className="space-y-4">
+        <Field label="标题 title"><input value={form.title} onChange={set('title')} placeholder={name ? `${name} Template | LazyKiwi` : ''} className={inputCls} /></Field>
+        <Field label="描述 description"><textarea value={form.description} onChange={set('description')} rows={3} className={inputCls} /></Field>
+        <Field label="关键词 keywords"><input value={form.keywords} onChange={set('keywords')} className={inputCls} /></Field>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="OG 标题"><input value={form.ogTitle} onChange={set('ogTitle')} className={inputCls} /></Field>
+          <Field label="OG 图片 URL"><input value={form.ogImage} onChange={set('ogImage')} className={inputCls} /></Field>
+        </div>
+        <Field label="OG 描述"><textarea value={form.ogDescription} onChange={set('ogDescription')} rows={2} className={inputCls} /></Field>
+        <Field label="Canonical"><input value={form.canonical} onChange={set('canonical')} placeholder={`https://lazykiwi.ai/templates/${slug}`} className={inputCls} /></Field>
+        <div className="grid grid-cols-2 gap-4">
+          <Field label="noindex">
+            <select value={form.noIndex} onChange={set('noIndex')} className={inputCls}>
+              <option value={0}>否</option>
+              <option value={1}>是</option>
+            </select>
+          </Field>
+          <Field label="状态">
+            <select value={form.status} onChange={set('status')} className={inputCls}>
+              <option value={1}>启用</option>
+              <option value={0}>停用</option>
+            </select>
+          </Field>
+        </div>
+        {error ? <p className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-600">{error}</p> : null}
+        {saved ? <p className="rounded-xl bg-kiwi-light-green px-3 py-2 text-sm font-semibold text-kiwi-green-dark">SEO 已保存</p> : null}
+      </div>
+    </section>
+  );
+}
 
 function SectionHeader({ title, subtitle, navigateToPage, onRefresh, refreshing, refreshDisabled, extraAction }) {
   return (
