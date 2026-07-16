@@ -66,13 +66,13 @@ export const TEMPLATE_ICONS = {
 // ─── Models ──────────────────────────────────────────────────────────────────
 
 export const MODELS = [
-  { id: 'seedance-2', name: 'Seedance 2.0', desc: '~45s ETA', icon: Zap },
-  { id: 'veo',        name: 'Veo 3.1 Lite', desc: '~2m ETA',  icon: Film },
-  { id: 'kling',      name: 'Kling v3 Omni', desc: '~2m ETA', icon: Crown },
-  { id: 'happyhorse', name: 'HappyHorse 1.0', desc: '~60s ETA', icon: Wand2 },
-  { id: 'hailuo',     name: 'Hailuo 2.3 Fast', desc: '~60s ETA', icon: Film },
-  { id: 'grok',       name: 'Grok Imagine Video', desc: '~2m ETA', icon: Sparkles },
-  { id: 'wan',        name: 'Wan 2.7 I2V', desc: '~2m ETA', icon: Film },
+  { id: 'seedance-2', name: 'Seedance 2.0', icon: Zap },
+  { id: 'veo',        name: 'Veo 3.1 Lite', icon: Film },
+  { id: 'kling',      name: 'Kling v3 Omni', icon: Crown },
+  { id: 'happyhorse', name: 'HappyHorse 1.0', icon: Wand2 },
+  { id: 'hailuo',     name: 'Hailuo 2.3 Fast', icon: Film },
+  { id: 'grok',       name: 'Grok Imagine Video', icon: Sparkles },
+  { id: 'wan',        name: 'Wan 2.7 I2V', icon: Film },
 ];
 
 export const MODEL_ROUTE_ALIASES = {
