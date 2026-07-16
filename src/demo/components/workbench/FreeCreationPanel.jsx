@@ -21,12 +21,12 @@ import {
   ASPECT_PILL_OPTIONS,
   LIMITED_DURATION_PILL_OPTIONS,
   QUALITY_PILL_OPTIONS,
-  PROMPT_LIMIT,
   getVideoCredits,
   getAspectOptionsForModel,
   getDurationOptionsForModel,
   getProviderVideoModel,
   getQualityOptionsForModel,
+  getVideoPromptLimit,
   getVideoModelById,
   getVideoModelConfig,
 } from './videoGeneratorData.js';
@@ -515,12 +515,11 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
   }, [isHistoryView, mode, template, onRestoreLastTemplate]);
 
   // ── Prompt character limits ──────────────────────────────────────────────────
-  // PROMPT_WARN: threshold above which the counter becomes visible
-  // PROMPT_LIMIT: hard max; Generate is blocked above this
-  const PROMPT_WARN = 1000;
-  const promptLen      = prompt.length;
-  const promptNearLimit = promptLen > PROMPT_WARN;
-  const promptOverLimit = promptLen > PROMPT_LIMIT;
+  // 根据当前模型限制提示词长度，中文字符按一个字符计数
+  const promptLimit = getVideoPromptLimit(selectedModel);
+  const promptLen = Array.from(prompt).length;
+  const promptOverLimit = promptLen > promptLimit;
+  const promptAtLimit = promptLen >= promptLimit;
 
   // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -987,17 +986,15 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
                     placeholder={(!prompt && hoveredPreset?.prompt) ? hoveredPreset.prompt : "Describe the scene or motion you want to generate..."}
                     className="w-full h-[105px] bg-transparent text-[15px] text-gray-800 placeholder-gray-400 leading-relaxed transition-all"
                     containerClassName="h-full"
-                    maxLength={PROMPT_LIMIT}
+                    maxLength={promptLimit}
                     showCounter={false}
                     images={imageFrames}
                   />
-                  {promptNearLimit && (
-                    <span className={`absolute bottom-2 right-0 text-[11px] tabular-nums ${
-                      promptOverLimit ? 'text-red-500 font-semibold' : 'text-gray-400'
-                    }`}>
-                      {promptLen} / {PROMPT_LIMIT}
-                    </span>
-                  )}
+                  <span className={`absolute bottom-2 right-0 text-[11px] tabular-nums ${
+                    promptAtLimit ? 'text-red-500 font-semibold' : 'text-gray-400'
+                  }`}>
+                    {promptLen.toLocaleString('en-US')} / {promptLimit.toLocaleString('en-US')}
+                  </span>
                 </div>
               </div>
             )}
@@ -1052,16 +1049,14 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
                     placeholder={(!prompt && hoveredPreset?.prompt) ? hoveredPreset.prompt : "Describe the transition..."}
                     className="w-full h-[60px] sm:h-[105px] bg-transparent text-[15px] text-gray-800 placeholder-gray-400 leading-relaxed transition-all"
                     containerClassName="h-full"
-                    maxLength={PROMPT_LIMIT}
+                    maxLength={promptLimit}
                     showCounter={false}
                   />
-                  {promptNearLimit && (
-                    <span className={`absolute bottom-2 right-0 text-[11px] tabular-nums ${
-                      promptOverLimit ? 'text-red-500 font-semibold' : 'text-gray-400'
-                    }`}>
-                      {promptLen} / {PROMPT_LIMIT}
-                    </span>
-                  )}
+                  <span className={`absolute bottom-2 right-0 text-[11px] tabular-nums ${
+                    promptAtLimit ? 'text-red-500 font-semibold' : 'text-gray-400'
+                  }`}>
+                    {promptLen.toLocaleString('en-US')} / {promptLimit.toLocaleString('en-US')}
+                  </span>
                 </div>
               </div>
             )}

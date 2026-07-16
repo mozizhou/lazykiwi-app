@@ -140,6 +140,7 @@ const optionSubset = (source, ids) => ids.map((id) => source.find((option) => op
 export const VIDEO_MODEL_CONFIGS = {
   'seedance-2': {
     providerModel: 'seedance-2',
+    promptLimit: 4000,
     modes: ['text-to-video', 'image-to-video', 'start-end'],
     aspectRatios: ['16:9', '9:16', '1:1'],
     durations: ['5s', '10s', '15s', '30s', '45s', '60s'],
@@ -149,6 +150,7 @@ export const VIDEO_MODEL_CONFIGS = {
   },
   veo: {
     providerModel: 'veo',
+    promptLimit: 1000,
     modes: ['text-to-video', 'image-to-video'],
     aspectRatios: ['16:9', '9:16'],
     durations: ['4s', '6s', '8s', '30s', '45s', '60s'],
@@ -157,6 +159,7 @@ export const VIDEO_MODEL_CONFIGS = {
   },
   kling: {
     providerModel: 'kling',
+    promptLimit: 2500,
     modes: ['text-to-video', 'image-to-video', 'start-end'],
     aspectRatios: ['16:9', '9:16', '1:1'],
     durations: ['3s', '5s', '8s', '10s', '15s', '30s', '45s', '60s'],
@@ -166,6 +169,7 @@ export const VIDEO_MODEL_CONFIGS = {
   },
   happyhorse: {
     providerModel: 'happyhorse',
+    promptLimit: 2500,
     modes: ['text-to-video', 'image-to-video'],
     aspectRatios: ['16:9', '9:16', '1:1', '4:3', '3:4'],
     durations: ['3s', '5s', '8s', '10s', '15s', '30s', '45s', '60s'],
@@ -174,6 +178,7 @@ export const VIDEO_MODEL_CONFIGS = {
   },
   hailuo: {
     providerModel: 'hailuo',
+    promptLimit: 2000,
     modes: ['image-to-video'],
     aspectRatios: [],
     durations: ['6s', '10s', '30s', '45s', '60s'],
@@ -182,6 +187,7 @@ export const VIDEO_MODEL_CONFIGS = {
   },
   grok: {
     providerModel: 'grok',
+    promptLimit: 4000,
     modes: ['text-to-video', 'image-to-video'],
     aspectRatios: ['16:9', '9:16', '1:1', '4:3', '3:4', '4:5', '21:9'],
     durations: ['1s', '3s', '5s', '8s', '10s', '15s', '30s', '45s', '60s'],
@@ -190,6 +196,7 @@ export const VIDEO_MODEL_CONFIGS = {
   },
   wan: {
     providerModel: 'wan',
+    promptLimit: 5000,
     modes: ['image-to-video', 'start-end'],
     aspectRatios: [],
     durations: ['2s', '4s', '5s', '8s', '10s', '15s', '30s', '45s', '60s'],
@@ -219,6 +226,10 @@ export function getProviderVideoModel(model) {
   return getVideoModelConfig(model).providerModel;
 }
 
+export function getVideoPromptLimit(model) {
+  return getVideoModelConfig(model).promptLimit;
+}
+
 export function getAspectOptionsForModel(model) {
   return optionSubset(ASPECT_PILL_OPTIONS, getVideoModelConfig(model).aspectRatios);
 }
@@ -234,8 +245,6 @@ export function getDurationOptionsForModel(model, mode) {
 export function getQualityOptionsForModel(model) {
   return optionSubset(QUALITY_PILL_OPTIONS, getVideoModelConfig(model).qualities);
 }
-
-export const PROMPT_LIMIT = 1500;
 
 const SEEDANCE_CREDITS = {
   '480p': { '5s': 350, '10s': 700, '15s': 1050, '30s': 2100, '45s': 3150, '60s': 4200 },
