@@ -1,7 +1,7 @@
 import { request } from "@/lib/api/request";
 
-const POLL_INTERVAL_MS = 5000;
-const MAX_POLL_COUNT = 120;
+const POLL_INTERVAL_MS = 10000;
+const MAX_POLL_COUNT = 720;
 
 export async function uploadVideoImageFile(file) {
   const formData = new FormData();
@@ -31,10 +31,19 @@ export async function getMyVideoGenerationTasks({ pageNo = 1, pageSize = 50 } = 
 export async function waitForVideoGeneration(id, onUpdate) {
   let latest = null;
   for (let i = 0; i < MAX_POLL_COUNT; i += 1) {
-    latest = await getVideoGenerationTask(id);
-    onUpdate?.(latest);
-    if ([30, 40, 50].includes(latest?.status)) {
-      return latest;
+    try {
+      latest = await getVideoGenerationTask(id);
+      onUpdate?.(latest);
+      if ([30, 40, 50].includes(latest?.status)) {
+        return latest;
+      }
+    } catch (error) {
+      const status = error?.status ?? error?.code;
+      const retryable = status == null || status === 429 || status >= 500;
+      if (!retryable) {
+        return latest;
+      }
+      console.warn('[Video Polling Failed, Retrying]', error);
     }
     await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
   }
