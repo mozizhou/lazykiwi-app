@@ -3,9 +3,11 @@ import {
   LayoutDashboard, Users, Receipt, Coins, Images, ListChecks, Settings2, Search,
   ArrowUpRight, RefreshCw, Loader2, ShieldAlert, TrendingUp, CreditCard, Video, Image as ImageIcon,
   X, Wallet, ScrollText, SlidersHorizontal, Plus, Minus, Eye, Mail, Package,
-  FileText, ArrowUp, ArrowDown, Trash2, Upload, ArrowLeft,
+  FileText, ArrowUp, ArrowDown, Trash2, Upload, ArrowLeft, Wrench, Boxes, Newspaper, Key,
 } from 'lucide-react';
 import { adminService } from '@/lib/admin/service';
+import { BlockStreamDndEditor, DragHandle, SortableList } from '@/demo/components/block-stream-dnd';
+import LinkableTextarea from '@/demo/components/cms/LinkableTextarea';
 
 const NAV_SECTIONS = [
   { id: 'dashboard', label: '数据看板', icon: LayoutDashboard, enabled: true },
@@ -17,6 +19,10 @@ const NAV_SECTIONS = [
   { id: 'config', label: '配置管理', icon: Settings2, enabled: true },
   { id: 'seo', label: 'SEO 管理', icon: Search, enabled: true },
   { id: 'pages', label: '模板页面', icon: FileText, enabled: true },
+  { id: 'tools', label: '工具页面', icon: Wrench, enabled: true },
+  { id: 'models', label: '模型页面', icon: Boxes, enabled: true },
+  { id: 'blog', label: '博客页面', icon: Newspaper, enabled: true },
+  { id: 'agent-keys', label: 'Agent Keys', icon: Key, enabled: true },
 ];
 
 const BIZ_TYPE_OPTIONS = [
@@ -99,7 +105,15 @@ export default function AdminDashboard({ navigateToPage }) {
           ) : activeSection === 'seo' ? (
             <SeoSection navigateToPage={navigateToPage} />
           ) : activeSection === 'pages' ? (
-            <PagesSection navigateToPage={navigateToPage} />
+            <PagesSection navigateToPage={navigateToPage} pageType="template" />
+          ) : activeSection === 'tools' ? (
+            <PagesSection navigateToPage={navigateToPage} pageType="tool" />
+          ) : activeSection === 'models' ? (
+            <PagesSection navigateToPage={navigateToPage} pageType="model" />
+          ) : activeSection === 'blog' ? (
+            <PagesSection navigateToPage={navigateToPage} pageType="blog" />
+          ) : activeSection === 'agent-keys' ? (
+            <AgentKeysSection />
           ) : (
             <DashboardSection navigateToPage={navigateToPage} />
           )}
@@ -2288,7 +2302,42 @@ function Field({ label, children }) {
   );
 }
 
-// ==================== 模板页面管理 ====================
+// ==================== 落地页管理（模板 / 工具 / 模型 / 博客） ====================
+
+const PAGE_TYPE_META = {
+  template: {
+    title: '模板页面',
+    subtitle: '用模块化区块构建 / 编辑模板落地页，发布后营销站服务端直接渲染，无需重新部署',
+    pathPrefix: '/templates',
+    seoGroup: 'template',
+    showTemplateType: true,
+    editorTitle: '模板页面',
+  },
+  tool: {
+    title: '工具页面',
+    subtitle: '编辑 AI 工具落地页（结构化分区），发布后营销站 /tools/{slug} 直接渲染',
+    pathPrefix: '/tools',
+    seoGroup: 'tool',
+    showTemplateType: false,
+    editorTitle: '工具页面',
+  },
+  model: {
+    title: '模型页面',
+    subtitle: '编辑 AI 模型落地页，发布后营销站 /models/{slug} 直接渲染',
+    pathPrefix: '/models',
+    seoGroup: 'model',
+    showTemplateType: false,
+    editorTitle: '模型页面',
+  },
+  blog: {
+    title: '博客页面',
+    subtitle: '编辑博客文章（结构化正文区块），发布后营销站 /blog/{slug} 直接渲染',
+    pathPrefix: '/blog',
+    seoGroup: 'blog',
+    showTemplateType: false,
+    editorTitle: '博客文章',
+  },
+};
 
 const TEMPLATE_TYPE_OPTIONS = [
   { value: '', label: '全部类型' },
@@ -2349,7 +2398,8 @@ function makeBlock(type) {
   return { id: `b${Date.now().toString(36)}${rand}`, type, data: blockDefaultData(type) };
 }
 
-function PagesSection({ navigateToPage }) {
+function PagesSection({ navigateToPage, pageType = 'template' }) {
+  const meta = PAGE_TYPE_META[pageType] || PAGE_TYPE_META.template;
   const [view, setView] = useState('list'); // list | editor
   const [editingId, setEditingId] = useState(null); // number | 'new' | null
 
@@ -2363,12 +2413,24 @@ function PagesSection({ navigateToPage }) {
   const [error, setError] = useState('');
   const pageSize = 20;
 
+  // Reset UI state when switching page type via the sidebar.
+  useEffect(() => {
+    setView('list');
+    setEditingId(null);
+    setTemplateType('');
+    setStatus('');
+    setKeyword('');
+    setSearchInput('');
+    setPageNo(1);
+  }, [pageType]);
+
   const load = useCallback(async () => {
     setLoading(true);
     setError('');
     try {
       const result = await adminService.getTemplatePagePage({
-        templateType: templateType || undefined,
+        pageType,
+        templateType: meta.showTemplateType ? (templateType || undefined) : undefined,
         status: status === '' ? undefined : Number(status),
         keyword,
         pageNo,
@@ -2380,7 +2442,7 @@ function PagesSection({ navigateToPage }) {
     } finally {
       setLoading(false);
     }
-  }, [templateType, status, keyword, pageNo]);
+  }, [pageType, meta.showTemplateType, templateType, status, keyword, pageNo]);
 
   useEffect(() => { if (view === 'list') load(); }, [load, view]);
 
@@ -2412,21 +2474,28 @@ function PagesSection({ navigateToPage }) {
   };
 
   if (view === 'editor') {
-    return (
-      <TemplatePageEditor
-        pageId={editingId === 'new' ? null : editingId}
-        navigateToPage={navigateToPage}
-        onBack={() => { setView('list'); setEditingId(null); }}
-        onSaved={() => { setView('list'); setEditingId(null); }}
-      />
-    );
+    const editorProps = {
+      pageId: editingId === 'new' ? null : editingId,
+      pageType,
+      navigateToPage,
+      onBack: () => { setView('list'); setEditingId(null); },
+      onSaved: () => { setView('list'); setEditingId(null); },
+    };
+    if (pageType === 'tool') return <ToolPageEditor {...editorProps} />;
+    if (pageType === 'model') return <ModelPageEditor {...editorProps} />;
+    if (pageType === 'blog') return <BlogPageEditor {...editorProps} />;
+    return <TemplatePageEditor {...editorProps} />;
   }
+
+  const headers = meta.showTemplateType
+    ? ['排序', 'Slug', '名称', '类型', '状态', '更新时间', '操作']
+    : ['排序', 'Slug', '名称', '状态', '更新时间', '操作'];
 
   return (
     <div className="space-y-6">
       <SectionHeader
-        title="模板页面"
-        subtitle="用模块化区块构建 / 编辑模板落地页，发布后营销站服务端直接渲染，无需重新部署"
+        title={meta.title}
+        subtitle={meta.subtitle}
         navigateToPage={navigateToPage}
         onRefresh={load}
         refreshing={loading}
@@ -2444,13 +2513,15 @@ function PagesSection({ navigateToPage }) {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex gap-2">
-          <select
-            value={templateType}
-            onChange={(e) => { setTemplateType(e.target.value); setPageNo(1); }}
-            className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-kiwi-green"
-          >
-            {TEMPLATE_TYPE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-          </select>
+          {meta.showTemplateType ? (
+            <select
+              value={templateType}
+              onChange={(e) => { setTemplateType(e.target.value); setPageNo(1); }}
+              className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-kiwi-green"
+            >
+              {TEMPLATE_TYPE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          ) : null}
           <select
             value={status}
             onChange={(e) => { setStatus(e.target.value); setPageNo(1); }}
@@ -2474,14 +2545,16 @@ function PagesSection({ navigateToPage }) {
         loading={loading}
         error={error}
         empty={!loading && !error && data.list.length === 0}
-        headers={['排序', 'Slug', '名称', '类型', '状态', '更新时间', '操作']}
+        headers={headers}
       >
         {data.list.map((row) => (
           <tr key={row.id} className="border-t border-gray-100 hover:bg-gray-50/60">
             <td className="px-4 py-3 text-gray-400">{row.sort}</td>
             <td className="px-4 py-3 font-mono text-xs text-gray-600">{row.slug}</td>
             <td className="px-4 py-3 max-w-[240px] truncate text-gray-800" title={row.name || ''}>{row.name || '-'}</td>
-            <td className="px-4 py-3"><StatusPill label={row.templateType === 'image' ? '图片' : '视频'} tone={row.templateType === 'image' ? 'violet' : 'blue'} /></td>
+            {meta.showTemplateType ? (
+              <td className="px-4 py-3"><StatusPill label={row.templateType === 'image' ? '图片' : '视频'} tone={row.templateType === 'image' ? 'violet' : 'blue'} /></td>
+            ) : null}
             <td className="px-4 py-3">
               <button type="button" onClick={() => togglePublish(row)}>
                 <StatusPill label={row.status === 1 ? '已发布' : '草稿'} tone={row.status === 1 ? 'green' : 'gray'} />
@@ -2503,13 +2576,15 @@ function PagesSection({ navigateToPage }) {
   );
 }
 
-function TemplatePageEditor({ pageId, onBack, onSaved }) {
+function TemplatePageEditor({ pageId, pageType = 'template', onBack, onSaved }) {
   const isEdit = Boolean(pageId);
   const [tab, setTab] = useState('content'); // content | seo
   const [loading, setLoading] = useState(isEdit);
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
-  const [meta, setMeta] = useState({ slug: '', name: '', templateType: 'video', status: 0, sort: 0 });
+  const [meta, setMeta] = useState({ slug: '', name: '', templateType: 'video', status: 0, sort: 0, locale: 'en' });
+  const [activeLocale, setActiveLocale] = useState('en');
+  const [familyRows, setFamilyRows] = useState([]);
   const [blocks, setBlocks] = useState([]);
 
   useEffect(() => {
@@ -2527,7 +2602,13 @@ function TemplatePageEditor({ pageId, onBack, onSaved }) {
           templateType: page.templateType || 'video',
           status: page.status ?? 0,
           sort: page.sort ?? 0,
+          locale: page.locale || 'en',
         });
+        setActiveLocale(page.locale || 'en');
+        try {
+          const family = await adminService.getTemplatePageFamily(pageType, page.slug);
+          if (mounted) setFamilyRows(family || []);
+        } catch { /* ignore */ }
         let parsed = [];
         if (page.contentJson) {
           try {
@@ -2547,7 +2628,6 @@ function TemplatePageEditor({ pageId, onBack, onSaved }) {
 
   const setMetaField = (key) => (e) => setMeta((prev) => ({ ...prev, [key]: e.target.value }));
 
-  const addBlock = (type) => setBlocks((prev) => [...prev, makeBlock(type)]);
   const insertBelow = (index, type) => setBlocks((prev) => {
     const next = [...prev];
     next.splice(index + 1, 0, makeBlock(type));
@@ -2570,6 +2650,8 @@ function TemplatePageEditor({ pageId, onBack, onSaved }) {
     const payload = {
       id: isEdit ? pageId : undefined,
       slug: meta.slug.trim(),
+      pageType,
+      locale: activeLocale,
       name: meta.name.trim(),
       templateType: meta.templateType || 'video',
       status: Number(meta.status),
@@ -2600,7 +2682,7 @@ function TemplatePageEditor({ pageId, onBack, onSaved }) {
             <ArrowLeft size={14} /> 返回列表
           </button>
           <h1 className="text-3xl font-extrabold tracking-tight">{isEdit ? '编辑模板页面' : '新建模板页面'}</h1>
-          <p className="mt-1 text-sm text-gray-500">左侧选择区块添加到正文，每个区块为一行模块，可上下移动、删除</p>
+          <p className="mt-1 text-sm text-gray-500">左侧选择区块添加到正文，可拖拽排序或从面板拖入任意位置</p>
         </div>
         <div className="flex items-center gap-3">
           <a
@@ -2645,6 +2727,21 @@ function TemplatePageEditor({ pageId, onBack, onSaved }) {
         </div>
       </section>
 
+      {familyRows.length > 1 ? (
+        <div className="flex flex-wrap gap-2">
+          {familyRows.map((row) => (
+            <span
+              key={row.locale || row.id}
+              className={`rounded-full px-3 py-1 text-xs font-bold ${
+                (row.locale || 'en') === activeLocale ? 'bg-kiwi-light-green text-kiwi-green-dark' : 'bg-gray-100 text-gray-500'
+              }`}
+            >
+              {(row.locale || 'en').toUpperCase()}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
       <div className="flex gap-2 border-b border-gray-200">
         {[{ id: 'content', label: '内容' }, { id: 'seo', label: 'SEO' }].map((t) => (
           <button
@@ -2661,59 +2758,41 @@ function TemplatePageEditor({ pageId, onBack, onSaved }) {
       {error ? <ErrorBlock message={error} /> : null}
 
       {tab === 'content' ? (
-        <div className="grid gap-5 lg:grid-cols-[220px_1fr]">
-          <aside className="lg:sticky lg:top-6 lg:self-start">
-            <div className="rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm">
-              <p className="mb-3 text-xs font-bold uppercase tracking-wide text-gray-400">区块面板</p>
-              <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
-                {BLOCK_TYPES.map((b) => (
-                  <button
-                    key={b.type}
-                    type="button"
-                    onClick={() => addBlock(b.type)}
-                    className="flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-left text-sm font-semibold text-gray-700 transition hover:border-kiwi-green hover:bg-kiwi-light-green/40"
-                  >
-                    <Plus size={13} className="text-kiwi-green-dark" />
-                    {b.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </aside>
-
-          <div className="space-y-4">
-            {blocks.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-sm text-gray-400">
-                从左侧区块面板选择模块添加到正文
-              </div>
-            ) : null}
-            {blocks.map((block, index) => (
-              <BlockCard
-                key={block.id}
-                block={block}
-                index={index}
-                total={blocks.length}
-                onChange={(nextData) => updateBlockData(index, nextData)}
-                onMove={(dir) => moveBlock(index, dir)}
-                onRemove={() => removeBlock(index)}
-                onInsertBelow={(type) => insertBelow(index, type)}
-              />
-            ))}
-          </div>
-        </div>
+        <BlockStreamDndEditor
+          blocks={blocks}
+          setBlocks={setBlocks}
+          paletteItems={BLOCK_TYPES}
+          makeBlock={makeBlock}
+          paletteTitle="区块面板"
+          emptyHint="从左侧区块面板选择模块添加到正文，或拖入此处"
+          renderBlock={(block, index, dnd, total) => (
+            <BlockCard
+              key={block.id}
+              block={block}
+              index={index}
+              total={total}
+              dnd={dnd}
+              onChange={(nextData) => updateBlockData(index, nextData)}
+              onMove={(dir) => moveBlock(index, dir)}
+              onRemove={() => removeBlock(index)}
+              onInsertBelow={(type) => insertBelow(index, type)}
+            />
+          )}
+        />
       ) : (
-        <TemplateSeoTab slug={meta.slug} name={meta.name} />
+        <TemplateSeoTab slug={meta.slug} name={meta.name} locale={activeLocale} />
       )}
     </div>
   );
 }
 
-function BlockCard({ block, index, total, onChange, onMove, onRemove, onInsertBelow }) {
+function BlockCard({ block, index, total, dnd, onChange, onMove, onRemove, onInsertBelow }) {
   const set = (key, value) => onChange({ ...block.data, [key]: value });
   return (
     <div className="rounded-2xl border border-gray-200/80 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b border-gray-100 px-4 py-2.5">
         <div className="flex items-center gap-2">
+          {dnd ? <DragHandle {...dnd} /> : null}
           <span className="rounded-lg bg-gray-100 px-2 py-0.5 text-[11px] font-bold text-gray-500">#{index + 1}</span>
           <span className="text-sm font-bold text-gray-800">{BLOCK_LABELS[block.type] || block.type}</span>
         </div>
@@ -2745,7 +2824,7 @@ function BlockFields({ type, data, set, onChange }) {
       return (
         <div className="space-y-4">
           <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
-          <Field label="描述"><textarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
           <div className="grid gap-4 sm:grid-cols-3">
             <ImageInput label="主图" value={data.image || ''} onChange={(v) => set('image', v)} />
             <ImageInput label="Before 图" value={data.image_before || ''} onChange={(v) => set('image_before', v)} />
@@ -2760,7 +2839,7 @@ function BlockFields({ type, data, set, onChange }) {
             <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
             <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
           </div>
-          <Field label="引言"><textarea value={data.intro || ''} onChange={(e) => set('intro', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="引言"><LinkableTextarea value={data.intro || ''} onChange={(e) => set('intro', e.target.value)} rows={2} className={inputCls} /></Field>
           <RepeatableList
             label="卡片"
             items={data.cards || []}
@@ -2775,7 +2854,7 @@ function BlockFields({ type, data, set, onChange }) {
                 </Field>
                 <div className="space-y-2">
                   <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
-                  <textarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+                  <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
                 </div>
               </div>
             )}
@@ -2789,7 +2868,7 @@ function BlockFields({ type, data, set, onChange }) {
             <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
             <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
           </div>
-          <Field label="描述"><textarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
           <RepeatableList
             label="场景"
             items={data.scenarios || []}
@@ -2802,7 +2881,7 @@ function BlockFields({ type, data, set, onChange }) {
                   <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
                   <input value={item.category || ''} onChange={(e) => upd({ ...item, category: e.target.value })} placeholder="分类" className={inputCls} />
                 </div>
-                <textarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+                <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
               </div>
             )}
           />
@@ -2823,7 +2902,7 @@ function BlockFields({ type, data, set, onChange }) {
             render={(item, upd) => (
               <div className="space-y-2">
                 <input value={item.question || ''} onChange={(e) => upd({ ...item, question: e.target.value })} placeholder="问题" className={inputCls} />
-                <textarea value={item.answer || ''} onChange={(e) => upd({ ...item, answer: e.target.value })} rows={2} placeholder="回答" className={inputCls} />
+                <LinkableTextarea value={item.answer || ''} onChange={(e) => upd({ ...item, answer: e.target.value })} rows={2} placeholder="回答" className={inputCls} />
               </div>
             )}
           />
@@ -2833,7 +2912,7 @@ function BlockFields({ type, data, set, onChange }) {
       return (
         <div className="space-y-4">
           <Field label="标题"><input value={data.headline || ''} onChange={(e) => set('headline', e.target.value)} className={inputCls} /></Field>
-          <Field label="辅助文案"><textarea value={data.supporting_text || ''} onChange={(e) => set('supporting_text', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="辅助文案"><LinkableTextarea value={data.supporting_text || ''} onChange={(e) => set('supporting_text', e.target.value)} rows={2} className={inputCls} /></Field>
           <Field label="按钮文案"><input value={data.button_text || ''} onChange={(e) => set('button_text', e.target.value)} placeholder="Start creating" className={inputCls} /></Field>
         </div>
       );
@@ -2841,7 +2920,7 @@ function BlockFields({ type, data, set, onChange }) {
       return (
         <div className="space-y-4">
           <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
-          <Field label="描述"><textarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
           <Field label="关键词（逗号分隔）">
             <input
               value={(data.keywords || []).join(', ')}
@@ -2855,7 +2934,7 @@ function BlockFields({ type, data, set, onChange }) {
     case 'rich_text':
       return (
         <Field label="Markdown（支持 # 标题、- 列表、空行分段）">
-          <textarea value={data.markdown || ''} onChange={(e) => set('markdown', e.target.value)} rows={6} className={`${inputCls} font-mono`} />
+          <LinkableTextarea value={data.markdown || ''} onChange={(e) => set('markdown', e.target.value)} rows={6} className={`${inputCls} font-mono`} />
         </Field>
       );
     case 'image':
@@ -2911,11 +2990,17 @@ function RepeatableList({ label, items, onChange, newItem, render }) {
           <Plus size={12} /> 添加
         </button>
       </div>
-      <div className="space-y-3">
-        {list.map((item, index) => (
-          <div key={index} className="rounded-xl border border-gray-100 bg-gray-50/60 p-3">
+      <SortableList
+        items={list}
+        onChange={onChange}
+        ghostLabel={(_, index) => `${label} #${index + 1}`}
+        renderItem={(item, index, dnd) => (
+          <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-3">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-[11px] font-bold text-gray-400">#{index + 1}</span>
+              <div className="flex items-center gap-1.5">
+                <DragHandle {...dnd} compact />
+                <span className="text-[11px] font-bold text-gray-400">#{index + 1}</span>
+              </div>
               <div className="flex gap-1.5">
                 <button type="button" disabled={index === 0} onClick={() => move(index, -1)} className="rounded-md border border-gray-200 bg-white p-1 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowUp size={12} /></button>
                 <button type="button" disabled={index === list.length - 1} onClick={() => move(index, 1)} className="rounded-md border border-gray-200 bg-white p-1 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowDown size={12} /></button>
@@ -2924,8 +3009,8 @@ function RepeatableList({ label, items, onChange, newItem, render }) {
             </div>
             {render(item, (value) => update(index, value))}
           </div>
-        ))}
-      </div>
+        )}
+      />
     </div>
   );
 }
@@ -2970,8 +3055,8 @@ function ImageInput({ label, value, onChange }) {
   );
 }
 
-function TemplateSeoTab({ slug, name }) {
-  const pageKey = slug ? `template:${slug}` : '';
+function TemplateSeoTab({ slug, name, pageGroup = 'template', pathPrefix = '/templates', locale = 'en' }) {
+  const pageKey = slug ? `${pageGroup}:${slug}` : '';
   const [loading, setLoading] = useState(Boolean(slug));
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
@@ -2986,9 +3071,9 @@ function TemplateSeoTab({ slug, name }) {
       setLoading(true);
       setError('');
       try {
-        const result = await adminService.getSeoPage({ group: 'template', keyword: slug, pageSize: 50 });
+        const result = await adminService.getSeoPage({ group: pageGroup, keyword: slug, pageSize: 50 });
         if (!mounted) return;
-        const row = (result.list || []).find((r) => r.pageKey === pageKey) || null;
+        const row = (result.list || []).find((r) => r.pageKey === pageKey && (r.locale || 'en') === locale) || null;
         setExisting(row);
         if (row) {
           setForm({
@@ -3004,7 +3089,7 @@ function TemplateSeoTab({ slug, name }) {
       }
     })();
     return () => { mounted = false; };
-  }, [slug, pageKey]);
+  }, [slug, pageKey, pageGroup, locale]);
 
   const set = (key) => (e) => { setSaved(false); setForm((prev) => ({ ...prev, [key]: e.target.value })); };
 
@@ -3014,8 +3099,9 @@ function TemplateSeoTab({ slug, name }) {
     const payload = {
       id: existing?.id,
       pageKey,
-      pageGroup: 'template',
-      path: `/templates/${slug}`,
+      pageGroup,
+      locale,
+      path: `${pathPrefix}/${slug}`,
       title: form.title.trim() || null,
       description: form.description.trim() || null,
       keywords: form.keywords.trim() || null,
@@ -3069,7 +3155,7 @@ function TemplateSeoTab({ slug, name }) {
           <Field label="OG 图片 URL"><input value={form.ogImage} onChange={set('ogImage')} className={inputCls} /></Field>
         </div>
         <Field label="OG 描述"><textarea value={form.ogDescription} onChange={set('ogDescription')} rows={2} className={inputCls} /></Field>
-        <Field label="Canonical"><input value={form.canonical} onChange={set('canonical')} placeholder={`https://lazykiwi.ai/templates/${slug}`} className={inputCls} /></Field>
+        <Field label="Canonical"><input value={form.canonical} onChange={set('canonical')} placeholder={`https://lazykiwi.ai${pathPrefix}/${slug}`} className={inputCls} /></Field>
         <div className="grid grid-cols-2 gap-4">
           <Field label="noindex">
             <select value={form.noIndex} onChange={set('noIndex')} className={inputCls}>
@@ -3089,6 +3175,1336 @@ function TemplateSeoTab({ slug, name }) {
       </div>
     </section>
   );
+}
+
+// ==================== 结构化落地页编辑器（工具 / 模型 / 博客） ====================
+
+// String[] 通过每行一项的 textarea 编辑（用于 checks/bullets/terms/points/breadcrumb 等）。
+function LinesField({ label, value, onChange, placeholder, rows = 3 }) {
+  return (
+    <Field label={label}>
+      <textarea
+        rows={rows}
+        value={(Array.isArray(value) ? value : []).join('\n')}
+        onChange={(e) => onChange(e.target.value.split('\n').map((s) => s.replace(/\r$/, '')).filter((s) => s.trim() !== ''))}
+        placeholder={placeholder}
+        className={`${inputCls} font-mono`}
+      />
+    </Field>
+  );
+}
+
+function EditorCard({ title, hint, children }) {
+  return (
+    <section className="rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm">
+      <div className="mb-4">
+        <h3 className="text-sm font-extrabold uppercase tracking-wide text-gray-700">{title}</h3>
+        {hint ? <p className="mt-0.5 text-xs text-gray-400">{hint}</p> : null}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+// setDoc 更新助手工厂：供各页面基础信息卡片复用。
+const makePatchers = (setDoc) => ({
+  patch: (section, value) => setDoc((d) => ({ ...d, [section]: value })),
+  patchField: (section, key, value) => setDoc((d) => ({ ...d, [section]: { ...(d[section] || {}), [key]: value } })),
+  patchNested: (section, sub, key, value) => setDoc((d) => ({
+    ...d,
+    [section]: { ...(d[section] || {}), [sub]: { ...((d[section] || {})[sub] || {}), [key]: value } },
+  })),
+});
+
+// ==================== 通用区块流编辑器（工具 / 模型 / 博客落地页） ====================
+// 与模板页面一致的自由拼装式：左侧组件面板添加区块，右侧卡片可拖拽排序、从面板拖入任意位置。
+
+function makeTypedBlock(registry, type) {
+  const def = registry.find((b) => b.type === type);
+  const rand = Math.random().toString(36).slice(2, 6);
+  return { id: `b${Date.now().toString(36)}${rand}`, type, data: def ? def.create() : {} };
+}
+
+function GenericBlockCard({ block, index, total, label, registry, dnd, onChange, onMove, onRemove, onInsertBelow, children }) {
+  return (
+    <div className="rounded-2xl border border-gray-200/80 bg-white shadow-sm">
+      <div className="flex items-center justify-between border-b border-gray-100 px-4 py-2.5">
+        <div className="flex items-center gap-2">
+          {dnd ? <DragHandle {...dnd} /> : null}
+          <span className="rounded-lg bg-gray-100 px-2 py-0.5 text-[11px] font-bold text-gray-500">#{index + 1}</span>
+          <span className="text-sm font-bold text-gray-800">{label || block.type}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <button type="button" title="上移" disabled={index === 0} onClick={() => onMove(-1)} className="rounded-lg border border-gray-200 p-1.5 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowUp size={14} /></button>
+          <button type="button" title="下移" disabled={index === total - 1} onClick={() => onMove(1)} className="rounded-lg border border-gray-200 p-1.5 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowDown size={14} /></button>
+          <select
+            value=""
+            onChange={(e) => { if (e.target.value) { onInsertBelow(e.target.value); e.target.value = ''; } }}
+            title="在下方插入"
+            className="rounded-lg border border-gray-200 px-1.5 py-1.5 text-xs font-semibold text-gray-500 outline-none focus:border-kiwi-green"
+          >
+            <option value="">＋ 下方插入…</option>
+            {registry.map((b) => <option key={b.type} value={b.type}>{b.label}</option>)}
+          </select>
+          <button type="button" title="删除" onClick={onRemove} className="rounded-lg border border-rose-200 p-1.5 text-rose-600 transition hover:bg-rose-50"><Trash2 size={14} /></button>
+        </div>
+      </div>
+      <div className="p-4">{children}</div>
+    </div>
+  );
+}
+
+function BlockStreamEditor({ blocks, setBlocks, registry }) {
+  const list = Array.isArray(blocks) ? blocks : [];
+  const byType = Object.fromEntries(registry.map((b) => [b.type, b]));
+  const insertBelow = (i, type) => setBlocks((prev) => { const n = [...(prev || [])]; n.splice(i + 1, 0, makeTypedBlock(registry, type)); return n; });
+  const updateData = (i, data) => setBlocks((prev) => prev.map((b, idx) => (idx === i ? { ...b, data } : b)));
+  const move = (i, dir) => setBlocks((prev) => { const t = i + dir; if (t < 0 || t >= prev.length) return prev; const n = [...prev]; [n[i], n[t]] = [n[t], n[i]]; return n; });
+  const remove = (i) => setBlocks((prev) => prev.filter((_, idx) => idx !== i));
+  const paletteItems = registry.map((b) => ({ type: b.type, label: b.label }));
+  return (
+    <BlockStreamDndEditor
+      blocks={list}
+      setBlocks={setBlocks}
+      paletteItems={paletteItems}
+      makeBlock={(type) => makeTypedBlock(registry, type)}
+      renderBlock={(block, index, dnd, total) => (
+        <GenericBlockCard
+          block={block}
+          index={index}
+          total={total}
+          label={byType[block.type]?.label}
+          registry={registry}
+          dnd={dnd}
+          onMove={(dir) => move(index, dir)}
+          onRemove={() => remove(index)}
+          onInsertBelow={(type) => insertBelow(index, type)}
+        >
+          {byType[block.type]?.Fields
+            ? byType[block.type].Fields(block.data || {}, (d) => updateData(index, d))
+            : <p className="text-sm text-gray-400">未知区块类型：{block.type}</p>}
+        </GenericBlockCard>
+      )}
+    />
+  );
+}
+
+function StructuredPageEditor({ pageId, pageType, onBack, onSaved, defaultDoc, baseDoc, normalizeLoaded, renderContent }) {
+  const meta = PAGE_TYPE_META[pageType] || PAGE_TYPE_META.template;
+  const isEdit = Boolean(pageId);
+  const [tab, setTab] = useState('content'); // content | seo
+  const [mode, setMode] = useState('form'); // form | json
+  const [loading, setLoading] = useState(isEdit);
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [info, setInfo] = useState({ slug: '', name: '', status: 0, sort: 0 });
+  const [doc, setDoc] = useState(() => defaultDoc());
+  const [rawText, setRawText] = useState('');
+  const [rawError, setRawError] = useState('');
+
+  useEffect(() => {
+    if (!isEdit) { setLoading(false); return; }
+    let mounted = true;
+    (async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const page = await adminService.getTemplatePage(pageId);
+        if (!mounted) return;
+        setInfo({ slug: page.slug || '', name: page.name || '', status: page.status ?? 0, sort: page.sort ?? 0 });
+        // 编辑既有页面时：若提供 normalizeLoaded（区块流编辑器），把旧的结构化文档转换成区块；
+        // 否则仅合并「基础分区」默认值以保证结构完整。
+        const mergeBase = typeof baseDoc === 'function' ? baseDoc : defaultDoc;
+        let parsed = defaultDoc();
+        if (page.contentJson) {
+          try {
+            const j = JSON.parse(page.contentJson);
+            if (j && typeof j === 'object') {
+              parsed = typeof normalizeLoaded === 'function' ? normalizeLoaded(j) : { ...mergeBase(), ...j };
+            }
+          } catch { /* keep default */ }
+        }
+        setDoc(parsed);
+      } catch (err) {
+        if (mounted) setError(err?.message || '加载失败');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, [pageId, isEdit]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const setInfoField = (key) => (e) => setInfo((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const enterJson = () => { setRawText(JSON.stringify(doc, null, 2)); setRawError(''); setMode('json'); };
+  const applyJson = () => {
+    try {
+      const j = JSON.parse(rawText);
+      setDoc(j);
+      setRawError('');
+      setMode('form');
+    } catch (e) {
+      setRawError(`JSON 解析失败：${e?.message || ''}`);
+    }
+  };
+
+  const save = async () => {
+    setError('');
+    if (!info.slug.trim()) { setError('slug 必填'); setTab('content'); return; }
+    if (!info.name.trim()) { setError('名称必填'); setTab('content'); return; }
+    let outDoc = doc;
+    if (mode === 'json') {
+      try { outDoc = JSON.parse(rawText); } catch { setRawError('JSON 解析失败，无法保存'); return; }
+    }
+    const payload = {
+      id: isEdit ? pageId : undefined,
+      slug: info.slug.trim(),
+      pageType,
+      name: info.name.trim(),
+      status: Number(info.status),
+      sort: Number(info.sort) || 0,
+      contentJson: JSON.stringify(outDoc),
+    };
+    setSaving(true);
+    try {
+      if (isEdit) await adminService.updateTemplatePage(payload);
+      else await adminService.createTemplatePage(payload);
+      onSaved();
+    } catch (err) {
+      setError(err?.message || '保存失败');
+      setSaving(false);
+    }
+  };
+
+  if (loading) return <LoadingBlock />;
+
+  const previewHref = info.slug ? `https://lazykiwi.ai${meta.pathPrefix}/${info.slug}` : undefined;
+
+  return (
+    <div className="space-y-6">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <button type="button" onClick={onBack} className="mb-2 inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 transition hover:text-gray-900">
+            <ArrowLeft size={14} /> 返回列表
+          </button>
+          <h1 className="text-3xl font-extrabold tracking-tight">{isEdit ? `编辑${meta.editorTitle}` : `新建${meta.editorTitle}`}</h1>
+          <p className="mt-1 text-sm text-gray-500">新建时自动加载默认组件，可在底部「添加组件」新增、在卡片右上角「移除」删除。发布后营销站直接渲染，可切换「高级 JSON」编辑完整文档。</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <a
+            href={previewHref}
+            target="_blank"
+            rel="noreferrer"
+            className={`inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-gray-700 transition hover:bg-gray-50 ${info.slug ? '' : 'pointer-events-none opacity-40'}`}
+          >
+            预览 <ArrowUpRight size={15} />
+          </a>
+          <button type="button" onClick={save} disabled={saving} className="inline-flex items-center gap-2 rounded-xl bg-kiwi-green px-5 py-2.5 text-sm font-bold text-white transition hover:bg-kiwi-green-dark disabled:opacity-60">
+            {saving ? <Loader2 size={15} className="animate-spin" /> : null}
+            保存
+          </button>
+        </div>
+      </header>
+
+      <section className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Field label="Slug"><input value={info.slug} onChange={setInfoField('slug')} placeholder="veo-3" className={inputCls} disabled={isEdit} /></Field>
+          <Field label="名称（后台展示）"><input value={info.name} onChange={setInfoField('name')} className={inputCls} /></Field>
+          <Field label="排序"><input type="number" value={info.sort} onChange={setInfoField('sort')} className={inputCls} /></Field>
+          <Field label="状态">
+            <select value={info.status} onChange={setInfoField('status')} className={inputCls}>
+              <option value={0}>草稿</option>
+              <option value={1}>已发布</option>
+            </select>
+          </Field>
+        </div>
+      </section>
+
+      <div className="flex items-center justify-between border-b border-gray-200">
+        <div className="flex gap-2">
+          {[{ id: 'content', label: '内容' }, { id: 'seo', label: 'SEO' }].map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={`-mb-px rounded-t-xl px-5 py-2.5 text-sm font-bold transition ${tab === t.id ? 'border-x border-t border-gray-200 bg-white text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        {tab === 'content' ? (
+          <div className="flex items-center gap-2 pb-2">
+            {mode === 'form' ? (
+              <button type="button" onClick={enterJson} className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-bold text-gray-600 transition hover:bg-gray-50">高级 JSON</button>
+            ) : (
+              <button type="button" onClick={applyJson} className="rounded-lg border border-kiwi-green px-3 py-1.5 text-xs font-bold text-kiwi-green-dark transition hover:bg-kiwi-light-green/40">应用并返回表单</button>
+            )}
+          </div>
+        ) : null}
+      </div>
+
+      {error ? <ErrorBlock message={error} /> : null}
+
+      {tab === 'content' ? (
+        mode === 'json' ? (
+          <div className="space-y-2">
+            <textarea value={rawText} onChange={(e) => setRawText(e.target.value)} rows={28} className={`${inputCls} font-mono text-xs`} />
+            {rawError ? <p className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-600">{rawError}</p> : null}
+          </div>
+        ) : (
+          <div className="space-y-5">
+            {renderContent(doc, setDoc)}
+          </div>
+        )
+      ) : (
+        <TemplateSeoTab slug={info.slug} name={info.name} pageGroup={meta.seoGroup} pathPrefix={meta.pathPrefix} />
+      )}
+    </div>
+  );
+}
+
+// ---------- Tool editor ----------
+
+// 给区块补齐 id（用于列表 key、拖动排序）。转换旧结构化文档时使用。
+function withBlockIds(blocks) {
+  return (Array.isArray(blocks) ? blocks : []).map((b) => ({
+    id: b.id || `b${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
+    type: b.type,
+    data: b.data,
+  }));
+}
+
+// 旧结构化「工具」文档 → 有序区块流。与营销站 toolToBlocks 保持一致。
+function toolLegacyToBlocks(doc) {
+  if (!doc) return [];
+  if (Array.isArray(doc.blocks)) return doc.blocks;
+  const b = [];
+  if (doc.hero) b.push({ type: 'hero', data: doc.hero });
+  if (doc.what_it_is && (doc.what_it_is.title || doc.what_it_is.intro || doc.what_it_is.checks?.length)) b.push({ type: 'what_it_is', data: doc.what_it_is });
+  if (doc.how_it_works?.steps?.length) b.push({ type: 'how_it_works', data: doc.how_it_works });
+  if (doc.features?.length) b.push({ type: 'features', data: doc.features });
+  if (doc.showcase?.items?.length) b.push({ type: 'showcase', data: doc.showcase });
+  if (doc.why?.cards?.length) b.push({ type: 'why', data: doc.why });
+  if (doc.reviews?.quotes?.length) b.push({ type: 'reviews', data: doc.reviews });
+  if (doc.faq?.faqs?.length) b.push({ type: 'faq', data: doc.faq });
+  if (doc.cta && (doc.cta.title || doc.cta.description)) b.push({ type: 'cta', data: doc.cta });
+  return b;
+}
+
+const TOOL_BLOCKS = [
+  {
+    type: 'hero',
+    label: 'Hero 首屏',
+    create: () => ({ title: '', description: '', image_before: '', image_after: '' }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <ImageInput label="Before 图" value={data.image_before || ''} onChange={(v) => set('image_before', v)} />
+            <ImageInput label="After 图" value={data.image_after || ''} onChange={(v) => set('image_after', v)} />
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    type: 'what_it_is',
+    label: 'What it is',
+    create: () => ({ title: '', intro: '', checks: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="引言"><LinkableTextarea value={data.intro || ''} onChange={(e) => set('intro', e.target.value)} rows={2} className={inputCls} /></Field>
+          <LinesField label="勾选项 checks（每行一项）" value={data.checks} onChange={(v) => set('checks', v)} />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'how_it_works',
+    label: 'How it works',
+    create: () => ({ title: '', steps: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <RepeatableList
+            label="步骤"
+            items={data.steps || []}
+            onChange={(items) => set('steps', items)}
+            newItem={() => ({ title: '', description: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="步骤标题" className={inputCls} />
+                <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="步骤描述" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'features',
+    label: '功能特性 features',
+    create: () => [],
+    Fields: (data, onChange) => (
+      <RepeatableList
+        label="特性块"
+        items={Array.isArray(data) ? data : []}
+        onChange={(items) => onChange(items)}
+        newItem={() => ({ eyebrow: '', title: '', description: '', bullets: [], image: '' })}
+        render={(item, upd) => (
+          <div className="space-y-2">
+            <div className="grid gap-2 sm:grid-cols-2">
+              <input value={item.eyebrow || ''} onChange={(e) => upd({ ...item, eyebrow: e.target.value })} placeholder="Eyebrow" className={inputCls} />
+              <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+            </div>
+            <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+            <LinesField label="要点 bullets（每行一项）" value={item.bullets} onChange={(v) => upd({ ...item, bullets: v })} />
+            <ImageInput label="配图" value={item.image || ''} onChange={(v) => upd({ ...item, image: v })} />
+          </div>
+        )}
+      />
+    ),
+  },
+  {
+    type: 'showcase',
+    label: '示例展示 showcase',
+    create: () => ({ title: '', subtitle: '', items: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+            <Field label="副标题"><input value={data.subtitle || ''} onChange={(e) => set('subtitle', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <RepeatableList
+            label="示例图"
+            items={data.items || []}
+            onChange={(items) => set('items', items)}
+            newItem={() => ({ image: '', caption: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <ImageInput label="图片" value={item.image || ''} onChange={(v) => upd({ ...item, image: v })} />
+                <input value={item.caption || ''} onChange={(e) => upd({ ...item, caption: e.target.value })} placeholder="图注" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'why',
+    label: 'Why LazyKiwi',
+    create: () => ({ title: '', cards: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <RepeatableList
+            label="卡片"
+            items={data.cards || []}
+            onChange={(items) => set('cards', items)}
+            newItem={() => ({ title: '', description: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+                <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'reviews',
+    label: '用户评价 reviews',
+    create: () => ({ title: '', quotes: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <RepeatableList
+            label="评价"
+            items={data.quotes || []}
+            onChange={(items) => set('quotes', items)}
+            newItem={() => ({ quote: '', name: '', role: '', avatar: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <LinkableTextarea value={item.quote || ''} onChange={(e) => upd({ ...item, quote: e.target.value })} rows={2} placeholder="评价内容" className={inputCls} />
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.name || ''} onChange={(e) => upd({ ...item, name: e.target.value })} placeholder="姓名" className={inputCls} />
+                  <input value={item.role || ''} onChange={(e) => upd({ ...item, role: e.target.value })} placeholder="身份" className={inputCls} />
+                </div>
+                <ImageInput label="头像" value={item.avatar || ''} onChange={(v) => upd({ ...item, avatar: v })} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'faq',
+    label: '常见问题 FAQ',
+    create: () => ({ title: '', faqs: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <RepeatableList
+            label="问答"
+            items={data.faqs || []}
+            onChange={(items) => set('faqs', items)}
+            newItem={() => ({ question: '', answer: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <input value={item.question || ''} onChange={(e) => upd({ ...item, question: e.target.value })} placeholder="问题" className={inputCls} />
+                <LinkableTextarea value={item.answer || ''} onChange={(e) => upd({ ...item, answer: e.target.value })} rows={2} placeholder="回答" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'cta',
+    label: 'CTA 行动号召',
+    create: () => ({ title: '', description: '' }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+        </div>
+      );
+    },
+  },
+];
+
+function toolDefaultDoc() {
+  return { seo_title: '', seo_description: '', blocks: TOOL_BLOCKS.map((b) => makeTypedBlock(TOOL_BLOCKS, b.type)) };
+}
+
+function toolNormalizeLoaded(j) {
+  return { seo_title: j.seo_title || '', seo_description: j.seo_description || '', blocks: withBlockIds(toolLegacyToBlocks(j)) };
+}
+
+function ToolPageEditor(props) {
+  const renderContent = (doc, setDoc) => {
+    const { patch } = makePatchers(setDoc);
+    const setBlocks = (u) => setDoc((d) => ({ ...d, blocks: typeof u === 'function' ? u(d.blocks || []) : u }));
+    return (
+      <>
+        <EditorCard title="SEO 文案" hint="页面 meta，用于 <title> 与描述，不在正文中显示">
+          <div className="space-y-3">
+            <Field label="SEO 标题"><input value={doc.seo_title || ''} onChange={(e) => patch('seo_title', e.target.value)} className={inputCls} /></Field>
+            <Field label="SEO 描述"><textarea value={doc.seo_description || ''} onChange={(e) => patch('seo_description', e.target.value)} rows={2} className={inputCls} /></Field>
+          </div>
+        </EditorCard>
+        <BlockStreamEditor blocks={doc.blocks || []} setBlocks={setBlocks} registry={TOOL_BLOCKS} />
+      </>
+    );
+  };
+  return <StructuredPageEditor {...props} defaultDoc={toolDefaultDoc} normalizeLoaded={toolNormalizeLoaded} renderContent={renderContent} />;
+}
+
+// ---------- Model editor ----------
+
+// 旧结构化「模型」文档 → 有序区块流。与营销站 modelToBlocks 保持一致。
+function modelLegacyToBlocks(doc) {
+  if (!doc) return [];
+  if (Array.isArray(doc.blocks)) return doc.blocks;
+  const b = [];
+  if (doc.hero && (doc.hero.name || doc.hero.headline)) b.push({ type: 'hero', data: doc.hero });
+  if (doc.steps?.items?.length) b.push({ type: 'steps', data: doc.steps });
+  if (doc.capabilities?.items?.length) b.push({ type: 'capabilities', data: doc.capabilities });
+  if (doc.showcase?.items?.length) b.push({ type: 'showcase', data: doc.showcase });
+  if (doc.specs?.rows?.length) b.push({ type: 'specs', data: doc.specs });
+  if (doc.comparison?.rows?.length) b.push({ type: 'comparison', data: doc.comparison });
+  if (doc.scenarios?.items?.length) b.push({ type: 'scenarios', data: doc.scenarios });
+  if (doc.testimonials?.quotes?.length) b.push({ type: 'testimonials', data: doc.testimonials });
+  if (doc.faq?.length) b.push({ type: 'faq', data: doc.faq });
+  if (doc.bottomCta && (doc.bottomCta.title || doc.bottomCta.description)) b.push({ type: 'bottomCta', data: doc.bottomCta });
+  return b;
+}
+
+const MODEL_BLOCKS = [
+  {
+    type: 'hero',
+    label: 'Hero 首屏',
+    create: () => ({ headline: '', tagline: '', description: '', badge: '', name: '', stats: [], media: { wide: '', card: '' } }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      const setMedia = (k, v) => onChange({ ...data, media: { ...(data.media || {}), [k]: v } });
+      return (
+        <div className="space-y-3">
+          <p className="text-xs text-gray-400">headline 支持 **加粗** 语法</p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="模型名 name"><input value={data.name || ''} onChange={(e) => set('name', e.target.value)} className={inputCls} /></Field>
+            <Field label="徽标 badge"><input value={data.badge || ''} onChange={(e) => set('badge', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="大标题 headline"><input value={data.headline || ''} onChange={(e) => set('headline', e.target.value)} className={inputCls} /></Field>
+          <Field label="副标题 tagline"><input value={data.tagline || ''} onChange={(e) => set('tagline', e.target.value)} className={inputCls} /></Field>
+          <Field label="描述 description"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={3} className={inputCls} /></Field>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <ImageInput label="宽图/视频 media.wide" value={data.media?.wide || ''} onChange={(v) => setMedia('wide', v)} />
+            <ImageInput label="卡片图 media.card" value={data.media?.card || ''} onChange={(v) => setMedia('card', v)} />
+          </div>
+          <RepeatableList
+            label="指标 stats"
+            items={data.stats || []}
+            onChange={(items) => set('stats', items)}
+            newItem={() => ({ label: '', value: '' })}
+            render={(item, upd) => (
+              <div className="grid gap-2 sm:grid-cols-2">
+                <input value={item.label || ''} onChange={(e) => upd({ ...item, label: e.target.value })} placeholder="标签" className={inputCls} />
+                <input value={item.value || ''} onChange={(e) => upd({ ...item, value: e.target.value })} placeholder="数值" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'steps',
+    label: '步骤 steps',
+    create: () => ({ eyebrow: '', title: '', description: '', items: [], cta: { label: '', link: '' } }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      const setCta = (k, v) => onChange({ ...data, cta: { ...(data.cta || {}), [k]: v } });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="CTA 文案"><input value={data.cta?.label || ''} onChange={(e) => setCta('label', e.target.value)} className={inputCls} /></Field>
+            <Field label="CTA 链接"><input value={data.cta?.link || ''} onChange={(e) => setCta('link', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <RepeatableList
+            label="步骤项"
+            items={data.items || []}
+            onChange={(items) => set('items', items)}
+            newItem={() => ({ title: '', description: '', image: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="步骤标题" className={inputCls} />
+                <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="步骤描述" className={inputCls} />
+                <ImageInput label="配图" value={item.image || ''} onChange={(v) => upd({ ...item, image: v })} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'capabilities',
+    label: '能力 capabilities',
+    create: () => ({ eyebrow: '', title: '', description: '', items: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <RepeatableList
+            label="能力项"
+            items={data.items || []}
+            onChange={(items) => set('items', items)}
+            newItem={() => ({ eyebrow: '', title: '', description: '', bullets: [], image: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.eyebrow || ''} onChange={(e) => upd({ ...item, eyebrow: e.target.value })} placeholder="Eyebrow" className={inputCls} />
+                  <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+                </div>
+                <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+                <LinesField label="要点 bullets（每行一项）" value={item.bullets} onChange={(v) => upd({ ...item, bullets: v })} />
+                <ImageInput label="配图" value={item.image || ''} onChange={(v) => upd({ ...item, image: v })} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'showcase',
+    label: '示例展示 showcase',
+    create: () => ({ eyebrow: '', title: '', description: '', cta: { label: '', link: '' }, items: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <RepeatableList
+            label="示例项"
+            items={data.items || []}
+            onChange={(items) => set('items', items)}
+            newItem={() => ({ title: '', tag: '', image: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+                  <input value={item.tag || ''} onChange={(e) => upd({ ...item, tag: e.target.value })} placeholder="标签（如 Text→Video）" className={inputCls} />
+                </div>
+                <ImageInput label="图片/视频" value={item.image || ''} onChange={(v) => upd({ ...item, image: v })} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'specs',
+    label: '规格 specs',
+    create: () => ({ eyebrow: '', title: '', description: '', rows: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <RepeatableList
+            label="规格行"
+            items={data.rows || []}
+            onChange={(items) => set('rows', items)}
+            newItem={() => ({ label: '', value: '' })}
+            render={(item, upd) => (
+              <div className="grid gap-2 sm:grid-cols-2">
+                <input value={item.label || ''} onChange={(e) => upd({ ...item, label: e.target.value })} placeholder="标签" className={inputCls} />
+                <input value={item.value || ''} onChange={(e) => upd({ ...item, value: e.target.value })} placeholder="数值" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'comparison',
+    label: '对比 comparison',
+    create: () => ({ eyebrow: '', title: '', description: '', columns: [], rows: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <LinesField label="表头列 columns（每行一项）" value={data.columns} onChange={(v) => set('columns', v)} />
+          <RepeatableList
+            label="对比行"
+            items={data.rows || []}
+            onChange={(items) => set('rows', items)}
+            newItem={() => ({ model: '', highlight: false, strength: '', bestFor: '', speed: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.model || ''} onChange={(e) => upd({ ...item, model: e.target.value })} placeholder="模型名" className={inputCls} />
+                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+                    <input type="checkbox" checked={Boolean(item.highlight)} onChange={(e) => upd({ ...item, highlight: e.target.checked })} /> 高亮本模型
+                  </label>
+                </div>
+                <input value={item.strength || ''} onChange={(e) => upd({ ...item, strength: e.target.value })} placeholder="优势 strength" className={inputCls} />
+                <input value={item.bestFor || ''} onChange={(e) => upd({ ...item, bestFor: e.target.value })} placeholder="适用 bestFor" className={inputCls} />
+                <input value={item.speed || ''} onChange={(e) => upd({ ...item, speed: e.target.value })} placeholder="速度 speed" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'scenarios',
+    label: '使用场景 scenarios',
+    create: () => ({ eyebrow: '', title: '', description: '', items: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <p className="text-xs text-gray-400">icon 为 lucide 图标名，如 Megaphone / Camera</p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <RepeatableList
+            label="场景项"
+            items={data.items || []}
+            onChange={(items) => set('items', items)}
+            newItem={() => ({ icon: 'Sparkles', title: '', description: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.icon || ''} onChange={(e) => upd({ ...item, icon: e.target.value })} placeholder="图标名 icon" className={inputCls} />
+                  <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+                </div>
+                <LinkableTextarea value={item.description || ''} onChange={(e) => upd({ ...item, description: e.target.value })} rows={2} placeholder="描述" className={inputCls} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'testimonials',
+    label: '口碑 testimonials',
+    create: () => ({ eyebrow: '', title: '', stats: [], quotes: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="Eyebrow"><input value={data.eyebrow || ''} onChange={(e) => set('eyebrow', e.target.value)} className={inputCls} /></Field>
+            <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <RepeatableList
+            label="数据 stats"
+            items={data.stats || []}
+            onChange={(items) => set('stats', items)}
+            newItem={() => ({ value: '', label: '' })}
+            render={(item, upd) => (
+              <div className="grid gap-2 sm:grid-cols-2">
+                <input value={item.value || ''} onChange={(e) => upd({ ...item, value: e.target.value })} placeholder="数值" className={inputCls} />
+                <input value={item.label || ''} onChange={(e) => upd({ ...item, label: e.target.value })} placeholder="标签" className={inputCls} />
+              </div>
+            )}
+          />
+          <RepeatableList
+            label="评价 quotes"
+            items={data.quotes || []}
+            onChange={(items) => set('quotes', items)}
+            newItem={() => ({ quote: '', name: '', role: '', avatar: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <LinkableTextarea value={item.quote || ''} onChange={(e) => upd({ ...item, quote: e.target.value })} rows={2} placeholder="评价内容" className={inputCls} />
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.name || ''} onChange={(e) => upd({ ...item, name: e.target.value })} placeholder="姓名" className={inputCls} />
+                  <input value={item.role || ''} onChange={(e) => upd({ ...item, role: e.target.value })} placeholder="身份" className={inputCls} />
+                </div>
+                <ImageInput label="头像" value={item.avatar || ''} onChange={(v) => upd({ ...item, avatar: v })} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'faq',
+    label: '常见问题 FAQ',
+    create: () => [],
+    Fields: (data, onChange) => (
+      <RepeatableList
+        label="问答"
+        items={Array.isArray(data) ? data : []}
+        onChange={(items) => onChange(items)}
+        newItem={() => ({ question: '', answer: '' })}
+        render={(item, upd) => (
+          <div className="space-y-2">
+            <input value={item.question || ''} onChange={(e) => upd({ ...item, question: e.target.value })} placeholder="问题" className={inputCls} />
+            <LinkableTextarea value={item.answer || ''} onChange={(e) => upd({ ...item, answer: e.target.value })} rows={2} placeholder="回答" className={inputCls} />
+          </div>
+        )}
+      />
+    ),
+  },
+  {
+    type: 'bottomCta',
+    label: '底部 CTA bottomCta',
+    create: () => ({ title: '', description: '', buttonText: '', buttonLink: '' }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="按钮文案"><input value={data.buttonText || ''} onChange={(e) => set('buttonText', e.target.value)} className={inputCls} /></Field>
+            <Field label="按钮链接"><input value={data.buttonLink || ''} onChange={(e) => set('buttonLink', e.target.value)} className={inputCls} /></Field>
+          </div>
+        </div>
+      );
+    },
+  },
+];
+
+function modelDefaultDoc() {
+  return {
+    slug: '', parentFeature: 'video-generator',
+    seo: { title: '', description: '' },
+    blocks: MODEL_BLOCKS.map((b) => makeTypedBlock(MODEL_BLOCKS, b.type)),
+  };
+}
+
+function modelNormalizeLoaded(j) {
+  return {
+    slug: j.slug || '',
+    parentFeature: j.parentFeature || 'video-generator',
+    seo: j.seo || { title: '', description: '' },
+    blocks: withBlockIds(modelLegacyToBlocks(j)),
+  };
+}
+
+function ModelPageEditor(props) {
+  const renderContent = (doc, setDoc) => {
+    const { patch, patchField } = makePatchers(setDoc);
+    const setBlocks = (u) => setDoc((d) => ({ ...d, blocks: typeof u === 'function' ? u(d.blocks || []) : u }));
+    return (
+      <>
+        <EditorCard title="基础与 SEO" hint="页面 meta，不在正文中显示">
+          <div className="space-y-3">
+            <div className="grid gap-2 sm:grid-cols-2">
+              <Field label="内部 slug（doc.slug）"><input value={doc.slug || ''} onChange={(e) => patch('slug', e.target.value)} placeholder="veo-3" className={inputCls} /></Field>
+              <Field label="所属功能 parentFeature">
+                <select value={doc.parentFeature || 'video-generator'} onChange={(e) => patch('parentFeature', e.target.value)} className={inputCls}>
+                  <option value="video-generator">video-generator（视频）</option>
+                  <option value="image-generator">image-generator（图片）</option>
+                </select>
+              </Field>
+            </div>
+            <Field label="SEO 标题"><input value={doc.seo?.title || ''} onChange={(e) => patchField('seo', 'title', e.target.value)} className={inputCls} /></Field>
+            <Field label="SEO 描述"><textarea value={doc.seo?.description || ''} onChange={(e) => patchField('seo', 'description', e.target.value)} rows={2} className={inputCls} /></Field>
+          </div>
+        </EditorCard>
+        <BlockStreamEditor blocks={doc.blocks || []} setBlocks={setBlocks} registry={MODEL_BLOCKS} />
+      </>
+    );
+  };
+  return <StructuredPageEditor {...props} defaultDoc={modelDefaultDoc} normalizeLoaded={modelNormalizeLoaded} renderContent={renderContent} />;
+}
+
+// ---------- Blog editor ----------
+
+const BLOG_BLOCK_TYPES = [
+  { type: 'paragraph', label: '段落' },
+  { type: 'list', label: '无序列表' },
+  { type: 'ordered', label: '有序列表' },
+  { type: 'image', label: '图片' },
+  { type: 'tip', label: '提示框' },
+  { type: 'pullquote', label: '引用' },
+  { type: 'promptbox', label: 'Prompt 框' },
+  { type: 'statband', label: '数据条' },
+  { type: 'stat', label: '单个数据' },
+  { type: 'compare', label: '对比表' },
+];
+
+function blogBlockDefault(type) {
+  switch (type) {
+    case 'list': return { type, items: [] };
+    case 'ordered': return { type, items: [] };
+    case 'image': return { type, src: '', caption: '' };
+    case 'tip': return { type, title: '', text: '' };
+    case 'pullquote': return { type, text: '', cite: '' };
+    case 'promptbox': return { type, label: '', text: '' };
+    case 'statband': return { type, items: [] };
+    case 'stat': return { type, value: '', label: '' };
+    case 'compare': return { type, columns: [], rows: [] };
+    default: return { type: 'paragraph', text: '' };
+  }
+}
+
+function BlogBlockFields({ block, upd }) {
+  switch (block.type) {
+    case 'paragraph':
+      return <LinkableTextarea value={block.text || ''} onChange={(e) => upd({ ...block, text: e.target.value })} rows={3} placeholder="段落文本" className={inputCls} />;
+    case 'list':
+      return <LinesField label="列表项（每行一项）" value={block.items} onChange={(v) => upd({ ...block, items: v })} />;
+    case 'ordered':
+      return (
+        <RepeatableList
+          label="有序项"
+          items={block.items || []}
+          onChange={(items) => upd({ ...block, items })}
+          newItem={() => ({ title: '', text: '' })}
+          render={(it, u) => (
+            <div className="space-y-2">
+              <input value={it.title || ''} onChange={(e) => u({ ...it, title: e.target.value })} placeholder="小标题" className={inputCls} />
+              <LinkableTextarea value={it.text || ''} onChange={(e) => u({ ...it, text: e.target.value })} rows={2} placeholder="内容" className={inputCls} />
+            </div>
+          )}
+        />
+      );
+    case 'image':
+      return (
+        <div className="space-y-2">
+          <ImageInput label="图片" value={block.src || ''} onChange={(v) => upd({ ...block, src: v })} />
+          <input value={block.caption || ''} onChange={(e) => upd({ ...block, caption: e.target.value })} placeholder="图注" className={inputCls} />
+        </div>
+      );
+    case 'tip':
+      return (
+        <div className="space-y-2">
+          <input value={block.title || ''} onChange={(e) => upd({ ...block, title: e.target.value })} placeholder="提示标题" className={inputCls} />
+          <LinkableTextarea value={block.text || ''} onChange={(e) => upd({ ...block, text: e.target.value })} rows={2} placeholder="提示内容" className={inputCls} />
+        </div>
+      );
+    case 'pullquote':
+      return (
+        <div className="space-y-2">
+          <LinkableTextarea value={block.text || ''} onChange={(e) => upd({ ...block, text: e.target.value })} rows={2} placeholder="引用文本" className={inputCls} />
+          <input value={block.cite || ''} onChange={(e) => upd({ ...block, cite: e.target.value })} placeholder="出处 cite" className={inputCls} />
+        </div>
+      );
+    case 'promptbox':
+      return (
+        <div className="space-y-2">
+          <input value={block.label || ''} onChange={(e) => upd({ ...block, label: e.target.value })} placeholder="标签 label" className={inputCls} />
+          <LinkableTextarea value={block.text || ''} onChange={(e) => upd({ ...block, text: e.target.value })} rows={2} placeholder="Prompt 文本" className={inputCls} />
+        </div>
+      );
+    case 'statband':
+      return (
+        <RepeatableList
+          label="数据项"
+          items={block.items || []}
+          onChange={(items) => upd({ ...block, items })}
+          newItem={() => ({ value: '', label: '' })}
+          render={(it, u) => (
+            <div className="grid gap-2 sm:grid-cols-2">
+              <input value={it.value || ''} onChange={(e) => u({ ...it, value: e.target.value })} placeholder="数值" className={inputCls} />
+              <input value={it.label || ''} onChange={(e) => u({ ...it, label: e.target.value })} placeholder="标签" className={inputCls} />
+            </div>
+          )}
+        />
+      );
+    case 'stat':
+      return (
+        <div className="grid gap-2 sm:grid-cols-2">
+          <input value={block.value || ''} onChange={(e) => upd({ ...block, value: e.target.value })} placeholder="数值" className={inputCls} />
+          <input value={block.label || ''} onChange={(e) => upd({ ...block, label: e.target.value })} placeholder="标签" className={inputCls} />
+        </div>
+      );
+    case 'compare':
+      return (
+        <div className="space-y-2">
+          <LinesField label="表头列 columns（每行一项）" value={block.columns} onChange={(v) => upd({ ...block, columns: v })} />
+          <RepeatableList
+            label="数据行（每行的单元格，每行一项）"
+            items={block.rows || []}
+            onChange={(rows) => upd({ ...block, rows })}
+            newItem={() => []}
+            render={(row, u) => (
+              <LinesField label="单元格" value={row} onChange={(v) => u(v)} />
+            )}
+          />
+        </div>
+      );
+    default:
+      return <p className="text-sm text-gray-400">未知区块：{block.type}</p>;
+  }
+}
+
+function BlogBlocksEditor({ blocks, onChange }) {
+  const list = Array.isArray(blocks) ? blocks : [];
+  const update = (index, value) => onChange(list.map((b, i) => (i === index ? value : b)));
+  const move = (index, dir) => {
+    const target = index + dir;
+    if (target < 0 || target >= list.length) return;
+    const next = [...list];
+    [next[index], next[target]] = [next[target], next[index]];
+    onChange(next);
+  };
+  const remove = (index) => onChange(list.filter((_, i) => i !== index));
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-bold text-gray-500">正文区块（{list.length}）</span>
+        <select
+          value=""
+          onChange={(e) => { if (e.target.value) { onChange([...list, blogBlockDefault(e.target.value)]); e.target.value = ''; } }}
+          className="rounded-lg border border-gray-200 px-2.5 py-1.5 text-xs font-semibold text-gray-600 outline-none focus:border-kiwi-green"
+        >
+          <option value="">＋ 添加区块…</option>
+          {BLOG_BLOCK_TYPES.map((b) => <option key={b.type} value={b.type}>{b.label}</option>)}
+        </select>
+      </div>
+      <SortableList
+        items={list}
+        onChange={onChange}
+        ghostLabel={(block, index) => {
+          const typeLabel = BLOG_BLOCK_TYPES.find((b) => b.type === block.type)?.label || block.type;
+          return `#${index + 1} · ${typeLabel}`;
+        }}
+        renderItem={(block, index, dnd) => (
+          <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-3">
+            <div className="mb-2 flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <DragHandle {...dnd} compact />
+                <span className="text-[11px] font-bold text-gray-500">#{index + 1} · {BLOG_BLOCK_TYPES.find((b) => b.type === block.type)?.label || block.type}</span>
+              </div>
+              <div className="flex gap-1.5">
+                <button type="button" disabled={index === 0} onClick={() => move(index, -1)} className="rounded-md border border-gray-200 bg-white p-1 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowUp size={12} /></button>
+                <button type="button" disabled={index === list.length - 1} onClick={() => move(index, 1)} className="rounded-md border border-gray-200 bg-white p-1 text-gray-500 transition hover:bg-gray-50 disabled:opacity-30"><ArrowDown size={12} /></button>
+                <button type="button" onClick={() => remove(index)} className="rounded-md border border-rose-200 bg-white p-1 text-rose-600 transition hover:bg-rose-50"><Trash2 size={12} /></button>
+              </div>
+            </div>
+            <BlogBlockFields block={block} upd={(v) => update(index, v)} />
+          </div>
+        )}
+      />
+    </div>
+  );
+}
+
+// 旧结构化「博客」文档 → 有序区块流。与营销站 blogToBlocks 保持一致。
+function blogLegacyToBlocks(doc) {
+  if (!doc) return [];
+  if (Array.isArray(doc.blocks)) return doc.blocks;
+  const b = [];
+  if (doc.header) b.push({ type: 'header', data: doc.header });
+  if (doc.intro || doc.toc?.length || doc.sections?.length) {
+    b.push({ type: 'article', data: { intro: doc.intro || '', toc: doc.toc || [], sections: doc.sections || [] } });
+  }
+  if (doc.keyTakeaways?.points?.length) b.push({ type: 'keyTakeaways', data: doc.keyTakeaways });
+  if (doc.authorBio?.name) b.push({ type: 'authorBio', data: doc.authorBio });
+  if (doc.faq?.length) b.push({ type: 'faq', data: doc.faq });
+  if (doc.bottomCta && (doc.bottomCta.title || doc.bottomCta.description)) b.push({ type: 'cta', data: doc.bottomCta });
+  if (doc.related?.posts?.length) b.push({ type: 'related', data: doc.related });
+  return b;
+}
+
+const BLOG_BLOCKS = [
+  {
+    type: 'header',
+    label: '文章头 header',
+    create: () => ({ breadcrumb: [], category: '', title: '', excerpt: '', author: { name: '', role: '', avatar: '' }, date: '', readTime: '', cover: '' }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      const setAuthor = (k, v) => onChange({ ...data, author: { ...(data.author || {}), [k]: v } });
+      return (
+        <div className="space-y-3">
+          <LinesField label="面包屑 breadcrumb（每行一项）" value={data.breadcrumb} onChange={(v) => set('breadcrumb', v)} rows={2} />
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="分类 category"><input value={data.category || ''} onChange={(e) => set('category', e.target.value)} className={inputCls} /></Field>
+            <Field label="阅读时长 readTime"><input value={data.readTime || ''} onChange={(e) => set('readTime', e.target.value)} placeholder="7 min read" className={inputCls} /></Field>
+          </div>
+          <Field label="标题 title"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="摘要 excerpt"><LinkableTextarea value={data.excerpt || ''} onChange={(e) => set('excerpt', e.target.value)} rows={2} className={inputCls} /></Field>
+          <Field label="日期 date"><input value={data.date || ''} onChange={(e) => set('date', e.target.value)} placeholder="June 3, 2026" className={inputCls} /></Field>
+          <ImageInput label="封面 cover" value={data.cover || ''} onChange={(v) => set('cover', v)} />
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="作者姓名"><input value={data.author?.name || ''} onChange={(e) => setAuthor('name', e.target.value)} className={inputCls} /></Field>
+            <Field label="作者身份"><input value={data.author?.role || ''} onChange={(e) => setAuthor('role', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <ImageInput label="作者头像" value={data.author?.avatar || ''} onChange={(v) => setAuthor('avatar', v)} />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'article',
+    label: '正文（引言/目录/分节）',
+    create: () => ({ intro: '', toc: [], sections: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-4">
+          <Field label="引言 intro"><LinkableTextarea value={data.intro || ''} onChange={(e) => set('intro', e.target.value)} rows={4} className={inputCls} /></Field>
+          <RepeatableList
+            label="目录 toc"
+            items={data.toc || []}
+            onChange={(items) => set('toc', items)}
+            newItem={() => ({ id: '', label: '' })}
+            render={(item, upd) => (
+              <div className="grid gap-2 sm:grid-cols-2">
+                <input value={item.id || ''} onChange={(e) => upd({ ...item, id: e.target.value })} placeholder="锚点 id" className={inputCls} />
+                <input value={item.label || ''} onChange={(e) => upd({ ...item, label: e.target.value })} placeholder="显示文本" className={inputCls} />
+              </div>
+            )}
+          />
+          <RepeatableList
+            label="正文分节 sections（每节含锚点 id、标题与若干正文区块）"
+            items={data.sections || []}
+            onChange={(items) => set('sections', items)}
+            newItem={() => ({ id: '', heading: '', blocks: [] })}
+            render={(item, upd) => (
+              <div className="space-y-3">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.id || ''} onChange={(e) => upd({ ...item, id: e.target.value })} placeholder="锚点 id" className={inputCls} />
+                  <input value={item.heading || ''} onChange={(e) => upd({ ...item, heading: e.target.value })} placeholder="小节标题" className={inputCls} />
+                </div>
+                <BlogBlocksEditor blocks={item.blocks || []} onChange={(blocks) => upd({ ...item, blocks })} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'keyTakeaways',
+    label: '关键要点 keyTakeaways',
+    create: () => ({ title: '', points: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <LinesField label="要点 points（每行一项）" value={data.points} onChange={(v) => set('points', v)} rows={5} />
+        </div>
+      );
+    },
+  },
+  {
+    type: 'authorBio',
+    label: '作者简介 authorBio',
+    create: () => ({ name: '', role: '', avatar: '', bio: '' }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="姓名"><input value={data.name || ''} onChange={(e) => set('name', e.target.value)} className={inputCls} /></Field>
+            <Field label="身份"><input value={data.role || ''} onChange={(e) => set('role', e.target.value)} className={inputCls} /></Field>
+          </div>
+          <ImageInput label="头像" value={data.avatar || ''} onChange={(v) => set('avatar', v)} />
+          <Field label="简介"><LinkableTextarea value={data.bio || ''} onChange={(e) => set('bio', e.target.value)} rows={3} className={inputCls} /></Field>
+        </div>
+      );
+    },
+  },
+  {
+    type: 'faq',
+    label: '常见问题 FAQ',
+    create: () => [],
+    Fields: (data, onChange) => (
+      <RepeatableList
+        label="问答"
+        items={Array.isArray(data) ? data : []}
+        onChange={(items) => onChange(items)}
+        newItem={() => ({ question: '', answer: '' })}
+        render={(item, upd) => (
+          <div className="space-y-2">
+            <input value={item.question || ''} onChange={(e) => upd({ ...item, question: e.target.value })} placeholder="问题" className={inputCls} />
+            <LinkableTextarea value={item.answer || ''} onChange={(e) => upd({ ...item, answer: e.target.value })} rows={2} placeholder="回答" className={inputCls} />
+          </div>
+        )}
+      />
+    ),
+  },
+  {
+    type: 'cta',
+    label: '底部 CTA',
+    create: () => ({ title: '', description: '', buttonText: '', buttonLink: '' }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <Field label="描述"><LinkableTextarea value={data.description || ''} onChange={(e) => set('description', e.target.value)} rows={2} className={inputCls} /></Field>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Field label="按钮文案"><input value={data.buttonText || ''} onChange={(e) => set('buttonText', e.target.value)} className={inputCls} /></Field>
+            <Field label="按钮链接"><input value={data.buttonLink || ''} onChange={(e) => set('buttonLink', e.target.value)} className={inputCls} /></Field>
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    type: 'related',
+    label: '相关文章 related',
+    create: () => ({ title: '', posts: [] }),
+    Fields: (data, onChange) => {
+      const set = (k, v) => onChange({ ...data, [k]: v });
+      return (
+        <div className="space-y-3">
+          <Field label="标题"><input value={data.title || ''} onChange={(e) => set('title', e.target.value)} className={inputCls} /></Field>
+          <RepeatableList
+            label="文章卡片"
+            items={data.posts || []}
+            onChange={(items) => set('posts', items)}
+            newItem={() => ({ category: '', title: '', excerpt: '', readTime: '', image: '', link: '' })}
+            render={(item, upd) => (
+              <div className="space-y-2">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <input value={item.category || ''} onChange={(e) => upd({ ...item, category: e.target.value })} placeholder="分类" className={inputCls} />
+                  <input value={item.readTime || ''} onChange={(e) => upd({ ...item, readTime: e.target.value })} placeholder="阅读时长" className={inputCls} />
+                </div>
+                <input value={item.title || ''} onChange={(e) => upd({ ...item, title: e.target.value })} placeholder="标题" className={inputCls} />
+                <LinkableTextarea value={item.excerpt || ''} onChange={(e) => upd({ ...item, excerpt: e.target.value })} rows={2} placeholder="摘要" className={inputCls} />
+                <input value={item.link || ''} onChange={(e) => upd({ ...item, link: e.target.value })} placeholder="链接 /blog/..." className={inputCls} />
+                <ImageInput label="封面图" value={item.image || ''} onChange={(v) => upd({ ...item, image: v })} />
+              </div>
+            )}
+          />
+        </div>
+      );
+    },
+  },
+];
+
+function blogDefaultDoc() {
+  return {
+    slug: '',
+    seo: { title: '', description: '' },
+    blocks: BLOG_BLOCKS.map((b) => makeTypedBlock(BLOG_BLOCKS, b.type)),
+  };
+}
+
+function blogNormalizeLoaded(j) {
+  return {
+    slug: j.slug || '',
+    seo: j.seo || { title: '', description: '' },
+    blocks: withBlockIds(blogLegacyToBlocks(j)),
+  };
+}
+
+function BlogPageEditor(props) {
+  const renderContent = (doc, setDoc) => {
+    const { patch, patchField } = makePatchers(setDoc);
+    const setBlocks = (u) => setDoc((d) => ({ ...d, blocks: typeof u === 'function' ? u(d.blocks || []) : u }));
+    return (
+      <>
+        <EditorCard title="基础与 SEO" hint="页面 meta，不在正文中显示">
+          <div className="space-y-3">
+            <Field label="内部 slug（doc.slug）"><input value={doc.slug || ''} onChange={(e) => patch('slug', e.target.value)} placeholder="sora-2-vs-veo-3" className={inputCls} /></Field>
+            <Field label="SEO 标题"><input value={doc.seo?.title || ''} onChange={(e) => patchField('seo', 'title', e.target.value)} className={inputCls} /></Field>
+            <Field label="SEO 描述"><textarea value={doc.seo?.description || ''} onChange={(e) => patchField('seo', 'description', e.target.value)} rows={2} className={inputCls} /></Field>
+          </div>
+        </EditorCard>
+        <BlockStreamEditor blocks={doc.blocks || []} setBlocks={setBlocks} registry={BLOG_BLOCKS} />
+      </>
+    );
+  };
+  return <StructuredPageEditor {...props} defaultDoc={blogDefaultDoc} normalizeLoaded={blogNormalizeLoaded} renderContent={renderContent} />;
 }
 
 function SectionHeader({ title, subtitle, navigateToPage, onRefresh, refreshing, refreshDisabled, extraAction }) {
@@ -3284,6 +4700,120 @@ function BarList({ items, emptyText, max }) {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function AgentKeysSection() {
+  const [keys, setKeys] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [pageNo, setPageNo] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [createdKey, setCreatedKey] = useState('');
+  const [form, setForm] = useState({
+    name: '', subjectLabel: '', scopes: 'pages:read,pages:write,assets:write', remark: '',
+  });
+  const [auditKeyId, setAuditKeyId] = useState(null);
+  const [auditRows, setAuditRows] = useState([]);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await adminService.getCmsApiKeyPage({ pageNo, pageSize: 20 });
+      setKeys(res.list || []);
+      setTotal(res.total || 0);
+    } catch (err) {
+      setError(err?.message || '加载失败');
+    } finally {
+      setLoading(false);
+    }
+  }, [pageNo]);
+
+  useEffect(() => { load(); }, [load]);
+
+  const createKey = async () => {
+    setError('');
+    setCreatedKey('');
+    try {
+      const scopes = form.scopes.split(',').map((s) => s.trim()).filter(Boolean);
+      const raw = await adminService.createCmsApiKey({
+        name: form.name.trim(),
+        subjectLabel: form.subjectLabel.trim() || undefined,
+        scopes,
+        remark: form.remark.trim() || undefined,
+      });
+      setCreatedKey(raw);
+      setForm({ name: '', subjectLabel: '', scopes: 'pages:read,pages:write,assets:write', remark: '' });
+      load();
+    } catch (err) {
+      setError(err?.message || '创建失败');
+    }
+  };
+
+  const loadAudit = async (keyId) => {
+    setAuditKeyId(keyId);
+    try {
+      const res = await adminService.getCmsApiAuditPage({ keyId, pageNo: 1, pageSize: 50 });
+      setAuditRows(res.list || []);
+    } catch (err) {
+      setError(err?.message || '审计加载失败');
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <SectionHeader title="Agent API Keys" subtitle="为外部 AI Agent 签发 CMS 访问密钥（明文仅展示一次）" />
+      {error ? <p className="text-sm font-semibold text-rose-500">{error}</p> : null}
+      {createdKey ? (
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm">
+          <p className="font-bold text-amber-900">新 Key（请立即复制保存）：</p>
+          <code className="mt-2 block break-all rounded-lg bg-white p-3 text-xs">{createdKey}</code>
+        </div>
+      ) : null}
+      <div className="rounded-2xl border border-gray-200 bg-white p-6 space-y-3">
+        <h3 className="text-sm font-extrabold text-gray-900">签发新 Key</h3>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <input value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} placeholder="名称" className={inputCls} />
+          <input value={form.subjectLabel} onChange={(e) => setForm((p) => ({ ...p, subjectLabel: e.target.value }))} placeholder="主体标识" className={inputCls} />
+          <input value={form.scopes} onChange={(e) => setForm((p) => ({ ...p, scopes: e.target.value }))} placeholder="scopes 逗号分隔" className={`${inputCls} sm:col-span-2`} />
+          <input value={form.remark} onChange={(e) => setForm((p) => ({ ...p, remark: e.target.value }))} placeholder="备注" className={`${inputCls} sm:col-span-2`} />
+        </div>
+        <button type="button" onClick={createKey} className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-bold text-white">创建 Key</button>
+      </div>
+      {loading ? <LoadingBlock /> : (
+        <TableShell headers={['ID', '名称', '前缀', '状态', '最后使用', '操作']}>
+          {keys.map((k) => (
+            <tr key={k.id} className="border-t border-gray-100">
+              <td className="px-4 py-3 text-sm">{k.id}</td>
+              <td className="px-4 py-3 text-sm font-semibold">{k.name}</td>
+              <td className="px-4 py-3 font-mono text-xs">{k.keyPrefix}</td>
+              <td className="px-4 py-3 text-sm">{k.status === 1 ? '启用' : '禁用'}</td>
+              <td className="px-4 py-3 text-xs text-gray-500">{formatDateTime(k.lastUsedAt)}</td>
+              <td className="px-4 py-3 text-sm space-x-2">
+                <button type="button" className="font-bold text-kiwi-green-dark" onClick={() => loadAudit(k.id)}>审计</button>
+                <button type="button" className="font-bold text-gray-600" onClick={() => adminService.updateCmsApiKeyStatus(k.id, k.status === 1 ? 0 : 1).then(load)}>{k.status === 1 ? '禁用' : '启用'}</button>
+                <button type="button" className="font-bold text-rose-600" onClick={() => window.confirm('确认删除？') && adminService.deleteCmsApiKey(k.id).then(load)}>删除</button>
+              </td>
+            </tr>
+          ))}
+        </TableShell>
+      )}
+      <Pagination pageNo={pageNo} pageSize={20} total={total} onChange={setPageNo} />
+      {auditKeyId ? (
+        <div className="rounded-2xl border border-gray-200 bg-white p-4">
+          <h4 className="text-sm font-extrabold mb-3">Key #{auditKeyId} 审计日志</h4>
+          <ul className="space-y-2 text-xs text-gray-600 max-h-64 overflow-auto">
+            {auditRows.map((a) => (
+              <li key={a.id} className="border-b border-gray-50 pb-2">
+                <span className="font-bold">{a.action}</span> · {formatDateTime(a.createTime)}
+                {a.slug ? ` · ${a.pageType}/${a.slug}` : ''}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   );
 }
