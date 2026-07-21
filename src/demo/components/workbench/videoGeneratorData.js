@@ -108,6 +108,13 @@ export const ASPECT_PILL_OPTIONS = [
   { id: '21:9', label: '21:9' },
 ];
 
+/** Aspect ratios supported by video template generation. */
+export const TEMPLATE_ASPECT_PILL_OPTIONS = [
+  { id: '1:1',  label: '1:1'  },
+  { id: '16:9', label: '16:9' },
+  { id: '9:16', label: '9:16' },
+];
+
 /** Used by PillGroup for Duration selection. */
 export const DURATION_PILL_OPTIONS = [
   { id: '4s',  label: '4s'  },

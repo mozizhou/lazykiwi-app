@@ -18,7 +18,7 @@ import { isAuthenticated } from '../../lib/auth.js';
 import {
   MODELS,
   FREE_MODES,
-  ASPECT_PILL_OPTIONS,
+  TEMPLATE_ASPECT_PILL_OPTIONS,
   LIMITED_DURATION_PILL_OPTIONS,
   QUALITY_PILL_OPTIONS,
   getVideoCredits,
@@ -366,7 +366,9 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
   const modelOptions = mode === 'start-end'
     ? MODELS.filter((model) => getVideoModelConfig(model).modes.includes('start-end'))
     : MODELS;
-  const aspectOptions = mode === 'template' ? ASPECT_PILL_OPTIONS : getAspectOptionsForModel(selectedModel);
+  const aspectOptions = mode === 'template'
+    ? TEMPLATE_ASPECT_PILL_OPTIONS
+    : getAspectOptionsForModel(selectedModel);
   const durationOptions = mode === 'template'
     ? LIMITED_DURATION_PILL_OPTIONS
     : getDurationOptionsForModel(selectedModel, mode);
@@ -864,6 +866,14 @@ const FreeCreationPanel = forwardRef(function FreeCreationPanel({
               <div className="flex-1 min-w-0" />
 
               <div className="flex items-center gap-2 shrink-0">
+                  <ParameterPicker
+                    label="Aspect ratio"
+                    options={aspectOptions}
+                    value={aspectRatio}
+                    onChange={setAspectRatio}
+                    icon={SlidersHorizontal}
+                    columns={3}
+                  />
                   <ParameterPicker
                     label="Duration"
                     options={durationOptions}
