@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, Mail } from 'lucide-react';
 import { IS_LOCAL_DEV_SITE } from '@/lib/api/config';
 import { loginWithEmailCode, sendEmailCode, startGoogleLogin } from '../lib/auth';
+import GoogleIcon from './GoogleIcon';
 
 const RESEND_SECONDS = 60;
 
@@ -139,7 +140,7 @@ export default function AuthForm({
             disabled={isGoogleLoading}
             className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-900 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-200 text-xs font-extrabold text-blue-600">G</span>
+            <GoogleIcon size={20} />
             {isGoogleLoading ? 'Redirecting...' : 'Continue with Google'}
           </button>
 

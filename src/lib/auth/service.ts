@@ -1,4 +1,4 @@
-import { apiRequest } from "../api/client";
+import { apiRequest, ApiError } from "../api/client";
 
 import { GOOGLE_SOCIAL_TYPE, SITE_URL } from "../api/config";
 
@@ -44,6 +44,33 @@ function getDefaultRedirectUri() {
     return `${window.location.origin}/auth/callback`;
   }
   return `${SITE_URL.replace(/\/$/, "")}/auth/callback`;
+}
+
+function withGoogleEnglishLocale(authorizeUrl: string) {
+  try {
+    const url = new URL(authorizeUrl);
+    url.searchParams.set("hl", "en");
+    url.searchParams.set("ui_locales", "en");
+    return url.toString();
+  } catch {
+    return authorizeUrl;
+  }
+}
+
+export function normalizeAuthErrorMessage(message?: string) {
+  if (!message) return "";
+  let normalized = message.trim();
+  const replacements: Array<[RegExp, string]> = [
+    [/社交授权失败[，,]?原因是[：:]\s*/i, "Social authorization failed: "],
+    [/社交授权失败/i, "Social authorization failed"],
+    [/登录失败[，,]?解析不到三方登录信息/i, "Sign-in failed: unable to resolve social login information"],
+    [/用户不存在/i, "User not found"],
+    [/系统异常/i, "System error"],
+  ];
+  for (const [pattern, replacement] of replacements) {
+    normalized = normalized.replace(pattern, replacement);
+  }
+  return normalized;
 }
 
 
@@ -122,7 +149,7 @@ export const authService = {
 
     }
 
-    window.location.href = authorizeUrl;
+    window.location.href = withGoogleEnglishLocale(authorizeUrl);
 
   },
 
@@ -152,18 +179,22 @@ export const authService = {
 
     const resolvedRedirectUri = redirectUri ?? getDefaultRedirectUri();
 
-    const data = await apiRequest<LoginResponse>("/member/auth/social-login", {
-
-      method: "POST",
-
-      auth: false,
-
-      body: { type, code, state, redirectUri: resolvedRedirectUri },
-
-    });
-
-    return persistLogin(data);
-
+    try {
+      const data = await apiRequest<LoginResponse>("/member/auth/social-login", {
+        method: "POST",
+        auth: false,
+        body: { type, code, state, redirectUri: resolvedRedirectUri },
+      });
+      return persistLogin(data);
+    } catch (err) {
+      if (err instanceof ApiError) {
+        throw new ApiError(normalizeAuthErrorMessage(err.message) || "Google sign-in failed.", {
+          code: err.code,
+          status: err.status,
+        });
+      }
+      throw err;
+    }
   },
 
 

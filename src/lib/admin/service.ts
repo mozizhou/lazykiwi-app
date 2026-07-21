@@ -320,6 +320,7 @@ export type BillingProductPayload = {
 export type SeoMeta = {
   id: number;
   pageKey: string;
+  locale?: string | null;
   pageGroup: string | null;
   path: string | null;
   title: string | null;
@@ -348,6 +349,7 @@ export type SeoMetaQuery = {
 export type SeoMetaPayload = {
   id?: number;
   pageKey: string;
+  locale?: string;
   pageGroup?: string | null;
   path?: string | null;
   title?: string | null;
@@ -371,9 +373,15 @@ export type TemplateBlock = {
   data: Record<string, unknown>;
 };
 
+export type PageType = "template" | "tool" | "model" | "blog";
+
 export type TemplatePage = {
   id: number;
   slug: string;
+  pageType: string;
+  pageFamilyId?: string | null;
+  locale?: string | null;
+  source?: string | null;
   name: string;
   templateType: string;
   contentJson: string | null;
@@ -385,6 +393,7 @@ export type TemplatePage = {
 };
 
 export type TemplatePageQuery = {
+  pageType?: string;
   templateType?: string;
   status?: number;
   keyword?: string;
@@ -395,12 +404,51 @@ export type TemplatePageQuery = {
 export type TemplatePagePayload = {
   id?: number;
   slug: string;
+  pageType?: string;
+  pageFamilyId?: string | null;
+  locale?: string | null;
   name: string;
   templateType?: string;
   contentJson?: string | null;
   status?: number;
   sort?: number;
   remark?: string | null;
+};
+
+export type CmsApiKey = {
+  id: number;
+  name: string;
+  subjectLabel: string | null;
+  keyPrefix: string;
+  status: number;
+  scopes: string;
+  uploadDailyCountLimit: number;
+  uploadDailyBytesLimit: number;
+  generateDailyLimit: number;
+  remark: string | null;
+  lastUsedAt: string | null;
+  createTime: string | null;
+};
+
+export type CmsApiKeyCreatePayload = {
+  name: string;
+  subjectLabel?: string;
+  scopes?: string[];
+  uploadDailyCountLimit?: number;
+  uploadDailyBytesLimit?: number;
+  generateDailyLimit?: number;
+  remark?: string;
+};
+
+export type CmsApiAuditLog = {
+  id: number;
+  keyId: number;
+  action: string;
+  pageType: string | null;
+  slug: string | null;
+  locale: string | null;
+  summary: string | null;
+  createTime: string | null;
 };
 
 function buildQuery(params: Record<string, unknown>): string {
@@ -591,6 +639,40 @@ export const adminService = {
     return apiRequest<boolean>(
       `/ai/lazykiwi/admin/template-page/status?id=${id}&status=${status}`,
       { method: "PUT" },
+    );
+  },
+  async getTemplatePageFamily(pageType: string, slug: string): Promise<TemplatePage[]> {
+    return apiRequest<TemplatePage[]>(
+      `/ai/lazykiwi/admin/template-page/family?pageType=${encodeURIComponent(pageType)}&slug=${encodeURIComponent(slug)}`,
+    );
+  },
+
+  // ==================== CMS Agent API Keys ====================
+  async getCmsApiKeyPage(query: { pageNo?: number; pageSize?: number } = {}): Promise<PageResult<CmsApiKey>> {
+    return apiRequest<PageResult<CmsApiKey>>(
+      `/ai/lazykiwi/admin/cms-api-key/page${buildQuery(query as Record<string, unknown>)}`,
+    );
+  },
+  async createCmsApiKey(payload: CmsApiKeyCreatePayload): Promise<string> {
+    return apiRequest<string>("/ai/lazykiwi/admin/cms-api-key/create", {
+      method: "POST",
+      body: payload,
+    });
+  },
+  async updateCmsApiKeyStatus(id: number, status: number): Promise<boolean> {
+    return apiRequest<boolean>(
+      `/ai/lazykiwi/admin/cms-api-key/status?id=${id}&status=${status}`,
+      { method: "PUT" },
+    );
+  },
+  async deleteCmsApiKey(id: number): Promise<boolean> {
+    return apiRequest<boolean>(`/ai/lazykiwi/admin/cms-api-key/delete?id=${id}`, {
+      method: "DELETE",
+    });
+  },
+  async getCmsApiAuditPage(query: { keyId?: number; pageNo?: number; pageSize?: number } = {}): Promise<PageResult<CmsApiAuditLog>> {
+    return apiRequest<PageResult<CmsApiAuditLog>>(
+      `/ai/lazykiwi/admin/cms-api-key/audit/page${buildQuery(query as Record<string, unknown>)}`,
     );
   },
 
