@@ -402,6 +402,10 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
     return acc;
   }, {});
   const uniqueDates = [...new Set(history.map((item) => item.date))];
+  // Hailuo and Wan only support image-to-video, so the form switches its
+  // internal submit mode. The visible Generator tab should still show actual
+  // video examples instead of the image preset set.
+  const visiblePresetMode = activeMode === 'image-to-video' ? 'text-to-video' : activeMode;
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
@@ -470,9 +474,9 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
               </div>
             ) : (
               // ── Show Presets ──
-              <div className={`max-w-[960px] mx-auto px-6 pb-6 sm:px-8 sm:pb-8 flex justify-center overflow-x-auto ${activeMode === 'text-to-video' ? 'pt-12 sm:pt-16' : 'pt-6 sm:pt-8'}`}>
-                <div className={`flex flex-row justify-center items-center gap-4 sm:gap-6 ${activeMode === 'text-to-video' ? 'h-[160px] sm:h-[180px]' : 'h-[200px] sm:h-[230px]'}`}>
-                  {(MODE_PRESETS[activeMode] || []).map((preset) => {
+              <div className={`max-w-[960px] mx-auto px-6 pb-6 sm:px-8 sm:pb-8 flex justify-center overflow-x-auto ${visiblePresetMode === 'text-to-video' ? 'pt-12 sm:pt-16' : 'pt-6 sm:pt-8'}`}>
+                <div className={`flex flex-row justify-center items-center gap-4 sm:gap-6 ${visiblePresetMode === 'text-to-video' ? 'h-[160px] sm:h-[180px]' : 'h-[200px] sm:h-[230px]'}`}>
+                  {(MODE_PRESETS[visiblePresetMode] || []).map((preset) => {
                     const isHovered = hoveredPreset?.id === preset.id;
                     const isAnotherHovered = hoveredPreset && !isHovered;
                     
