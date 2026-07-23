@@ -7,6 +7,37 @@ import { useUserProfile } from '@/lib/user/useUserProfile';
 
 const creditsHistoryPageSize = 5;
 
+const videoModelNames = {
+  'seedance-2': 'Seedance 2.0',
+  seedance: 'Seedance 2.0',
+  veo: 'Veo 3.1 Lite',
+  kling: 'Kling v3 Omni',
+  happyhorse: 'HappyHorse 1.0',
+  hailuo: 'Hailuo 2.3 Fast',
+  grok: 'Grok Imagine Video',
+  wan: 'Wan 2.7 I2V',
+};
+
+function creditHistoryLabel(item) {
+  const model = item.taskType === 1
+    ? (videoModelNames[String(item.model || '').toLowerCase()] || item.model)
+    : item.model;
+
+  if (model) {
+    return item.bizType === 42 ? `${model} refund` : model;
+  }
+  if (item.taskType === 1) return 'Video generation';
+  if (item.taskType === 2) return 'Image generation';
+
+  return {
+    10: 'Signup bonus',
+    20: 'Subscription credits',
+    30: 'Credit pack',
+    50: 'Credit adjustment',
+    60: 'Expired credits',
+  }[item.bizType] || 'Credits update';
+}
+
 function toEditableProfile(data) {
   const nickname = data?.nickname || data?.email?.split('@')[0] || 'LazyKiwi User';
   const [firstName, ...rest] = nickname.trim().split(/\s+/);
@@ -41,7 +72,8 @@ export default function Settings({ navigateToPage }) {
   const [visibleHistoryCount, setVisibleHistoryCount] = useState(creditsHistoryPageSize);
   const [subscription, setSubscription] = useState(null);
   const [creditsHistory, setCreditsHistory] = useState([]);
-  const [historyTotal, setHistoryTotal] = useState(0);
+  const [isHistoryLoading, setIsHistoryLoading] = useState(true);
+  const [historyError, setHistoryError] = useState('');
 
   useEffect(() => {
     userService.getProfile().then((data) => {
@@ -52,21 +84,30 @@ export default function Settings({ navigateToPage }) {
       setProfile((current) => ({ ...current, firstName: 'LazyKiwi', lastName: 'User' }));
     });
     billingService.getCurrentSubscription().then(setSubscription).catch(() => setSubscription(null));
-    userService.getPointRecords(1, 20).then((data) => {
-      setCreditsHistory(
-        (data?.list ?? []).map((item) => ({
-          task: item.title || item.description || 'Credits update',
-          credits: item.point,
-          lastActiveOn: item.createTime ? new Date(item.createTime).toLocaleDateString('en-US', {
-            month: 'short', day: 'numeric', year: 'numeric',
-          }) : '-',
-        })),
-      );
-      setHistoryTotal(data?.total ?? 0);
-    }).catch(() => {
-      setCreditsHistory([]);
-      setHistoryTotal(0);
-    });
+    setIsHistoryLoading(true);
+    setHistoryError('');
+    userService.getCreditLedgerRecords(1, 20)
+      .then((data) => {
+        const history = (data?.list ?? [])
+          // Successful generation confirmation has a zero change because the
+          // credits were already deducted by its reservation record.
+          .filter((item) => item.changeCredits !== 0)
+          .map((item) => ({
+            id: item.id,
+            task: creditHistoryLabel(item),
+            credits: item.changeCredits,
+            lastActiveOn: item.createTime ? new Date(item.createTime).toLocaleDateString('en-US', {
+              month: 'short', day: 'numeric', year: 'numeric',
+            }) : '-',
+          }));
+        setCreditsHistory(history);
+      })
+      .catch((error) => {
+        console.error('[Credits History Load Failed]', error);
+        setCreditsHistory([]);
+        setHistoryError(error?.message || 'Unable to load credits history.');
+      })
+      .finally(() => setIsHistoryLoading(false));
   }, []);
 
   const visibleCreditsHistory = creditsHistory.slice(0, visibleHistoryCount);
@@ -257,16 +298,42 @@ export default function Settings({ navigateToPage }) {
             <table className="w-full min-w-[620px] text-left">
               <thead className="bg-gray-50 text-xs uppercase tracking-wider text-gray-400">
                 <tr>
-                  <th className="px-5 py-4 font-bold">Task</th>
-                  <th className="px-5 py-4 font-bold">Total credits used</th>
+                  <th className="px-5 py-4 font-bold">Model / activity</th>
+                  <th className="px-5 py-4 font-bold">Credits change</th>
                   <th className="px-5 py-4 font-bold">Last active on</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {visibleCreditsHistory.map((item) => (
-                  <tr key={`${item.task}-${item.lastActiveOn}`} className="text-sm text-gray-600">
+                {isHistoryLoading && (
+                  <tr>
+                    <td colSpan={3} className="px-5 py-8 text-center text-sm font-semibold text-gray-400">
+                      <span className="inline-flex items-center gap-2">
+                        <Loader2 size={15} className="animate-spin" />
+                        Loading credits history...
+                      </span>
+                    </td>
+                  </tr>
+                )}
+                {!isHistoryLoading && historyError && (
+                  <tr>
+                    <td colSpan={3} className="px-5 py-8 text-center text-sm font-semibold text-red-500">
+                      {historyError}
+                    </td>
+                  </tr>
+                )}
+                {!isHistoryLoading && !historyError && visibleCreditsHistory.length === 0 && (
+                  <tr>
+                    <td colSpan={3} className="px-5 py-8 text-center text-sm font-semibold text-gray-400">
+                      No credits history yet.
+                    </td>
+                  </tr>
+                )}
+                {!isHistoryLoading && !historyError && visibleCreditsHistory.map((item) => (
+                  <tr key={item.id} className="text-sm text-gray-600">
                     <td className="px-5 py-4 font-semibold text-gray-800">{item.task}</td>
-                    <td className="px-5 py-4 font-bold text-gray-700">{item.credits}</td>
+                    <td className={`px-5 py-4 font-bold ${item.credits > 0 ? 'text-emerald-600' : 'text-gray-700'}`}>
+                      {item.credits > 0 ? `+${item.credits}` : item.credits}
+                    </td>
                     <td className="px-5 py-4">{item.lastActiveOn}</td>
                   </tr>
                 ))}

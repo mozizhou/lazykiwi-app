@@ -20,6 +20,24 @@ export type CreditAccount = {
   availableCredits?: number;
 };
 
+export type CreditLedgerRecord = {
+  id: number;
+  bizType?: number;
+  taskType?: number;
+  taskId?: number;
+  model?: string;
+  title?: string;
+  description?: string;
+  changeCredits: number;
+  availableAfter?: number;
+  createTime?: string;
+};
+
+export type CreditLedgerPage = {
+  list: CreditLedgerRecord[];
+  total: number;
+};
+
 export const userService = {
   async getProfile() {
     return apiRequest<UserProfile>("/member/user/get");
@@ -36,17 +54,9 @@ export const userService = {
     return apiRequest<CreditAccount>("/ai/lazykiwi/credits/account");
   },
 
-  async getPointRecords(pageNo = 1, pageSize = 10) {
-    return apiRequest<{
-      list: Array<{
-        id: number;
-        title: string;
-        description: string;
-        point: number;
-        totalPoint: number;
-        createTime: string;
-      }>;
-      total: number;
-    }>(`/member/point/record/page?pageNo=${pageNo}&pageSize=${pageSize}`);
+  async getCreditLedgerRecords(pageNo = 1, pageSize = 20) {
+    return apiRequest<CreditLedgerPage>(
+      `/ai/lazykiwi/credits/ledger-page?pageNo=${pageNo}&pageSize=${pageSize}`,
+    );
   },
 };
