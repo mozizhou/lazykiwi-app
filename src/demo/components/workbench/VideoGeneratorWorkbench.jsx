@@ -402,9 +402,8 @@ export default function VideoGeneratorWorkbench({ routeMode, routeTemplate }) {
     return acc;
   }, {});
   const uniqueDates = [...new Set(history.map((item) => item.date))];
-  // Hailuo and Wan only support image-to-video, so the form switches its
-  // internal submit mode. The visible Generator tab should still show actual
-  // video examples instead of the image preset set.
+  // Hailuo 和 Wan 仅支持图生视频，因此表单会切换内部提交模式。
+  // 但 Generator 页面仍应展示真实视频示例，而不是图片预设。
   const visiblePresetMode = activeMode === 'image-to-video' ? 'text-to-video' : activeMode;
 
   // ── Render ───────────────────────────────────────────────────────────────

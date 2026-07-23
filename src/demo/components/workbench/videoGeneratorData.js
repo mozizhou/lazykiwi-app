@@ -108,7 +108,7 @@ export const ASPECT_PILL_OPTIONS = [
   { id: '21:9', label: '21:9' },
 ];
 
-/** Aspect ratios supported by video template generation. */
+/** 视频模板生成支持的画幅比例。 */
 export const TEMPLATE_ASPECT_PILL_OPTIONS = [
   { id: '1:1',  label: '1:1'  },
   { id: '16:9', label: '16:9' },

@@ -89,8 +89,7 @@ export default function Settings({ navigateToPage }) {
     userService.getCreditLedgerRecords(1, 20)
       .then((data) => {
         const history = (data?.list ?? [])
-          // Successful generation confirmation has a zero change because the
-          // credits were already deducted by its reservation record.
+          // 生成成功确认记录的积分变动为 0，因为积分已在预扣记录中扣除。
           .filter((item) => item.changeCredits !== 0)
           .map((item) => ({
             id: item.id,
